@@ -1,0 +1,103 @@
+<!-- Déclaration du document -->
+<!DOCTYPE html>
+<html lang="fr">
+<!-- En-tête du document -->
+
+<head>
+    <meta charset="utf-8">
+    <!-- Titre de la page -->
+    <title>Page Editor</title>
+    <!-- Description de la page -->
+    <meta name=”author” content="Lawrence Terpin">
+    <meta name="description" content="Page Editor">
+    <meta name="keywords" content="Page editor, HTML, Javascript">
+
+    <!-- Responsive     -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Inclusion de la police Poppins -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pure/1.0.1/pure-min.css"
+        crossorigin="anonymous">
+
+    <!-- Inclusion de font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Inclusion du fichier CSS style.css -->
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+</head>
+<!-- Corps du document -->
+
+<body class="bg-white">
+
+    <header class="p-relative d-flex align-items-center justify-content-between align-items-center p-1 shadow">
+        <h1 class="m-0 text-center">
+            <div class="d-flex align-items-center">
+                <button id="seo-checker-button" class="m-1 p-1 d-flex align-items-center justify-content-center">
+                    <i class="fa fa-edit"></i>
+                </button>
+                Page Editor
+            </div>
+        </h1>
+        <nav>
+            <ul class="d-flex gap-1">
+                <li>
+                    <a href="https://github.com/lawrenceterpin/page-editor" target="_blank" title="Github"
+                        class="btn shadow"><i class="fa fa-github"></i>&nbsp;Github</a>
+                </li>
+                <li>
+                    <a href="demo.html" title="Démo" class="btn shadow bg-purple white"><i
+                            class="fa fa-eye"></i>&nbsp;Démo</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="présentation"
+            class="d-flex flex-direction-column align-items-center justify-content-center p-2 bg-purple white">
+            <h2>Editez votre page web avec notre éditeur de page</h2>
+        </section>
+        <section id="installation" class="p-1">
+            <div class="container p-1">
+                <h2 class="text-center">Installation</h2>
+                <h3>1. Inclure le fichier CSS</h3>
+                <pre
+                    class="code-html p-relative p-1"><code>&lt;link href=&quot;https://lawrenceterpin.github.io/page-editor/css/editor.css&quot; type=&quot;text/css&quot; rel=&quot;stylesheet&quot;&gt;</code></pre>
+
+                <h3>2. Inclure le fichier JS</h3>
+                <pre
+                    class="code-html p-relative p-1"><code>&lt;script src=&quot;https://lawrenceterpin.github.io/page-editor/js/editor.js&quot; type=&quot;text/javascript&quot;&gt;</code></pre>
+
+                <h3>3. Initialiser Seo Checker</h3>
+                <pre class="code-html p-relative p-1"><code>&lt;script type=&quot;text/javascript&quot;&gt;
+    new Editor();
+&lt;/script&gt;</code></pre>
+
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-purple p-1">
+        <div class="d-flex gap-2 justify-content-center container">
+            <nav>
+                <ul>
+                    <li>
+                        <a href="#" class="white">Nous contacter</a>
+                    </li>
+                </ul>
+            </nav>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="https://github.com/lawrenceterpin/seo-checker" class="white">Github</a>
+                    </li>
+                    <li>
+                        <a href="https://instagram.com" class="white">Instagram</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </footer>
+</body>
+
+</html>
