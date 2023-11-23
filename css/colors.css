@@ -1,0 +1,49 @@
+.white {
+  color: #fff;
+}
+
+.black {
+  color: #000;
+}
+
+.bg-black {
+  background-color: #000;
+}
+
+.bg-white {
+  background-color: #fff;
+}
+
+.purple {
+  color: #9C27B0;
+}
+
+.bg-purple {
+  background-color: #9C27B0;
+}
+
+.bg-success {
+  background-color: #27ae60;
+}
+
+.success {
+  color: #27ae60;
+}
+
+.bg-error {
+  background-color: #e74c3c;
+}
+
+.error {
+  color: #e74c3c;
+}
+
+.border {
+  border: 1px solid #000;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #000;
+}
+
+/*# sourceMappingURL=colors.css.map */

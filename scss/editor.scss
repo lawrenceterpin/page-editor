@@ -1,0 +1,72 @@
+@import "positions.scss";
+@import "sizing.scss";
+@import "spacing.scss";
+@import "flexbox.scss";
+@import "forms.scss";
+@import "colors.scss";
+
+$seoCheckerPanelSize: 400px;
+$zIndex: 1000;
+
+#editor-panel-button {
+    top: 0;
+    right: 0;
+    z-index: calc($zIndex + 1);
+    cursor: pointer;
+    border: none;
+    background: $white;
+    border: 4px solid $purple;
+    border-radius: 25px;
+    aspect-ratio: 1/1;
+    text-decoration: none;
+    transition: all 0.5s;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 50%;
+
+    // >div {
+    //     position: relative;
+
+    //     .tags-errors {
+    //         display: none;
+    //         top: 60px;
+    //         right: 0;
+    //         z-index: calc($zIndex + 2);
+    //         width: 15px;
+    //         height: 15px;
+    //         border-radius: 50%;
+    //         color: #fff;
+    //     }
+    // }
+}
+
+.edit-element {
+    top: -15px;
+    float: right;
+}
+
+#editor-panel {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: $zIndex;
+    width: $seoCheckerPanelSize;
+    margin-right: -$seoCheckerPanelSize - 30;
+    background-color: rgb(255 255 255 / 70%);
+    transition: all 0.5s;
+    overflow-y: scroll;
+
+    &.open {
+        margin-right: 0;
+    }
+}
+
+@media (max-width: 480px) {
+
+    #editor-panel {
+
+        &.open {
+            width: auto;
+            left: 0;
+        }
+    }
+}

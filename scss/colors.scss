@@ -1,0 +1,53 @@
+$white: #fff;
+$black: #000;
+$purple: #9C27B0;
+$success: #27ae60;
+$error: #e74c3c;
+
+.white {
+    color: $white;
+}
+
+.black {
+    color: $black;
+}
+
+.bg-black {
+    background-color: $black;
+}
+
+.bg-white {
+    background-color: $white;
+}
+
+.purple {
+    color: $purple;
+}
+
+.bg-purple {
+    background-color: $purple
+}
+
+.bg-success {
+    background-color: $success
+}
+
+.success {
+    color: $success
+}
+
+.bg-error {
+    background-color: $error
+}
+
+.error {
+    color: $error
+}
+
+.border {
+    border: 1px solid $black;
+}
+
+.border-bottom {
+    border-bottom: 1px solid $black;
+}
