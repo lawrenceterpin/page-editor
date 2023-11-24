@@ -2,6 +2,10 @@
   position: relative;
 }
 
+.p-absolute {
+  position: absolute;
+}
+
 .p-fixed {
   position: fixed;
 }
@@ -212,9 +216,33 @@ input[type=text], select {
   border-radius: 50%;
 }
 
+.add-element {
+  display: none;
+}
+
 .edit-element {
-  top: -15px;
+  display: none;
+}
+
+#editor.editor-mode .element {
+  min-height: 30px;
+  border: 3px dashed #000;
+}
+#editor.editor-mode .add-element {
+  display: flex;
+  left: 0;
+  right: 0;
+  bottom: -45px;
+  z-index: 1;
+}
+#editor.editor-mode .edit-element {
+  display: flex;
+  top: -20px;
   float: right;
+  z-index: 2;
+}
+#editor.editor-mode .edit-element > button i {
+  color: #000;
 }
 
 #editor-panel {

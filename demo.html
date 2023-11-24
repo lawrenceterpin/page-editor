@@ -27,40 +27,57 @@
 
 <body>
     <div id="editor">
-        <header>
-            <h1></h1>
+        <header class="d-flex justify-content-between">
+            <h1>Démo</h1>
+            <nav>
+                <ul>
+                    <li>
+                        <a><button id="editor-mode-button"><i class="fa fa-eye"></i></button></a>
+                    </li>
+                </ul>
+            </nav>
         </header>
         <main id="main">
-            <div class="edit-element">
+            <!-- <div class="edit-element">
                 <button>editer</button>
-            </div>
+            </div> -->
             <section>
                 <div class="container">
                     <h2>Contenu de la page</h2>
                     <ul class="row">
-                        <li id="col-1" class="col-lg-4">
+                        <li id="col-1" class="col-element col-lg-4">
                             <div class="edit-element p-relative">
-                                <button class="btn shadow">&nbsp;<i class="fa fa-edit"></i>&nbsp;</button>
+                                <button class="bg-white btn shadow">&nbsp;<i class="fa fa-edit"></i>&nbsp;</button>
                             </div>
-                            <article class="m-1 p-1 border">
-                                colonne
-                            </article>
+
+                            <div id="element-1" class="element p-relative p-1 m-1">
+                                <div class="add-element p-absolute d-flex justify-content-center p-1">
+                                    <button class="btn shadow bg-white black">&nbsp;<i
+                                            class="fa fa-plus"></i>&nbsp;</button>
+                                </div>
+                            </div>
                         </li>
-                        <li id="col-2" class="col-lg-4">
+                        <li id="col-2" class="col-element col-lg-4">
                             <div class="edit-element p-relative">
-                                <button class="btn shadow">&nbsp;<i class="fa fa-edit"></i>&nbsp;</button>
+                                <button class="bg-white btn shadow">&nbsp;<i class="fa fa-edit"></i>&nbsp;</button>
                             </div>
-                            <article class="m-1 p-1 border">
-                                colonne
-                            </article>
+                            <div id="element-2" class="element p-relative p-1 m-1">
+                                <div class="add-element p-absolute d-flex justify-content-center p-1">
+                                    <button class="btn shadow bg-white black">&nbsp;<i
+                                            class="fa fa-plus"></i>&nbsp;</button>
+                                </div>
+                            </div>
                         </li>
-                        <li id="col-3" class="col-lg-4">
+                        <li id="col-3" class="col-element col-lg-4">
                             <div class="edit-element p-relative">
-                                <button class="btn shadow">&nbsp;<i class="fa fa-edit"></i>&nbsp;</button>
+                                <button class="bg-white btn shadow">&nbsp;<i class="fa fa-edit"></i>&nbsp;</button>
                             </div>
-                            <article class="m-1 p-1 border">
-                                colonne
-                            </article>
+                            <div id="element-3" class="element p-relative p-1 m-1">
+                                <div class="add-element p-absolute d-flex justify-content-center p-1">
+                                    <button class="btn shadow bg-white black">&nbsp;<i
+                                            class="fa fa-plus"></i>&nbsp;</button>
+                                </div>
+                            </div>
                         </li>
                     </ul>
                 </div>

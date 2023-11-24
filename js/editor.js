@@ -13,6 +13,8 @@ class Editor {
                 }
             };
         }
+
+        this.editorMode = this.options.editorMode;
         this.panelIsOpen = this.options.panel.open;
 
         this.init();
@@ -20,47 +22,50 @@ class Editor {
 
     init() {
 
+        this.changeEditorMode();
+
         this.createPanel();
 
         // Création du bouton d'ouverture du panneau
         this.createPanelButton();
 
-        var elements = document.querySelectorAll("#editor .edit-element > button");
+        this.editElementsButtons = document.querySelectorAll(".edit-element > button");
 
-        // var idElementSelected;
+        this.editElementsButtons.forEach(editElementButton => {
 
-        elements.forEach(elementSelected => {
+            editElementButton.addEventListener('click', () => this.updateDataEditorForm('edit', editElementButton), false);
+        });
 
-            // element.addEventListener('click', function () {
+        var addElementButtons = document.querySelectorAll(".add-element > button");
 
-            //     var typeElement = document.getElementById("id-element");
-            //     typeElement.innerText = element.parentNode.parentNode.id;
+        addElementButtons.forEach(addElementButton => {
 
-            //     var idValue = document.getElementById('id');
-            //     var classValue = document.getElementById('class');
-
-            //     idValue.value = element.parentNode.parentNode.id;
-            //     classValue.value = element.parentNode.parentNode.className;
-
-            //     idElementSelected = element.parentNode.parentNode.id;
-            // });
-
-            elementSelected.addEventListener('click', () => this.updateDataEditorForm(elementSelected), false);
+            addElementButton.addEventListener('click', () => this.updateDataEditorForm('add', addElementButton), false);
         });
 
         var editElementForm = document.getElementById("edit-element-form");
 
-        editElementForm.addEventListener('submit', () => this.saveEditorForm(event), false);
+        editElementForm.addEventListener('submit', () => this.saveEditorForm('edit', event), false);
 
-        this.panelDisplay();
+        var addElementForm = document.getElementById("add-element-form");
+
+        addElementForm.addEventListener('submit', () => this.saveEditorForm('add', event), false);
+
+        this.panelDisplay(this.panelIsOpen);
+
+        this.editorModeButton = document.getElementById('editor-mode-button');
+
+        this.editorModeButton.addEventListener('click', () => this.changeEditorMode(), false);
 
         // Clic du bouton d'ouverture/fermeture du panneau
-        this.editorPanelButton.addEventListener('click', () => this.panelDisplay(), false);
+        this.editorPanelButton.addEventListener('click', () => this.panelDisplay(true), false);
     }
 
-    updateDataEditorForm(elementSelected) {
+    updateDataEditorForm(type, elementSelected) {
 
         var parentElement = elementSelected.parentNode.parentNode;
+
+        console.log(type, elementSelected, parentElement);
 
         var typeElement = document.getElementById("selected-element");
         typeElement.innerText = parentElement.tagName + "#" + parentElement.id + "." + parentElement.className;
@@ -69,32 +74,76 @@ class Editor {
         var classValue = document.getElementById('class');
 
         idValue.value = parentElement.id;
-        // classValue.sizeValue = parentElement.className;
 
         this.idElementSelected = parentElement.id;
 
-        this.panelDisplay();
+        var editElementForm = document.getElementById('edit-element-form');
+        var addElementForm = document.getElementById('add-element-form');
+
+        if (type == 'edit') {
+            addElementForm.className = 'd-none flex-direction-column';
+            editElementForm.className = 'd-flex flex-direction-column';
+        }
+        else if (type == 'add') {
+            editElementForm.className = 'd-none flex-direction-column';
+            addElementForm.className = 'd-flex flex-direction-column';
+        }
+
+        this.panelDisplay(true);
     }
 
-    saveEditorForm(event) {
+    saveEditorForm(type, event) {
 
         event.preventDefault();
 
-        var idValue = document.getElementById('id').value;
-        var sizeValue = document.getElementById('size').value;
-        var marginValue = document.getElementById('margin').value;
-        var paddingValue = document.getElementById('padding').value;
+        var form;
 
-        var bgColorValue = document.getElementById('bg-color').value;
-        var colorValue = document.getElementById('color').value;
+        if (type == 'edit') {
+            form = document.getElementById('edit-element-form');
+        }
+        else if (type == 'add') {
+            form = document.getElementById('add-element-form');
+        }
+
+        var idValue = document.querySelector('#' + form.getAttribute('id') + ' #id').value;
+        var sizeValue = document.querySelector('#' + form.getAttribute('id') + ' #size').value;
+        var marginValue = document.querySelector('#' + form.getAttribute('id') + ' #margin').value;
+        var paddingValue = document.querySelector('#' + form.getAttribute('id') + ' #padding').value;
+
+        var bgColorValue = document.querySelector('#' + form.getAttribute('id') + ' #bg-color').value;
+        var colorValue = document.querySelector('#' + form.getAttribute('id') + ' #color').value;
 
         var elementSelected = document.getElementById(this.idElementSelected);
 
-        elementSelected.className = sizeValue;
+        if (type == 'edit') {
 
-        var content = document.querySelector("#" + elementSelected.id + " > article");
+            elementSelected.className = sizeValue;
 
-        content.className = marginValue + " " + paddingValue + " " + bgColorValue + " " + colorValue;
+            var content = document.querySelector("#" + elementSelected.id + " > .element");
+
+            content.className = "element p-relative " + marginValue + " " + paddingValue + " " + bgColorValue + " " + colorValue;
+        }
+        else if (type == 'add') {
+
+            var typeValue = document.querySelector('#' + form.getAttribute('id') + ' #type').value;
+
+            var elementToAdd = document.createElement('div');
+            elementToAdd.id = idValue;
+            elementToAdd.className = "p-relative " + marginValue + " " + paddingValue + " " + bgColorValue + " " + colorValue;
+            elementToAdd.innerHTML = '<div class="edit-element p-relative">' +
+                '<button class="bg-white btn shadow">&nbsp;<i class="fa fa-edit"></i>&nbsp;</button>' +
+                '</div>' +
+                '<div class="element"><' + typeValue + '>Hello ;)</ ' + typeValue + '></div>';
+
+            elementSelected.appendChild(elementToAdd);
+
+            this.editElementsButtons = document.querySelectorAll(".edit-element > button");
+
+            this.editElementsButtons.forEach(editElementButton => {
+
+                editElementButton.addEventListener('click', () => this.updateDataEditorForm('edit', editElementButton), false);
+            });
+        }
     }
 
     createPanel() {
@@ -105,11 +154,12 @@ class Editor {
 
         this.panel.innerHTML = "<h2>Editeur</h2>" +
             "<h3 id='selected-element'></h3>" +
-            "<form id='edit-element-form' class='d-flex flex-direction-column'>" +
+            "<form id='edit-element-form' class='d-none flex-direction-column'>" +
             "<label for='id'>Identifiant</label>" +
             "<input type='text' id='id' name='id' placeholder='id' class='mb-1'>" +
             "<label for='size'>Taille</label>" +
             "<select id='size' class='mb-1'>" +
+            "<option selected>Tailles</option>" +
             "<option value='col-lg-1'>col-lg-1</option>" +
             "<option value='col-lg-2'>col-lg-2</option>" +
             "<option value='col-lg-3'>col-lg-3</option>" +
@@ -124,17 +174,68 @@ class Editor {
             "<option value='col-lg-12'>col-lg-12</option>" +
             "</select>" +
             "<label for='margin'>Marges extérieures</label>" +
-            "<input type='text' id='margin' class='mb-1'>" +
+            "<input type='text' id='margin' class='mb-1' placeholder='marges extérieures'>" +
             "<label for='padding'>Marges intérieures</label>" +
-            "<input type='text' id='padding' class='mb-1'>" +
+            "<input type='text' id='padding' class='mb-1' placeholder='marges intérieures'>" +
             "<label for='bg-color'>Couleur de fond</label>" +
             "<select id='bg-color' class='mb-1'>" +
+            "<option selected>Couleurs de fond</option>" +
             "<option value='bg-purple'>bg-purple</option>" +
             "<option value='bg-white'>bg-white</option>" +
             "<option value='bg-black'>bg-black</option>" +
             "</select>" +
             "<label for='color'>Couleur de texte</label>" +
             "<select id='color' class='mb-1'>" +
+            "<option selected>Couleurs</option>" +
+            "<option value='purple'>purple</option>" +
+            "<option value='white'>white</option>" +
+            "<option value='black'>black</option>" +
+            "</select>" +
+            // "<input type='text' id='class' name='class' placeholder='class' class='mb-1'>" +
+            "<div class='text-center'>" +
+            "<input type='submit' value='enregistrer' class='btn bg-purple shadow white'>" +
+            "</div>" +
+            "</form>" +
+            "<form id='add-element-form' class='d-none flex-direction-column'>" +
+            "<select id='type' class='mb-1'>" +
+            "<option selected>Type</option>" +
+            "<option value='div'>div</option>" +
+            "<option value='h2'>h2</option>" +
+            "<option value='h3'>h3</option>" +
+            "<option value='p'>p</option>" +
+            "</select>" +
+            "<label for='id'>Identifiant</label>" +
+            "<input type='text' id='id' name='id' placeholder='id' class='mb-1'>" +
+            "<label for='size'>Taille</label>" +
+            "<select id='size' class='mb-1'>" +
+            "<option selected>Tailles</option>" +
+            "<option value='col-lg-1'>col-lg-1</option>" +
+            "<option value='col-lg-2'>col-lg-2</option>" +
+            "<option value='col-lg-3'>col-lg-3</option>" +
+            "<option value='col-lg-4'>col-lg-4</option>" +
+            "<option value='col-lg-5'>col-lg-5</option>" +
+            "<option value='col-lg-6'>col-lg-6</option>" +
+            "<option value='col-lg-7'>col-lg-7</option>" +
+            "<option value='col-lg-8'>col-lg-8</option>" +
+            "<option value='col-lg-9'>col-lg-9</option>" +
+            "<option value='col-lg-10'>col-lg-10</option>" +
+            "<option value='col-lg-11'>col-lg-11</option>" +
+            "<option value='col-lg-12'>col-lg-12</option>" +
+            "</select>" +
+            "<label for='margin'>Marges extérieures</label>" +
+            "<input type='text' id='margin' class='mb-1' placeholder='marges extérieures'>" +
+            "<label for='padding'>Marges intérieures</label>" +
+            "<input type='text' id='padding' class='mb-1' placeholder='marges intérieures'>" +
+            "<label for='bg-color'>Couleur de fond</label>" +
+            "<select id='bg-color' class='mb-1'>" +
+            "<option selected>Couleurs de fond</option>" +
+            "<option value='bg-purple'>bg-purple</option>" +
+            "<option value='bg-white'>bg-white</option>" +
+            "<option value='bg-black'>bg-black</option>" +
+            "</select>" +
+            "<label for='color'>Couleur de texte</label>" +
+            "<select id='color' class='mb-1'>" +
+            "<option selected>Couleurs</option>" +
             "<option value='purple'>purple</option>" +
             "<option value='white'>white</option>" +
             "<option value='black'>black</option>" +
@@ -166,11 +267,13 @@ class Editor {
     /**
      * Affichage du panneau
      */
-    panelDisplay() {
+    panelDisplay(open) {
 
-        this.panelIsOpen = (this.panelIsOpen) ? false : true;
+        console.log("TEST");
 
-        if (this.panelIsOpen == false) {
+        this.panelIsOpen = open;
+
+        if (this.panelIsOpen == true) {
             // On affiche le panneau de la liste des balises
             this.panel.classList.add("open");
 
@@ -194,4 +297,14 @@ class Editor {
         this.editorPanelButton.innerHTML = "&nbsp;<i class='fa fa-edit'></i>&nbsp;";
     }
 
+    changeEditorMode() {
+
+        // console.log(this.editorMode);
+
+        this.editorMode = (this.editorMode) ? false : true;
+
+        var editor = document.getElementById('editor');
+
+        editor.className = (this.editorMode == true) ? "" : "editor-mode";
+    }
 }

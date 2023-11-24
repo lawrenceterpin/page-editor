@@ -39,9 +39,45 @@ $zIndex: 1000;
     // }
 }
 
+// .element {
+//     display: none;
+// }
+
+.add-element {
+    display: none;
+}
+
 .edit-element {
-    top: -15px;
-    float: right;
+    display: none;
+}
+
+#editor.editor-mode {
+
+    .element {
+        min-height: 30px;
+        border: 3px dashed $black;
+    }
+
+    .add-element {
+        display: flex;
+        left: 0;
+        right: 0;
+        bottom: -45px;
+        z-index: 1;
+    }
+
+    .edit-element {
+        display: flex;
+        top: -20px;
+        float: right;
+        z-index: 2;
+
+        >button {
+            i {
+                color: $black;
+            }
+        }
+    }
 }
 
 #editor-panel {

@@ -139,6 +139,10 @@ figure {
   position: relative;
 }
 
+.p-absolute {
+  position: absolute;
+}
+
 .p-fixed {
   position: fixed;
 }
@@ -341,6 +345,10 @@ pre.code-javascript code {
 
 pre.code-jquery code {
   color: #4dd0e1;
+}
+
+.d-none {
+  display: none;
 }
 
 @media (max-width: 480px) {
