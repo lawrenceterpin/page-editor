@@ -1,20 +1,27 @@
 [
         {
-                "tag": "header",
-                "name": "header",
-                "classes": "row element",
-                "elements": []
-        },
-        {
-                "tag": "main",
-                "name": "main",
+                "tag": "div",
+                "name": "div",
                 "classes": "element",
-                "elements": []
-        },
-        {
-                "tag": "footer",
-                "name": "footer",
-                "classes": "row element",
-                "elements": []
+                "elements": [
+                        {
+                                "tag": "header",
+                                "name": "header",
+                                "classes": "row element",
+                                "elements": []
+                        },
+                        {
+                                "tag": "main",
+                                "name": "main",
+                                "classes": "element",
+                                "elements": []
+                        },
+                        {
+                                "tag": "footer",
+                                "name": "footer",
+                                "classes": "row element",
+                                "elements": []
+                        }
+                ]
         }
 ]
