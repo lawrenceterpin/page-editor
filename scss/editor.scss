@@ -31,15 +31,20 @@ $zIndex: 1000;
 }
 
 #editor.editor-mode {
+    padding: $medium;
 
     i {
         font-size: 15px !important;
     }
 
     .element,
+    header,
+    section,
+    h1,
+    h2,
+    nav,
     ul {
-        padding: $small;
-        // min-height: 30px;
+        margin: $medium;
         border: 3px dashed gray;
 
         &:hover {
@@ -51,43 +56,54 @@ $zIndex: 1000;
     ul,
     li,
     h1,
+    h2,
+    h3,
     nav,
+    header,
     section {
-        min-height: 30px;
+        min-width: 100px;
+        min-height: 100px;
+        background-color: rgba(0, 0, 0, 0.15);
 
         .add-element {
             display: none;
-            left: 0;
-            right: 0;
-            bottom: -30px;
-            justify-content: center;
-            z-index: 1;
-            opacity: 0.5;
 
-            button {
-                width: 50px;
-                height: 50px;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
+            >div {
+                left: 0;
+                right: 0;
+                bottom: -30px;
                 justify-content: center;
+                z-index: 1;
+                opacity: 0.5;
+
+                button {
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
             }
         }
 
         .edit-element {
             display: none;
-            top: -30px;
-            right: -30px;
-            z-index: -1;
-            opacity: 0.5;
 
-            button {
-                width: 50px;
-                height: 50px;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
+            >div {
+                top: 0;
+                right: 0;
+                z-index: -1;
+                opacity: 0.5;
+
+                button {
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                }
             }
 
             &:hover {
@@ -101,11 +117,18 @@ $zIndex: 1000;
             background-color: rgba(0, 0, 0, 0.15);
             z-index: 100;
 
-            >div>.add-element,
-            >div>.edit-element {
+            >.add-element,
+            >.edit-element {
                 display: flex;
-                z-index: 100;
-                opacity: 1
+
+                >div {
+                    opacity: 1;
+                    z-index: 100;
+                    min-width: 400px;
+                    justify-content: flex-end;
+                    font-size: 14px;
+                    color: $black;
+                }
             }
         }
     }

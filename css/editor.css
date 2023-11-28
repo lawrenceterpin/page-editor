@@ -253,15 +253,28 @@ input[type=text], select {
   display: none;
 }
 
+#editor.editor-mode {
+  padding: 30px;
+}
 #editor.editor-mode i {
   font-size: 15px !important;
 }
 #editor.editor-mode .element,
+#editor.editor-mode header,
+#editor.editor-mode section,
+#editor.editor-mode h1,
+#editor.editor-mode h2,
+#editor.editor-mode nav,
 #editor.editor-mode ul {
-  padding: 15px;
+  margin: 30px;
   border: 3px dashed gray;
 }
 #editor.editor-mode .element:hover,
+#editor.editor-mode header:hover,
+#editor.editor-mode section:hover,
+#editor.editor-mode h1:hover,
+#editor.editor-mode h2:hover,
+#editor.editor-mode nav:hover,
 #editor.editor-mode ul:hover {
   border: 3px dashed #000;
 }
@@ -269,17 +282,35 @@ input[type=text], select {
 #editor.editor-mode ul,
 #editor.editor-mode li,
 #editor.editor-mode h1,
+#editor.editor-mode h2,
+#editor.editor-mode h3,
 #editor.editor-mode nav,
+#editor.editor-mode header,
 #editor.editor-mode section {
-  min-height: 30px;
+  min-width: 100px;
+  min-height: 100px;
+  background-color: rgba(0, 0, 0, 0.15);
 }
 #editor.editor-mode .element .add-element,
 #editor.editor-mode ul .add-element,
 #editor.editor-mode li .add-element,
 #editor.editor-mode h1 .add-element,
+#editor.editor-mode h2 .add-element,
+#editor.editor-mode h3 .add-element,
 #editor.editor-mode nav .add-element,
+#editor.editor-mode header .add-element,
 #editor.editor-mode section .add-element {
   display: none;
+}
+#editor.editor-mode .element .add-element > div,
+#editor.editor-mode ul .add-element > div,
+#editor.editor-mode li .add-element > div,
+#editor.editor-mode h1 .add-element > div,
+#editor.editor-mode h2 .add-element > div,
+#editor.editor-mode h3 .add-element > div,
+#editor.editor-mode nav .add-element > div,
+#editor.editor-mode header .add-element > div,
+#editor.editor-mode section .add-element > div {
   left: 0;
   right: 0;
   bottom: -30px;
@@ -287,12 +318,15 @@ input[type=text], select {
   z-index: 1;
   opacity: 0.5;
 }
-#editor.editor-mode .element .add-element button,
-#editor.editor-mode ul .add-element button,
-#editor.editor-mode li .add-element button,
-#editor.editor-mode h1 .add-element button,
-#editor.editor-mode nav .add-element button,
-#editor.editor-mode section .add-element button {
+#editor.editor-mode .element .add-element > div button,
+#editor.editor-mode ul .add-element > div button,
+#editor.editor-mode li .add-element > div button,
+#editor.editor-mode h1 .add-element > div button,
+#editor.editor-mode h2 .add-element > div button,
+#editor.editor-mode h3 .add-element > div button,
+#editor.editor-mode nav .add-element > div button,
+#editor.editor-mode header .add-element > div button,
+#editor.editor-mode section .add-element > div button {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -304,20 +338,36 @@ input[type=text], select {
 #editor.editor-mode ul .edit-element,
 #editor.editor-mode li .edit-element,
 #editor.editor-mode h1 .edit-element,
+#editor.editor-mode h2 .edit-element,
+#editor.editor-mode h3 .edit-element,
 #editor.editor-mode nav .edit-element,
+#editor.editor-mode header .edit-element,
 #editor.editor-mode section .edit-element {
   display: none;
-  top: -30px;
-  right: -30px;
+}
+#editor.editor-mode .element .edit-element > div,
+#editor.editor-mode ul .edit-element > div,
+#editor.editor-mode li .edit-element > div,
+#editor.editor-mode h1 .edit-element > div,
+#editor.editor-mode h2 .edit-element > div,
+#editor.editor-mode h3 .edit-element > div,
+#editor.editor-mode nav .edit-element > div,
+#editor.editor-mode header .edit-element > div,
+#editor.editor-mode section .edit-element > div {
+  top: 0;
+  right: 0;
   z-index: -1;
   opacity: 0.5;
 }
-#editor.editor-mode .element .edit-element button,
-#editor.editor-mode ul .edit-element button,
-#editor.editor-mode li .edit-element button,
-#editor.editor-mode h1 .edit-element button,
-#editor.editor-mode nav .edit-element button,
-#editor.editor-mode section .edit-element button {
+#editor.editor-mode .element .edit-element > div button,
+#editor.editor-mode ul .edit-element > div button,
+#editor.editor-mode li .edit-element > div button,
+#editor.editor-mode h1 .edit-element > div button,
+#editor.editor-mode h2 .edit-element > div button,
+#editor.editor-mode h3 .edit-element > div button,
+#editor.editor-mode nav .edit-element > div button,
+#editor.editor-mode header .edit-element > div button,
+#editor.editor-mode section .edit-element > div button {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -329,7 +379,10 @@ input[type=text], select {
 #editor.editor-mode ul .edit-element:hover,
 #editor.editor-mode li .edit-element:hover,
 #editor.editor-mode h1 .edit-element:hover,
+#editor.editor-mode h2 .edit-element:hover,
+#editor.editor-mode h3 .edit-element:hover,
 #editor.editor-mode nav .edit-element:hover,
+#editor.editor-mode header .edit-element:hover,
 #editor.editor-mode section .edit-element:hover {
   z-index: 100;
   opacity: 1;
@@ -338,27 +391,59 @@ input[type=text], select {
 #editor.editor-mode ul:hover,
 #editor.editor-mode li:hover,
 #editor.editor-mode h1:hover,
+#editor.editor-mode h2:hover,
+#editor.editor-mode h3:hover,
 #editor.editor-mode nav:hover,
+#editor.editor-mode header:hover,
 #editor.editor-mode section:hover {
   position: relative;
   background-color: rgba(0, 0, 0, 0.15);
   z-index: 100;
 }
-#editor.editor-mode .element:hover > div > .add-element,
-#editor.editor-mode .element:hover > div > .edit-element,
-#editor.editor-mode ul:hover > div > .add-element,
-#editor.editor-mode ul:hover > div > .edit-element,
-#editor.editor-mode li:hover > div > .add-element,
-#editor.editor-mode li:hover > div > .edit-element,
-#editor.editor-mode h1:hover > div > .add-element,
-#editor.editor-mode h1:hover > div > .edit-element,
-#editor.editor-mode nav:hover > div > .add-element,
-#editor.editor-mode nav:hover > div > .edit-element,
-#editor.editor-mode section:hover > div > .add-element,
-#editor.editor-mode section:hover > div > .edit-element {
+#editor.editor-mode .element:hover > .add-element,
+#editor.editor-mode .element:hover > .edit-element,
+#editor.editor-mode ul:hover > .add-element,
+#editor.editor-mode ul:hover > .edit-element,
+#editor.editor-mode li:hover > .add-element,
+#editor.editor-mode li:hover > .edit-element,
+#editor.editor-mode h1:hover > .add-element,
+#editor.editor-mode h1:hover > .edit-element,
+#editor.editor-mode h2:hover > .add-element,
+#editor.editor-mode h2:hover > .edit-element,
+#editor.editor-mode h3:hover > .add-element,
+#editor.editor-mode h3:hover > .edit-element,
+#editor.editor-mode nav:hover > .add-element,
+#editor.editor-mode nav:hover > .edit-element,
+#editor.editor-mode header:hover > .add-element,
+#editor.editor-mode header:hover > .edit-element,
+#editor.editor-mode section:hover > .add-element,
+#editor.editor-mode section:hover > .edit-element {
   display: flex;
-  z-index: 100;
+}
+#editor.editor-mode .element:hover > .add-element > div,
+#editor.editor-mode .element:hover > .edit-element > div,
+#editor.editor-mode ul:hover > .add-element > div,
+#editor.editor-mode ul:hover > .edit-element > div,
+#editor.editor-mode li:hover > .add-element > div,
+#editor.editor-mode li:hover > .edit-element > div,
+#editor.editor-mode h1:hover > .add-element > div,
+#editor.editor-mode h1:hover > .edit-element > div,
+#editor.editor-mode h2:hover > .add-element > div,
+#editor.editor-mode h2:hover > .edit-element > div,
+#editor.editor-mode h3:hover > .add-element > div,
+#editor.editor-mode h3:hover > .edit-element > div,
+#editor.editor-mode nav:hover > .add-element > div,
+#editor.editor-mode nav:hover > .edit-element > div,
+#editor.editor-mode header:hover > .add-element > div,
+#editor.editor-mode header:hover > .edit-element > div,
+#editor.editor-mode section:hover > .add-element > div,
+#editor.editor-mode section:hover > .edit-element > div {
   opacity: 1;
+  z-index: 100;
+  min-width: 400px;
+  justify-content: flex-end;
+  font-size: 14px;
+  color: #000;
 }
 
 #editor-mode-button {

@@ -5,7 +5,7 @@ class Editor {
         panel: {
             open: false,
         }
-    }
+    };
 
     tags = ["header", "main", "footer", "nav", "section", "div", "h1", "h2", "h3", "h4", "ul", "li"];
 
@@ -106,6 +106,10 @@ class Editor {
             this.editElementForm.className = 'd-flex flex-direction-column';
         }
         else if (type == 'add') {
+
+            document.querySelector('#' + this.addElementForm.getAttribute('id') + ' #type').value = "";
+            document.querySelector('#' + this.addElementForm.getAttribute('id') + ' #classes').value = "";
+
             this.editElementForm.className = 'd-none flex-direction-column';
             this.addElementForm.className = 'd-flex flex-direction-column';
         }
@@ -327,9 +331,11 @@ class Editor {
             tag.className = element.classes;
 
             // On ajoute le bouton d'édition
-            var elementButton = '<div class="p-relative w-100"><div class="edit-element p-absolute">' +
-                '<button class="btn bg-white purple" title="#' + tag.id + '" onclick="editor.addElement(\'' + tag.id.trim() + '\')"><i class="fa fa-plus-circle"></i></button>' +
-                '<button class="btn bg-white purple" title="#' + tag.id + '" onclick="editor.editElement(\'' + tag.id.trim() + '\')"><i class="fa fa-edit"></i></button>' +
+            var elementButton = '<div class="edit-element p-relative w-100">' +
+                '<div class="p-absolute d-flex gap-1 bg-white p-1 align-items-center">' +
+                '<h4><b>' + element.tag + '#' + tag.id + '</b></h4>&nbsp;' +
+                '<button class="btn bg-white purple shadow" title="#' + tag.id + '" onclick="editor.addElement(\'' + tag.id.trim() + '\')"><i class="fa fa-plus-circle"></i></button>' +
+                '<button class="btn bg-white purple shadow" title="#' + tag.id + '" onclick="editor.editElement(\'' + tag.id.trim() + '\')"><i class="fa fa-edit"></i></button>' +
                 '</div></div>';
 
             tag.innerHTML = elementButton;
