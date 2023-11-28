@@ -1,49 +1,7 @@
 [
     {
-        "tag": "ul",
-        "name": "row",
-        "classes": "row element",
-        "elements": [
-            {
-                "tag": "li",
-                "name": "col",
-                "classes": "col-lg-6",
-                "elements": [
-                    {
-                        "tag": "div",
-                        "name": "div",
-                        "classes": "m-1 element",
-                        "elements": [
-                            {
-                                "tag": "h2",
-                                "name": "h2",
-                                "classes": "black element",
-                                "text": "hello :)"
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "tag": "li",
-                "name": "col",
-                "classes": "col-lg-6",
-                "elements": [
-                    {
-                        "tag": "div",
-                        "name": "div",
-                        "classes": "m-1 element",
-                        "elements": [
-                            {
-                                "tag": "h2",
-                                "name": "h2",
-                                "classes": "purple element",
-                                "text": "hello :)"
-                            }
-                        ]
-                    }
-                ]
-            }
-        ]
+        "tag": "div",
+        "name": "div",
+        "classes": "element"
     }
 ]
