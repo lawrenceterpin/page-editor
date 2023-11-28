@@ -7,58 +7,24 @@ class Editor {
         }
     }
 
-    tags = ["div", "h2", "h3", "h4", "ul", "li"];
+    tags = ["header", "main", "footer", "nav", "section", "div", "h1", "h2", "h3", "h4", "ul", "li"];
 
     pageElements = [
         {
-            "tag": "ul",
-            "name": "row",
-            "classes": "row element",
+            "tag": "div",
+            "name": "div",
+            "classes": "",
             "elements": [
                 {
-                    "tag": "li",
-                    "name": "col",
-                    "classes": "col-lg-6",
-                    "elements": [
-                        {
-                            "tag": "div",
-                            "name": "div",
-                            "classes": "m-1 element",
-                            "elements": [
-                                {
-                                    "tag": "h2",
-                                    "name": "h2",
-                                    "classes": "purple element",
-                                    "text": "hello :)"
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "tag": "li",
-                    "name": "col",
-                    "classes": "col-lg-6",
-                    "elements": [
-                        {
-                            "tag": "div",
-                            "name": "div",
-                            "classes": "m-1 element",
-                            "elements": [
-                                {
-                                    "tag": "h2",
-                                    "name": "h2",
-                                    "classes": "purple element",
-                                    "text": "hello :)"
-                                }
-                            ]
-                        }
-                    ]
+                    "tag": "h2",
+                    "name": "h2",
+                    "classes": "error",
+                    "text": "La page n'a pas pu être chargée"
                 }
             ]
         }
-    ];
-    
+    ]
+
     constructor(options) {
 
         if (typeof options !== 'undefined') {
@@ -73,52 +39,7 @@ class Editor {
      */
     init() {
 
-        // const loadFile = () => {
-        //     //CORS URL
-        //     let corsURL = 'https://cors-anywhere.herokuapp.com/';
-
-        //     //My File URL
-        //     let myURL = '/Users/lawrenceterpin/Documents/projects/editor/js/datas.json  ';
-
-        //     fetch(myURL, { mode: 'no-cors' })
-        //         .then(response => {
-        //             console.log(response);
-        //         })
-        //         .then(content => {
-        //             console.log(content);
-        //         })
-        // }
-
-        // loadFile();
-
-        // fetch("datas.json")
-        //     .then(response => {
-        //         return response.json();
-        //     })
-        //     .then(data => console.log(data));
-
-        this.generatePage('page', this.pageElements);
-
-        var addElementButton = document.getElementById('add-element-button');
-
-        var data = {
-            "tag": "li",
-            "id": "col",
-            "classes": "col-lg-6",
-            "elements": [{
-                "tag": "div",
-                "id": "div",
-                "classes": "m-1 element",
-                "elements": [{
-                    "tag": "h2",
-                    "id": "h2",
-                    "classes": "purple element",
-                    "text": "hello :)"
-                }]
-            }]
-        };
-
-        addElementButton.addEventListener('click', () => this.addElement('row-1', data), false);
+        this.loadData();
 
         this.changeEditorMode();
 
@@ -147,25 +68,38 @@ class Editor {
         this.editorModeButton.addEventListener('click', () => this.changeEditorMode(), false);
     }
 
+    loadData() {
+
+        fetch(this.options.jsonDatasUrl)
+            .then(response => {
+
+                return response.json();
+            })
+            .then(data => {
+
+                this.pageElements = data;
+
+                this.generatePage();
+            });
+    }
+
     /**
      * Mise à jour des données du formulaire d'édition
      * 
      * @param {*} type 
      * @param {*} parentElementId 
      */
-    updateEditorFormData(type, parentElementId) {
+    displayEditorForm(type) {
 
-        this.parentElement = document.getElementById(parentElementId);
-        this.idElementSelected = this.parentElement.id;
+        this.elementSelected = document.getElementById(this.elementIdSelected);
 
         var typeElement = document.getElementById("selected-element");
-        typeElement.innerText = this.parentElement.tagName.toLowerCase() + "#" + this.parentElement.id + "." + this.parentElement.className;
+        typeElement.innerText = this.elementSelected.tagName.toLowerCase() + "#" + this.elementIdSelected + "." + this.elementSelected.className;
 
         if (type == 'edit') {
 
-            document.querySelector('#' + this.editElementForm.getAttribute('id') + ' #type').value = this.parentElement.tagName.toLowerCase();
-            document.querySelector('#' + this.editElementForm.getAttribute('id') + ' #id').value = this.parentElement.id;
-            document.querySelector('#' + this.editElementForm.getAttribute('id') + ' #classes').value = this.parentElement.classList;
+            document.querySelector('#' + this.editElementForm.getAttribute('id') + ' #type').value = this.elementSelected.tagName.toLowerCase();
+            document.querySelector('#' + this.editElementForm.getAttribute('id') + ' #classes').value = this.elementSelected.classList;
             // document.querySelector('#' + this.editElementForm.getAttribute('id') + ' #text').value = this.parentElement.innerText;
 
             this.addElementForm.className = 'd-none flex-direction-column';
@@ -186,44 +120,28 @@ class Editor {
         var form = (type == 'edit') ? this.editElementForm : this.addElementForm;
         var typeValue = document.querySelector('#' + form.getAttribute('id') + ' #type').value;
 
-        var idValue = document.querySelector('#' + form.getAttribute('id') + ' #id').value;
-        var sizeValue = document.querySelector('#' + form.getAttribute('id') + ' #size').value;
-        var marginValue = document.querySelector('#' + form.getAttribute('id') + ' #margin').value;
-        var paddingValue = document.querySelector('#' + form.getAttribute('id') + ' #padding').value;
-        var bgColorValue = document.querySelector('#' + form.getAttribute('id') + ' #bg-color').value;
-        var colorValue = document.querySelector('#' + form.getAttribute('id') + ' #color').value;
+        // var idValue = document.querySelector('#' + form.getAttribute('id') + ' #id').value;
+        // var sizeValue = document.querySelector('#' + form.getAttribute('id') + ' #size').value;
+        // var marginValue = document.querySelector('#' + form.getAttribute('id') + ' #margin').value;
+        // var paddingValue = document.querySelector('#' + form.getAttribute('id') + ' #padding').value;
+        // var bgColorValue = document.querySelector('#' + form.getAttribute('id') + ' #bg-color').value;
+        // var colorValue = document.querySelector('#' + form.getAttribute('id') + ' #color').value;
         var classesValue = document.querySelector('#' + form.getAttribute('id') + ' #classes').value;
 
         var textValue = document.querySelector('#' + form.getAttribute('id') + ' #text').value;
 
-        var elementSelected = this.parentElement;
+        var data = {
+            "tag": typeValue,
+            "name": typeValue,
+            "classes": classesValue,
+            "text": textValue
+        };
 
-        if (type == 'edit') {
-
-            var data = {
-                "tag": typeValue,
-                "id": idValue,
-                "classes": classesValue,
-                "text": textValue
-            };
-
-            this.updateElementData(idValue, data, this.pageElements);
+        if (type == 'add') {
+            data.elements = [];
         }
-        else if (type == 'add') {
-            // On créé le nouvel élément
-            var elementToAdd = document.createElement(typeValue);
-            elementToAdd.id = idValue;
-            elementToAdd.className = "element p-relative " + classesValue + " " + sizeValue + " " + colorValue + " " + bgColorValue;
-            elementToAdd.innerHTML = '<div class="edit-element p-absolute">' +
-                '<button class="bg-white btn shadow" onclick="editor.updateEditorFormData(\'edit\', \'' + elementToAdd.id + '\')">&nbsp;<i class="fa fa-edit"></i>&nbsp;</button>' +
-                '</div>' +
-                '<div class="add-element p-absolute d-flex justify-content-center">' +
-                '<button class="btn shadow bg-white black" onclick="editor.updateEditorFormData(\'add\', \'' + elementToAdd.id + '\')">&nbsp;<i class="fa fa-plus"></i>&nbsp;</button>' +
-                '</div>' +
-                '<div>' + textValue + '</div>';
 
-            elementSelected.appendChild(elementToAdd);
-        }
+        this.getElementsFromArray(this.pageElements, data, type);
     }
 
     createPanel() {
@@ -232,9 +150,7 @@ class Editor {
         this.panel.setAttribute('id', 'editor-panel');
         this.panel.setAttribute('class', 'p-fixed shadow p-1');
 
-        var content = "";
-
-        content = "<div class='p-relative'><button id='close-panel' class='btn shadow bg-purple white p-absolute'><i class='fa fa-close'></i></button></div>" +
+        var content = "<div class='p-relative'><button id='close-panel' class='btn shadow bg-purple white p-absolute'><i class='fa fa-close'></i></button></div>" +
             "<h2>Editeur</h2>" +
             "<h3 id='selected-element'></h3>" +
             "<form id='edit-element-form' class='d-none flex-direction-column'>" +
@@ -248,8 +164,6 @@ class Editor {
         });
 
         content += "</select>" +
-            "<label for='id'>Identifiant</label>" +
-            "<input type='text' id='id' name='id' placeholder='id' class='mb-1'>" +
             "<label for='size'>Taille</label>" +
             "<select id='size' class='mb-1'>" +
             "<option selected>Tailles</option>";
@@ -297,8 +211,6 @@ class Editor {
         });
 
         content += "</select>" +
-            "<label for='id'>Identifiant</label>" +
-            "<input type='text' id='id' name='id' placeholder='id' class='mb-1'>" +
             "<label for='size'>Taille</label>" +
             "<select id='size' class='mb-1'>" +
             "<option selected>Tailles</option>";
@@ -384,17 +296,14 @@ class Editor {
 
     /**
      * Génération de la page
-     * 
-     * @param {*} pageContainerId 
      */
-    generatePage(pageContainerId, array) {
-        // Container de la page
-        var page = document.getElementById(pageContainerId);
+    generatePage() {
 
+        var page = document.getElementById(this.options.editorContainerId)
         page.innerHTML = "";
 
         // On ajoute les éléments
-        this.createElementsFromArray(page, array);
+        this.createElementsFromArray(page, this.pageElements);
     }
 
     /**
@@ -404,23 +313,26 @@ class Editor {
      * @param {*} array 
      */
     createElementsFromArray(parent, array) {
+
         // Pour chaque élément du tableau
         array.forEach((element, index) => {
 
             // On créé la balise de l'élément
             var tag = document.createElement(element.tag);
+            // On créé l'identifiant de l'élément
+            element.id = parent.id + "-" + element.name + "-" + (index + 1);
             // On ajoute l'identifiant de l'élément
-            array[index].id = parent.id + "-" + element.name + "-" + (index + 1);
-
             tag.id = element.id;
             // On ajoute la classe de l'élément
             tag.className = element.classes;
 
-            var editElementButton = '<div class="p-relative w-100"><div class="edit-element p-absolute">' +
+            // On ajoute le bouton d'édition
+            var elementButton = '<div class="p-relative w-100"><div class="edit-element p-absolute">' +
+                '<button class="btn bg-white purple" title="#' + tag.id + '" onclick="editor.addElement(\'' + tag.id.trim() + '\')"><i class="fa fa-plus-circle"></i></button>' +
                 '<button class="btn bg-white purple" title="#' + tag.id + '" onclick="editor.editElement(\'' + tag.id.trim() + '\')"><i class="fa fa-edit"></i></button>' +
                 '</div></div>';
 
-            tag.innerHTML = editElementButton;
+            tag.innerHTML = elementButton;
 
             if (typeof element.text !== 'undefined') {
                 tag.innerHTML += element.text;
@@ -437,61 +349,52 @@ class Editor {
     }
 
 
-    addElement(parentId, data) {
+    addElement(elementIdSelected) {
 
-        this.pageElements.forEach(element => {
+        this.elementIdSelected = elementIdSelected;
 
-            if (element.id = parentId) {
-
-                element.elements.push(data);
-
-                this.generatePage('page', this.pageElements);
-            }
-        });
+        this.getElementsFromArray(this.pageElements, null, 'add');
     }
 
     editElement(elementIdSelected) {
 
-        // On ajoute les éléments
-        this.getElementsFromArray(elementIdSelected, this.pageElements);
+        this.elementIdSelected = elementIdSelected;
+
+        this.getElementsFromArray(this.pageElements, null, 'edit');
     }
 
-    updateElementData(elementIdSelected, data, array) {
-
-        array.forEach((element, index) => {
-
-            if (element.id == elementIdSelected) {
-
-                array[index].tag = data.tag;
-                array[index].id = data.id;
-                array[index].classes = data.classes;
-                array[index].text = data.text;
-
-                this.generatePage('page', this.pageElements);
-            }
-
-            // Si l'élément contient un tableau d'éléments
-            if (typeof element.elements !== 'undefined') {
-
-                this.updateElementData(elementIdSelected, data, element.elements);
-            }
-        });
-    }
-
-    getElementsFromArray(elementIdSelected, array) {
-
+    getElementsFromArray(array, data, type) {
         // Pour chaque élément du tableau
         array.forEach((element, index) => {
 
-            if (elementIdSelected == element.id) {
+            if (this.elementIdSelected == element.id) {
 
-                this.updateEditorFormData('edit', elementIdSelected);
+                if (data !== null) {
+                    if (type == 'add') {
+
+                        element.elements.push(data);
+                    }
+                    else if (type == 'edit') {
+
+                        element.tag = data.tag;
+                        element.id = data.id;
+                        element.classes = data.classes;
+                        element.text = data.text;
+                    }
+
+                    // On regénère la page
+                    this.generatePage();
+                }
+                else {
+
+                    this.displayEditorForm(type);
+                }
             }
 
             // Si l'élément contient un tableau d'éléments
             if (typeof element.elements !== 'undefined') {
                 // On parcours les éléments du tableau
-                this.getElementsFromArray(elementIdSelected, element.elements);
+                this.getElementsFromArray(element.elements, data, type);
             }
         });
     }

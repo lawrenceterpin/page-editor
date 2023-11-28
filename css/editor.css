@@ -28,16 +28,48 @@ img {
   height: 100%;
 }
 
-.col-lg-4 {
-  width: 33%;
+.col-lg-1 {
+  width: 8.333333%;
 }
 
-.col-lg-8 {
-  width: 66%;
+.col-lg-2 {
+  width: 16.666667%;
+}
+
+.col-lg-3 {
+  width: 25%;
+}
+
+.col-lg-4 {
+  width: 33.33%;
+}
+
+.col-lg-5 {
+  width: 41.666667%;
 }
 
 .col-lg-6 {
   width: 50%;
+}
+
+.col-lg-7 {
+  width: 58.333333%;
+}
+
+.col-lg-8 {
+  width: 66.666667%;
+}
+
+.col-lg-9 {
+  width: 75%;
+}
+
+.col-lg-10 {
+  width: 83.333333%;
+}
+
+.col-lg-11 {
+  width: 91.666667%;
 }
 
 .col-lg-12 {
@@ -104,8 +136,6 @@ figure {
 .row {
   display: flex;
   flex-wrap: wrap;
-  margin-left: -15px;
-  margin-right: -15px;
 }
 
 .d-flex {
@@ -226,27 +256,56 @@ input[type=text], select {
 #editor.editor-mode i {
   font-size: 15px !important;
 }
-#editor.editor-mode .element {
+#editor.editor-mode .element,
+#editor.editor-mode ul {
   padding: 15px;
-  min-height: 30px;
   border: 3px dashed gray;
 }
-#editor.editor-mode .element:hover {
+#editor.editor-mode .element:hover,
+#editor.editor-mode ul:hover {
   border: 3px dashed #000;
+}
+#editor.editor-mode .element,
+#editor.editor-mode ul,
+#editor.editor-mode li,
+#editor.editor-mode h1,
+#editor.editor-mode nav,
+#editor.editor-mode section {
+  min-height: 30px;
 }
 #editor.editor-mode .element .add-element,
 #editor.editor-mode ul .add-element,
-#editor.editor-mode li .add-element {
+#editor.editor-mode li .add-element,
+#editor.editor-mode h1 .add-element,
+#editor.editor-mode nav .add-element,
+#editor.editor-mode section .add-element {
   display: none;
   left: 0;
   right: 0;
   bottom: -30px;
+  justify-content: center;
   z-index: 1;
   opacity: 0.5;
 }
+#editor.editor-mode .element .add-element button,
+#editor.editor-mode ul .add-element button,
+#editor.editor-mode li .add-element button,
+#editor.editor-mode h1 .add-element button,
+#editor.editor-mode nav .add-element button,
+#editor.editor-mode section .add-element button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 #editor.editor-mode .element .edit-element,
 #editor.editor-mode ul .edit-element,
-#editor.editor-mode li .edit-element {
+#editor.editor-mode li .edit-element,
+#editor.editor-mode h1 .edit-element,
+#editor.editor-mode nav .edit-element,
+#editor.editor-mode section .edit-element {
   display: none;
   top: -30px;
   right: -30px;
@@ -255,7 +314,10 @@ input[type=text], select {
 }
 #editor.editor-mode .element .edit-element button,
 #editor.editor-mode ul .edit-element button,
-#editor.editor-mode li .edit-element button {
+#editor.editor-mode li .edit-element button,
+#editor.editor-mode h1 .edit-element button,
+#editor.editor-mode nav .edit-element button,
+#editor.editor-mode section .edit-element button {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -265,13 +327,19 @@ input[type=text], select {
 }
 #editor.editor-mode .element .edit-element:hover,
 #editor.editor-mode ul .edit-element:hover,
-#editor.editor-mode li .edit-element:hover {
+#editor.editor-mode li .edit-element:hover,
+#editor.editor-mode h1 .edit-element:hover,
+#editor.editor-mode nav .edit-element:hover,
+#editor.editor-mode section .edit-element:hover {
   z-index: 100;
   opacity: 1;
 }
 #editor.editor-mode .element:hover,
 #editor.editor-mode ul:hover,
-#editor.editor-mode li:hover {
+#editor.editor-mode li:hover,
+#editor.editor-mode h1:hover,
+#editor.editor-mode nav:hover,
+#editor.editor-mode section:hover {
   position: relative;
   background-color: rgba(0, 0, 0, 0.15);
   z-index: 100;
@@ -281,7 +349,13 @@ input[type=text], select {
 #editor.editor-mode ul:hover > div > .add-element,
 #editor.editor-mode ul:hover > div > .edit-element,
 #editor.editor-mode li:hover > div > .add-element,
-#editor.editor-mode li:hover > div > .edit-element {
+#editor.editor-mode li:hover > div > .edit-element,
+#editor.editor-mode h1:hover > div > .add-element,
+#editor.editor-mode h1:hover > div > .edit-element,
+#editor.editor-mode nav:hover > div > .add-element,
+#editor.editor-mode nav:hover > div > .edit-element,
+#editor.editor-mode section:hover > div > .add-element,
+#editor.editor-mode section:hover > div > .edit-element {
   display: flex;
   z-index: 100;
   opacity: 1;
