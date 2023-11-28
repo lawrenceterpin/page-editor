@@ -1,13 +1,10 @@
-@import "sizing.scss";
+@import "variables.scss";
 @import "spacing.scss";
+@import "sizing.scss";
 @import "flexbox.scss";
 @import "positions.scss";
 @import "forms.scss";
 @import "colors.scss";
-
-$small: 20px;
-$medium: 30px;
-$big: 45px;
 
 html {
     scroll-behavior: smooth;

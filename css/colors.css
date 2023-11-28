@@ -1,49 +1,17 @@
-.white {
-  color: #fff;
-}
+/* Error: Undefined variable.
+ *   ,
+ * 3 |     color: $white;
+ *   |            ^^^^^^
+ *   '
+ *   scss/colors.scss 3:12  root stylesheet */
 
-.black {
-  color: #000;
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Undefined variable.\a   \2577 \a 3 \2502      color: $white;\a   \2502             ^^^^^^\a   \2575 \a   scss/colors.scss 3:12  root stylesheet";
 }
-
-.bg-black {
-  background-color: #000;
-}
-
-.bg-white {
-  background-color: #fff;
-}
-
-.purple {
-  color: #9C27B0;
-}
-
-.bg-purple {
-  background-color: #9C27B0;
-}
-
-.bg-success {
-  background-color: #27ae60;
-}
-
-.success {
-  color: #27ae60;
-}
-
-.bg-error {
-  background-color: #e74c3c;
-}
-
-.error {
-  color: #e74c3c;
-}
-
-.border {
-  border: 1px solid #000;
-}
-
-.border-bottom {
-  border-bottom: 1px solid #000;
-}
-
-/*# sourceMappingURL=colors.css.map */

@@ -1,7 +1,8 @@
 .row {
     display: flex;
     flex-wrap: wrap;
-    margin: 0 -$small;
+    margin-left: -$small;
+    margin-right: -$small;
 }
 
 .d-flex {

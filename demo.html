@@ -10,7 +10,7 @@
     <meta name="description" content="Un site de démonstration en HTML 5.">
     <meta name="keywords" content="HTML, CSS, Javascript">
 
-    <!-- Responsive     -->
+    <!-- Responsive -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Inclusion de la police Poppins -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
@@ -27,59 +27,43 @@
 
 <body>
     <div id="editor">
-        <header class="d-flex justify-content-between">
+        <header class="d-flex justify-content-between p-1">
             <h1>Démo</h1>
-            <nav>
+            <!-- <nav>
                 <ul>
-                    <li>
-                        <a><button id="editor-mode-button"><i class="fa fa-eye"></i></button></a>
-                    </li>
+                    <li> -->
+                        <button id="editor-mode-button" class="btn shadow round"><i class="fa fa-eye"></i></button>
+                    <!-- </li>
                 </ul>
-            </nav>
+            </nav> -->
         </header>
         <main id="main">
-            <!-- <div class="edit-element">
-                <button>editer</button>
-            </div> -->
             <section>
-                <div class="container">
-                    <h2>Contenu de la page</h2>
-                    <ul class="row">
-                        <li id="col-1" class="col-element col-lg-4">
-                            <div class="edit-element p-relative">
-                                <button class="bg-white btn shadow">&nbsp;<i class="fa fa-edit"></i>&nbsp;</button>
+                <button id="add-element-button">ajouter une colonne</button>
+
+                <div id="page" class="container">
+                    <!-- <h2>Contenu de la page</h2> -->
+
+                    <!-- <ul id="row-1" class="row p-relative element">
+                        <li id="col-1" class="col-element p-relative element col-lg-4">
+                            <div class="edit-element p-absolute">
+                                <button class="bg-white btn shadow"
+                                    onclick="editor.updateEditorFormData('edit', 'col-1')">&nbsp;<i
+                                        class="fa fa-edit"></i>&nbsp;</button>
                             </div>
 
-                            <div id="element-1" class="element p-relative p-1 m-1">
-                                <div class="add-element p-absolute d-flex justify-content-center p-1">
-                                    <button class="btn shadow bg-white black">&nbsp;<i
-                                            class="fa fa-plus"></i>&nbsp;</button>
-                                </div>
+                            <div class="add-element p-absolute d-flex justify-content-center">
+                                <button class="btn shadow bg-white black"
+                                    onclick="editor.updateEditorFormData('add', 'col-1')">&nbsp;<i
+                                        class="fa fa-plus"></i>&nbsp;</button>
                             </div>
                         </li>
-                        <li id="col-2" class="col-element col-lg-4">
-                            <div class="edit-element p-relative">
-                                <button class="bg-white btn shadow">&nbsp;<i class="fa fa-edit"></i>&nbsp;</button>
-                            </div>
-                            <div id="element-2" class="element p-relative p-1 m-1">
-                                <div class="add-element p-absolute d-flex justify-content-center p-1">
-                                    <button class="btn shadow bg-white black">&nbsp;<i
-                                            class="fa fa-plus"></i>&nbsp;</button>
-                                </div>
-                            </div>
+                        <li class="add-element p-absolute d-flex justify-content-center">
+                            <button class="btn shadow bg-white black"
+                                onclick="editor.updateEditorFormData('add', 'row-1')">&nbsp;<i
+                                    class="fa fa-plus"></i>&nbsp;</button>
                         </li>
-                        <li id="col-3" class="col-element col-lg-4">
-                            <div class="edit-element p-relative">
-                                <button class="bg-white btn shadow">&nbsp;<i class="fa fa-edit"></i>&nbsp;</button>
-                            </div>
-                            <div id="element-3" class="element p-relative p-1 m-1">
-                                <div class="add-element p-absolute d-flex justify-content-center p-1">
-                                    <button class="btn shadow bg-white black">&nbsp;<i
-                                            class="fa fa-plus"></i>&nbsp;</button>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
+                    </ul> -->
                 </div>
             </section>
         </main>

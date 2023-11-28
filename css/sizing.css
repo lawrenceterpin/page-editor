@@ -1,40 +1,17 @@
-img {
-  max-width: 100%;
-}
+/* Error: Undefined variable.
+ *   ,
+ * 8 |     padding: $small;
+ *   |              ^^^^^^
+ *   '
+ *   scss/sizing.scss 8:14  root stylesheet */
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Undefined variable.\a   \2577 \a 8 \2502      padding: $small;\a   \2502               ^^^^^^\a   \2575 \a   scss/sizing.scss 8:14  root stylesheet";
 }
-
-.w-100 {
-  width: 100%;
-}
-
-.h-100 {
-  height: 100%;
-}
-
-.col-lg-4 {
-  width: 33%;
-}
-
-.col-lg-8 {
-  width: 66%;
-}
-
-.col-lg-6 {
-  width: 50%;
-}
-
-.col-lg-12 {
-  width: 100%;
-}
-
-@media (max-width: 480px) {
-  .col-12 {
-    width: 100%;
-  }
-}
-
-/*# sourceMappingURL=sizing.css.map */

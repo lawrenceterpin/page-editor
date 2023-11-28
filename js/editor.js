@@ -1,92 +1,179 @@
 class Editor {
+    // Options de la classe Editor
+    options = {
+        editorMode: true,
+        panel: {
+            open: false,
+        }
+    }
 
+    tags = ["div", "h2", "h3", "h4", "ul", "li"];
+
+    pageElements = [
+        {
+            "tag": "ul",
+            "name": "row",
+            "classes": "row element",
+            "elements": [
+                {
+                    "tag": "li",
+                    "name": "col",
+                    "classes": "col-lg-6",
+                    "elements": [
+                        {
+                            "tag": "div",
+                            "name": "div",
+                            "classes": "m-1 element",
+                            "elements": [
+                                {
+                                    "tag": "h2",
+                                    "name": "h2",
+                                    "classes": "purple element",
+                                    "text": "hello :)"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "tag": "li",
+                    "name": "col",
+                    "classes": "col-lg-6",
+                    "elements": [
+                        {
+                            "tag": "div",
+                            "name": "div",
+                            "classes": "m-1 element",
+                            "elements": [
+                                {
+                                    "tag": "h2",
+                                    "name": "h2",
+                                    "classes": "purple element",
+                                    "text": "hello :)"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ];
+    
     constructor(options) {
 
         if (typeof options !== 'undefined') {
             this.options = options;
         }
-        else {
-            this.options = {
-                editorMode: true,
-                panel: {
-                    open: false,
-                }
-            };
-        }
-
-        this.editorMode = this.options.editorMode;
-        this.panelIsOpen = this.options.panel.open;
-
+        // Initialisation
         this.init();
     }
 
+    /**
+     * Initialisation
+     */
     init() {
+
+        // const loadFile = () => {
+        //     //CORS URL
+        //     let corsURL = 'https://cors-anywhere.herokuapp.com/';
+
+        //     //My File URL
+        //     let myURL = '/Users/lawrenceterpin/Documents/projects/editor/js/datas.json  ';
+
+        //     fetch(myURL, { mode: 'no-cors' })
+        //         .then(response => {
+        //             console.log(response);
+        //         })
+        //         .then(content => {
+        //             console.log(content);
+        //         })
+        // }
+
+        // loadFile();
+
+        // fetch("datas.json")
+        //     .then(response => {
+        //         return response.json();
+        //     })
+        //     .then(data => console.log(data));
+
+        this.generatePage('page', this.pageElements);
+
+        var addElementButton = document.getElementById('add-element-button');
+
+        var data = {
+            "tag": "li",
+            "id": "col",
+            "classes": "col-lg-6",
+            "elements": [{
+                "tag": "div",
+                "id": "div",
+                "classes": "m-1 element",
+                "elements": [{
+                    "tag": "h2",
+                    "id": "h2",
+                    "classes": "purple element",
+                    "text": "hello :)"
+                }]
+            }]
+        };
+
+        addElementButton.addEventListener('click', () => this.addElement('row-1', data), false);
 
         this.changeEditorMode();
 
         this.createPanel();
 
-        // Création du bouton d'ouverture du panneau
-        this.createPanelButton();
+        // On récupère le formulaire d'édition d'élément
+        this.editElementForm = document.getElementById("edit-element-form");
+        // Soumission du formulaire d'édition d'élément
+        this.editElementForm.addEventListener('submit', () => this.saveEditorForm('edit', event), false);
 
-        this.editElementsButtons = document.querySelectorAll(".edit-element > button");
+        // On récupère le formulaire d'ajout d'élément
+        this.addElementForm = document.getElementById("add-element-form");
+        // Soumission du formulaire d'ajout d'éléments
+        this.addElementForm.addEventListener('submit', () => this.saveEditorForm('add', event), false);
 
-        this.editElementsButtons.forEach(editElementButton => {
+        // Ouverture/fermeture du panneau d'édition
+        this.panelDisplay(this.options.panel.open);
 
-            editElementButton.addEventListener('click', () => this.updateDataEditorForm('edit', editElementButton), false);
-        });
+        var closePanelButton = document.getElementById('close-panel');
 
-        var addElementButtons = document.querySelectorAll(".add-element > button");
+        closePanelButton.addEventListener('click', () => this.panelDisplay(false), false);
 
-        addElementButtons.forEach(addElementButton => {
-
-            addElementButton.addEventListener('click', () => this.updateDataEditorForm('add', addElementButton), false);
-        });
-
-        var editElementForm = document.getElementById("edit-element-form");
-
-        editElementForm.addEventListener('submit', () => this.saveEditorForm('edit', event), false);
-
-        var addElementForm = document.getElementById("add-element-form");
-
-        addElementForm.addEventListener('submit', () => this.saveEditorForm('add', event), false);
-
-        this.panelDisplay(this.panelIsOpen);
-
+        // On récupère le bouton de changement de mode
         this.editorModeButton = document.getElementById('editor-mode-button');
-
+        // Au clic du bouton de changement de mode
         this.editorModeButton.addEventListener('click', () => this.changeEditorMode(), false);
-
-        // Clic du bouton d'ouverture/fermeture du panneau
-        this.editorPanelButton.addEventListener('click', () => this.panelDisplay(true), false);
     }
 
-    updateDataEditorForm(type, elementSelected) {
+    /**
+     * Mise à jour des données du formulaire d'édition
+     * 
+     * @param {*} type 
+     * @param {*} parentElementId 
+     */
+    updateEditorFormData(type, parentElementId) {
 
-        var parentElement = elementSelected.parentNode.parentNode;
-
-        console.log(type, elementSelected, parentElement);
+        this.parentElement = document.getElementById(parentElementId);
+        this.idElementSelected = this.parentElement.id;
 
         var typeElement = document.getElementById("selected-element");
-        typeElement.innerText = parentElement.tagName + "#" + parentElement.id + "." + parentElement.className;
-
-        var idValue = document.getElementById('id');
-        var classValue = document.getElementById('class');
-
-        idValue.value = parentElement.id;
-
-        this.idElementSelected = parentElement.id;
-
-        var editElementForm = document.getElementById('edit-element-form');
-        var addElementForm = document.getElementById('add-element-form');
+        typeElement.innerText = this.parentElement.tagName.toLowerCase() + "#" + this.parentElement.id + "." + this.parentElement.className;
 
         if (type == 'edit') {
-            addElementForm.className = 'd-none flex-direction-column';
-            editElementForm.className = 'd-flex flex-direction-column';
+
+            document.querySelector('#' + this.editElementForm.getAttribute('id') + ' #type').value = this.parentElement.tagName.toLowerCase();
+            document.querySelector('#' + this.editElementForm.getAttribute('id') + ' #id').value = this.parentElement.id;
+            document.querySelector('#' + this.editElementForm.getAttribute('id') + ' #classes').value = this.parentElement.classList;
+            // document.querySelector('#' + this.editElementForm.getAttribute('id') + ' #text').value = this.parentElement.innerText;
+
+            this.addElementForm.className = 'd-none flex-direction-column';
+            this.editElementForm.className = 'd-flex flex-direction-column';
         }
         else if (type == 'add') {
-            editElementForm.className = 'd-none flex-direction-column';
-            addElementForm.className = 'd-flex flex-direction-column';
+            this.editElementForm.className = 'd-none flex-direction-column';
+            this.addElementForm.className = 'd-flex flex-direction-column';
         }
 
         this.panelDisplay(true);
@@ -96,53 +183,46 @@ class Editor {
 
         event.preventDefault();
 
-        var form;
-
-        if (type == 'edit') {
-            form = document.getElementById('edit-element-form');
-        }
-        else if (type == 'add') {
-            form = document.getElementById('add-element-form');
-        }
+        var form = (type == 'edit') ? this.editElementForm : this.addElementForm;
+        var typeValue = document.querySelector('#' + form.getAttribute('id') + ' #type').value;
 
         var idValue = document.querySelector('#' + form.getAttribute('id') + ' #id').value;
         var sizeValue = document.querySelector('#' + form.getAttribute('id') + ' #size').value;
         var marginValue = document.querySelector('#' + form.getAttribute('id') + ' #margin').value;
         var paddingValue = document.querySelector('#' + form.getAttribute('id') + ' #padding').value;
-
         var bgColorValue = document.querySelector('#' + form.getAttribute('id') + ' #bg-color').value;
         var colorValue = document.querySelector('#' + form.getAttribute('id') + ' #color').value;
+        var classesValue = document.querySelector('#' + form.getAttribute('id') + ' #classes').value;
 
-        var elementSelected = document.getElementById(this.idElementSelected);
+        var textValue = document.querySelector('#' + form.getAttribute('id') + ' #text').value;
+
+        var elementSelected = this.parentElement;
 
         if (type == 'edit') {
 
-            elementSelected.className = sizeValue;
+            var data = {
+                "tag": typeValue,
+                "id": idValue,
+                "classes": classesValue,
+                "text": textValue
+            };
 
-            var content = document.querySelector("#" + elementSelected.id + " > .element");
-
-            content.className = "element p-relative " + marginValue + " " + paddingValue + " " + bgColorValue + " " + colorValue;
+            this.updateElementData(idValue, data, this.pageElements);
         }
         else if (type == 'add') {
-
-            var typeValue = document.querySelector('#' + form.getAttribute('id') + ' #type').value;
-
-            var elementToAdd = document.createElement('div');
+            // On créé le nouvel élément
+            var elementToAdd = document.createElement(typeValue);
             elementToAdd.id = idValue;
-            elementToAdd.className = "p-relative " + marginValue + " " + paddingValue + " " + bgColorValue + " " + colorValue;
-            elementToAdd.innerHTML = '<div class="edit-element p-relative">' +
-                '<button class="bg-white btn shadow">&nbsp;<i class="fa fa-edit"></i>&nbsp;</button>' +
+            elementToAdd.className = "element p-relative " + classesValue + " " + sizeValue + " " + colorValue + " " + bgColorValue;
+            elementToAdd.innerHTML = '<div class="edit-element p-absolute">' +
+                '<button class="bg-white btn shadow" onclick="editor.updateEditorFormData(\'edit\', \'' + elementToAdd.id + '\')">&nbsp;<i class="fa fa-edit"></i>&nbsp;</button>' +
                 '</div>' +
-                '<div class="element"><' + typeValue + '>Hello ;)</ ' + typeValue + '></div>';
+                '<div class="add-element p-absolute d-flex justify-content-center">' +
+                '<button class="btn shadow bg-white black" onclick="editor.updateEditorFormData(\'add\', \'' + elementToAdd.id + '\')">&nbsp;<i class="fa fa-plus"></i>&nbsp;</button>' +
+                '</div>' +
+                '<div>' + textValue + '</div>';
 
             elementSelected.appendChild(elementToAdd);
-
-            this.editElementsButtons = document.querySelectorAll(".edit-element > button");
-
-            this.editElementsButtons.forEach(editElementButton => {
-
-                editElementButton.addEventListener('click', () => this.updateDataEditorForm('edit', editElementButton), false);
-            });
         }
     }
 
@@ -152,27 +232,34 @@ class Editor {
         this.panel.setAttribute('id', 'editor-panel');
         this.panel.setAttribute('class', 'p-fixed shadow p-1');
 
-        this.panel.innerHTML = "<h2>Editeur</h2>" +
+        var content = "";
+
+        content = "<div class='p-relative'><button id='close-panel' class='btn shadow bg-purple white p-absolute'><i class='fa fa-close'></i></button></div>" +
+            "<h2>Editeur</h2>" +
             "<h3 id='selected-element'></h3>" +
             "<form id='edit-element-form' class='d-none flex-direction-column'>" +
+            "<label for='type'>Type</label>" +
+            "<select id='type' class='mb-1'>" +
+            "<option selected>Type</option>";
+
+        this.tags.forEach(tag => {
+
+            content += "<option value='" + tag + "'>" + tag + "</option>";
+        });
+
+        content += "</select>" +
             "<label for='id'>Identifiant</label>" +
             "<input type='text' id='id' name='id' placeholder='id' class='mb-1'>" +
             "<label for='size'>Taille</label>" +
             "<select id='size' class='mb-1'>" +
-            "<option selected>Tailles</option>" +
-            "<option value='col-lg-1'>col-lg-1</option>" +
-            "<option value='col-lg-2'>col-lg-2</option>" +
-            "<option value='col-lg-3'>col-lg-3</option>" +
-            "<option value='col-lg-4'>col-lg-4</option>" +
-            "<option value='col-lg-5'>col-lg-5</option>" +
-            "<option value='col-lg-6'>col-lg-6</option>" +
-            "<option value='col-lg-7'>col-lg-7</option>" +
-            "<option value='col-lg-8'>col-lg-8</option>" +
-            "<option value='col-lg-9'>col-lg-9</option>" +
-            "<option value='col-lg-10'>col-lg-10</option>" +
-            "<option value='col-lg-11'>col-lg-11</option>" +
-            "<option value='col-lg-12'>col-lg-12</option>" +
-            "</select>" +
+            "<option selected>Tailles</option>";
+
+        for (var i = 1; i <= 12; i++) {
+
+            content += "<option value='col-lg-" + i + "'>col-lg-" + i + "</option>";
+        }
+
+        content += "</select>" +
             "<label for='margin'>Marges extérieures</label>" +
             "<input type='text' id='margin' class='mb-1' placeholder='marges extérieures'>" +
             "<label for='padding'>Marges intérieures</label>" +
@@ -191,37 +278,37 @@ class Editor {
             "<option value='white'>white</option>" +
             "<option value='black'>black</option>" +
             "</select>" +
-            // "<input type='text' id='class' name='class' placeholder='class' class='mb-1'>" +
+            "<label for='text'>Classes CSS</label>" +
+            "<input type='text' id='classes' name='classes' placeholder='Classes CSS' class='mb-1'>" +
+            "<label for='text'>Texte</label>" +
+            "<input type='text' id='text' name='text' placeholder='texte' class='mb-1'>" +
             "<div class='text-center'>" +
             "<input type='submit' value='enregistrer' class='btn bg-purple shadow white'>" +
             "</div>" +
             "</form>" +
             "<form id='add-element-form' class='d-none flex-direction-column'>" +
+            "<label for='type'>Type</label>" +
             "<select id='type' class='mb-1'>" +
-            "<option selected>Type</option>" +
-            "<option value='div'>div</option>" +
-            "<option value='h2'>h2</option>" +
-            "<option value='h3'>h3</option>" +
-            "<option value='p'>p</option>" +
-            "</select>" +
+            "<option selected>Type</option>";
+
+        this.tags.forEach(tag => {
+
+            content += "<option value='" + tag + "'>" + tag + "</option>";
+        });
+
+        content += "</select>" +
             "<label for='id'>Identifiant</label>" +
             "<input type='text' id='id' name='id' placeholder='id' class='mb-1'>" +
             "<label for='size'>Taille</label>" +
             "<select id='size' class='mb-1'>" +
-            "<option selected>Tailles</option>" +
-            "<option value='col-lg-1'>col-lg-1</option>" +
-            "<option value='col-lg-2'>col-lg-2</option>" +
-            "<option value='col-lg-3'>col-lg-3</option>" +
-            "<option value='col-lg-4'>col-lg-4</option>" +
-            "<option value='col-lg-5'>col-lg-5</option>" +
-            "<option value='col-lg-6'>col-lg-6</option>" +
-            "<option value='col-lg-7'>col-lg-7</option>" +
-            "<option value='col-lg-8'>col-lg-8</option>" +
-            "<option value='col-lg-9'>col-lg-9</option>" +
-            "<option value='col-lg-10'>col-lg-10</option>" +
-            "<option value='col-lg-11'>col-lg-11</option>" +
-            "<option value='col-lg-12'>col-lg-12</option>" +
-            "</select>" +
+            "<option selected>Tailles</option>";
+
+        for (var i = 1; i <= 12; i++) {
+
+            content += "<option value='col-lg-" + i + "'>col-lg-" + i + "</option>";
+        }
+
+        content += "</select>" +
             "<label for='margin'>Marges extérieures</label>" +
             "<input type='text' id='margin' class='mb-1' placeholder='marges extérieures'>" +
             "<label for='padding'>Marges intérieures</label>" +
@@ -240,11 +327,16 @@ class Editor {
             "<option value='white'>white</option>" +
             "<option value='black'>black</option>" +
             "</select>" +
-            // "<input type='text' id='class' name='class' placeholder='class' class='mb-1'>" +
+            "<label for='text'>Classes CSS</label>" +
+            "<input type='text' id='classes' name='classes' placeholder='Classes CSS' class='mb-1'>" +
+            "<label for='text'>Texte</label>" +
+            "<input type='text' id='text' name='text' placeholder='texte' class='mb-1'>" +
             "<div class='text-center'>" +
             "<input type='submit' value='enregistrer' class='btn bg-purple shadow white'>" +
             "</div>" +
             "</form>";
+
+        this.panel.innerHTML = content;
 
         document.body.prepend(this.panel);
     }
@@ -269,42 +361,138 @@ class Editor {
      */
     panelDisplay(open) {
 
-        console.log("TEST");
+        this.options.panel.open = open;
 
-        this.panelIsOpen = open;
-
-        if (this.panelIsOpen == true) {
+        if (this.options.panel.open == true) {
             // On affiche le panneau de la liste des balises
             this.panel.classList.add("open");
-
-            this.showPanel();
         }
         else {
             // On cache le panneau de la liste des balises
             this.panel.classList.remove("open");
-
-            this.hidePanel();
         }
-    }
-
-    showPanel() {
-
-        this.editorPanelButton.innerHTML = "&nbsp;<i class='fa fa-close'></i>&nbsp;";
-    }
-
-    hidePanel() {
-
-        this.editorPanelButton.innerHTML = "&nbsp;<i class='fa fa-edit'></i>&nbsp;";
     }
 
     changeEditorMode() {
 
-        // console.log(this.editorMode);
-
-        this.editorMode = (this.editorMode) ? false : true;
+        this.options.editorMode = (this.options.editorMode) ? false : true;
 
         var editor = document.getElementById('editor');
 
-        editor.className = (this.editorMode == true) ? "" : "editor-mode";
+        editor.className = (this.options.editorMode == true) ? "" : "editor-mode";
+    }
+
+    /**
+     * Génération de la page
+     * 
+     * @param {*} pageContainerId 
+     */
+    generatePage(pageContainerId, array) {
+        // Container de la page
+        var page = document.getElementById(pageContainerId);
+
+        page.innerHTML = "";
+
+        // On ajoute les éléments
+        this.createElementsFromArray(page, array);
+    }
+
+    /**
+     * Création d'éléments à partir d'un tableau
+     * 
+     * @param {*} parent 
+     * @param {*} array 
+     */
+    createElementsFromArray(parent, array) {
+        // Pour chaque élément du tableau
+        array.forEach((element, index) => {
+
+            // On créé la balise de l'élément
+            var tag = document.createElement(element.tag);
+            // On ajoute l'identifiant de l'élément
+            array[index].id = parent.id + "-" + element.name + "-" + (index + 1);
+
+            tag.id = element.id;
+            // On ajoute la classe de l'élément
+            tag.className = element.classes;
+
+            var editElementButton = '<div class="p-relative w-100"><div class="edit-element p-absolute">' +
+                '<button class="btn bg-white purple" title="#' + tag.id + '" onclick="editor.editElement(\'' + tag.id.trim() + '\')"><i class="fa fa-edit"></i></button>' +
+                '</div></div>';
+
+            tag.innerHTML = editElementButton;
+
+            if (typeof element.text !== 'undefined') {
+                tag.innerHTML += element.text;
+            }
+
+            // Si l'élément contient un tableau d'éléments
+            if (typeof element.elements !== 'undefined') {
+                // On parcours les éléments du tableau
+                this.createElementsFromArray(tag, element.elements);
+            }
+
+            parent.appendChild(tag);
+        });
+    }
+
+
+    addElement(parentId, data) {
+
+        this.pageElements.forEach(element => {
+
+            if (element.id = parentId) {
+
+                element.elements.push(data);
+
+                this.generatePage('page', this.pageElements);
+            }
+        });
+    }
+
+    editElement(elementIdSelected) {
+
+        // On ajoute les éléments
+        this.getElementsFromArray(elementIdSelected, this.pageElements);
+    }
+
+    updateElementData(elementIdSelected, data, array) {
+
+        array.forEach((element, index) => {
+
+            if (element.id == elementIdSelected) {
+
+                array[index].tag = data.tag;
+                array[index].id = data.id;
+                array[index].classes = data.classes;
+                array[index].text = data.text;
+
+                this.generatePage('page', this.pageElements);
+            }
+
+            // Si l'élément contient un tableau d'éléments
+            if (typeof element.elements !== 'undefined') {
+
+                this.updateElementData(elementIdSelected, data, element.elements);
+            }
+        });
+    }
+
+    getElementsFromArray(elementIdSelected, array) {
+
+        // Pour chaque élément du tableau
+        array.forEach((element, index) => {
+
+            if (elementIdSelected == element.id) {
+
+                this.updateEditorFormData('edit', elementIdSelected);
+            }
+
+            // Si l'élément contient un tableau d'éléments
+            if (typeof element.elements !== 'undefined') {
+                // On parcours les éléments du tableau
+                this.getElementsFromArray(elementIdSelected, element.elements);
+            }
+        });
     }
 }

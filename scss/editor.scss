@@ -1,3 +1,4 @@
+@import "variables.scss";
 @import "positions.scss";
 @import "sizing.scss";
 @import "spacing.scss";
@@ -22,62 +23,82 @@ $zIndex: 1000;
     transition: all 0.5s;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     border-radius: 50%;
-
-    // >div {
-    //     position: relative;
-
-    //     .tags-errors {
-    //         display: none;
-    //         top: 60px;
-    //         right: 0;
-    //         z-index: calc($zIndex + 2);
-    //         width: 15px;
-    //         height: 15px;
-    //         border-radius: 50%;
-    //         color: #fff;
-    //     }
-    // }
 }
 
-// .element {
-//     display: none;
-// }
-
-.add-element {
-    display: none;
-}
-
+.add-element,
 .edit-element {
     display: none;
 }
 
 #editor.editor-mode {
 
+    i {
+        font-size: 15px !important;
+    }
+
     .element {
+        padding: $small;
         min-height: 30px;
-        border: 3px dashed $black;
+        border: 3px dashed gray;
+
+        &:hover {
+            border: 3px dashed $black;
+        }
     }
 
-    .add-element {
-        display: flex;
-        left: 0;
-        right: 0;
-        bottom: -45px;
-        z-index: 1;
-    }
+    .element,
+    ul,
+    li {
 
-    .edit-element {
-        display: flex;
-        top: -20px;
-        float: right;
-        z-index: 2;
+        .add-element {
+            display: none;
+            left: 0;
+            right: 0;
+            bottom: -30px;
+            z-index: 1;
+            opacity: 0.5;
+        }
 
-        >button {
-            i {
-                color: $black;
+        .edit-element {
+            display: none;
+            top: -30px;
+            right: -30px;
+            z-index: -1;
+            opacity: 0.5;
+
+            button {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            &:hover {
+                z-index: 100;
+                opacity: 1
+            }
+        }
+
+        &:hover {
+            position: relative;
+            background-color: rgba(0, 0, 0, 0.15);
+            z-index: 100;
+
+            >div>.add-element,
+            >div>.edit-element {
+                display: flex;
+                z-index: 100;
+                opacity: 1
             }
         }
     }
+}
+
+#editor-mode-button {
+    width: 50px;
+    height: 50px;
 }
 
 #editor-panel {
@@ -91,6 +112,13 @@ $zIndex: 1000;
     transition: all 0.5s;
     overflow-y: scroll;
 
+    #close-panel {
+        width: 50px;
+        height: 50px;
+        top: 0;
+        right: 0
+    }
+
     &.open {
         margin-right: 0;
     }
@@ -99,7 +127,6 @@ $zIndex: 1000;
 @media (max-width: 480px) {
 
     #editor-panel {
-
         &.open {
             width: auto;
             left: 0;

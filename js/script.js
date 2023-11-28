@@ -5,4 +5,4 @@ var options = {
     }
 };
 
-new Editor(options);
+var editor = new Editor(options);

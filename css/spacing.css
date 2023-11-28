@@ -1,53 +1,17 @@
-body,
-ul,
-li,
-figure {
-  margin: 0;
-  padding: 0;
-}
+/* Error: Undefined variable.
+ *    ,
+ * 10 |     padding: $small;
+ *    |              ^^^^^^
+ *    '
+ *   scss/spacing.scss 10:14  root stylesheet */
 
-.p-1 {
-  padding: 15px;
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Undefined variable.\a    \2577 \a 10 \2502      padding: $small;\a    \2502               ^^^^^^\a    \2575 \a   scss/spacing.scss 10:14  root stylesheet";
 }
-
-.p-2 {
-  padding: 30px;
-}
-
-.pl-2 {
-  padding-left: 30px;
-}
-
-.pb-1 {
-  padding-bottom: 15px;
-}
-
-.m-0 {
-  margin: 0;
-}
-
-.m-1 {
-  margin: 15px;
-}
-
-.ml-1 {
-  margin-left: 15px;
-}
-
-.ml-2 {
-  margin-left: 30px;
-}
-
-.mt-1 {
-  margin-top: 15px;
-}
-
-.mb-1 {
-  margin-bottom: 15px;
-}
-
-.mb-2 {
-  margin-bottom: 30px;
-}
-
-/*# sourceMappingURL=spacing.css.map */
