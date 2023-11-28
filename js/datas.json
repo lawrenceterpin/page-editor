@@ -1,7 +1,8 @@
 [
-    {
-        "tag": "div",
-        "name": "div",
-        "classes": "element"
-    }
+        {
+                "tag": "div",
+                "name": "div",
+                "classes": "element",
+                "elements": []
+        }
 ]
