@@ -2,6 +2,11 @@
   display: flex;
   flex-wrap: wrap;
 }
+.row > [class^=col-] {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+}
 
 .d-flex {
   display: flex;
