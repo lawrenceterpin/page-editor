@@ -5,10 +5,21 @@
                 "classes": "element",
                 "elements": [
                         {
-                                "tag": "h2",
-                                "name": "h2",
-                                "classes": "purple",
-                                "text": "salut ma poule !:)",
+                                "tag": "header",
+                                "name": "header",
+                                "classes": "row element",
+                                "elements": []
+                        },
+                        {
+                                "tag": "main",
+                                "name": "main",
+                                "classes": "element",
+                                "elements": []
+                        },
+                        {
+                                "tag": "footer",
+                                "name": "footer",
+                                "classes": "row element",
                                 "elements": []
                         }
                 ]
