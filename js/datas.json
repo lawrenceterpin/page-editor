@@ -7,19 +7,19 @@
                         {
                                 "tag": "header",
                                 "name": "header",
-                                "classes": "row element",
+                                "classes": "row",
                                 "elements": []
                         },
                         {
                                 "tag": "main",
                                 "name": "main",
-                                "classes": "element",
+                                "classes": "",
                                 "elements": []
                         },
                         {
                                 "tag": "footer",
                                 "name": "footer",
-                                "classes": "row element",
+                                "classes": "row",
                                 "elements": []
                         }
                 ]
