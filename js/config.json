@@ -56,8 +56,8 @@
           "value": "",
           "optionsValues": [
             "justify-content-start",
-            "justify-content-end",
             "justify-content-center",
+            "justify-content-end",
             "justify-content-between"
           ]
         },
