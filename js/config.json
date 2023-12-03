@@ -38,6 +38,29 @@
           "optionsValues": []
         },
         {
+          "name": "flex-direction",
+          "title": "Direction de l'alignement",
+          "type": "picker",
+          "value": "",
+          "optionsValues": [
+            "flex-direction-row",
+            "flex-direction-reverse",
+            "flex-direction-column",
+            "flex-direction-column-reverse"
+          ]
+        },
+        {
+          "name": "justify-content",
+          "title": "Alignement",
+          "type": "picker",
+          "value": "",
+          "optionsValues": [
+            "justify-content-start",
+            "justify-content-center",
+            "justify-content-between"
+          ]
+        },
+        {
           "name": "color",
           "title": "Couleur",
           "type": "picker",
