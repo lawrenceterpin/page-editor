@@ -1,4 +1,4 @@
-[
+
         {
         editorMode: true,
         editorContainerId: "editor",
@@ -60,4 +60,3 @@
             }
         }
     }
-]
