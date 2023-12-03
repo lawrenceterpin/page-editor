@@ -2,7 +2,7 @@
         {
                 "tag": "div",
                 "name": "div",
-                "classes": "element",
+                "classes": "",
                 "elements": [
                         {
                                 "tag": "header",
