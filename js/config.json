@@ -1,0 +1,61 @@
+{
+        editorMode: true,
+        editorContainerId: "editor",
+        jsonDatasUrl: "https://lawrenceterpin.github.io/page-editor/js/datas.json",
+        panel: {
+            open: false,
+            form: {
+                fields: [
+                    {
+                        name: "tag",
+                        title: "Type",
+                        type: "select",
+                        value: "",
+                        optionsValues: ["div", "header", "main", "footer", "nav", "section", "article", "h1", "h2", "h3", "h4", "ul", "li", "p", "a", "img"]
+                    },
+                    {
+                        name: "name",
+                        title: "Name",
+                        type: "hidden",
+                        value: "",
+                        optionsValues: []
+                    },
+                    {
+                        name: "color",
+                        title: "Couleur",
+                        type: "picker",
+                        value: "",
+                        optionsValues: ["purple", "white", "black"]
+                    },
+                    {
+                        name: "background",
+                        title: "Couleur de fond",
+                        type: "picker",
+                        value: "",
+                        optionsValues: ["bg-purple", "bg-white", "bg-black"]
+                    },
+                    {
+                        name: "classes",
+                        title: "Classes",
+                        type: "text",
+                        value: "",
+                        optionsValues: []
+                    },
+                    {
+                        name: "text",
+                        title: "Texte",
+                        type: "text",
+                        value: "",
+                        optionsValues: []
+                    },
+                    {
+                        name: "attributes",
+                        title: "Attributs",
+                        type: "text",
+                        value: "",
+                        optionsValues: []
+                    },
+                ]
+            }
+        }
+    }
