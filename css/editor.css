@@ -187,6 +187,14 @@ figure {
   align-items: center;
 }
 
+.align-items-start {
+  align-items: start;
+}
+
+.align-items-end {
+  align-items: end;
+}
+
 .justify-content-start {
   justify-content: start;
 }

@@ -1,63 +1,17 @@
-.row {
-  display: flex;
-  flex-wrap: wrap;
-}
-.row > [class*=col-] {
-  margin: 0 !important;
-  border: none !important;
-}
+/* Error: Undefined variable.
+ *    ,
+ * 24 |     gap: $small;
+ *    |          ^^^^^^
+ *    '
+ *   scss/flexbox.scss 24:10  root stylesheet */
 
-.d-flex {
-  display: flex;
-  flex: 0 0 auto;
+body::before {
+  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
+      "Droid Sans Mono", monospace, monospace;
+  white-space: pre;
+  display: block;
+  padding: 1em;
+  margin-bottom: 1em;
+  border-bottom: 2px solid black;
+  content: "Error: Undefined variable.\a    \2577 \a 24 \2502      gap: $small;\a    \2502           ^^^^^^\a    \2575 \a   scss/flexbox.scss 24:10  root stylesheet";
 }
-
-.wrap {
-  flex-wrap: wrap;
-}
-
-.gap-1 {
-  gap: 15px;
-}
-
-.gap-2 {
-  gap: 30px;
-}
-
-.flex-direction-row {
-  flex-direction: row;
-}
-
-.flex-direction-row-reverse {
-  flex-direction: row-reverse;
-}
-
-.flex-direction-column {
-  flex-direction: column;
-}
-
-.flex-direction-column-reverse {
-  flex-direction: column-reverse;
-}
-
-.align-items-center {
-  align-items: center;
-}
-
-.justify-content-start {
-  justify-content: start;
-}
-
-.justify-content-center {
-  justify-content: center;
-}
-
-.justify-content-end {
-  justify-content: end;
-}
-
-.justify-content-between {
-  justify-content: space-between;
-}
-
-/*# sourceMappingURL=flexbox.css.map */

@@ -21,11 +21,11 @@
 }
 
 .gap-1 {
-    gap: 15px;
+    gap: $small;
 }
 
 .gap-2 {
-    gap: 30px;
+    gap: $medium;
 }
 
 .flex-direction-row {
@@ -46,6 +46,14 @@
 
 .align-items-center {
     align-items: center;
+}
+
+.align-items-start {
+    align-items: start;
+}
+
+.align-items-end {
+    align-items: end;
 }
 
 .justify-content-start {

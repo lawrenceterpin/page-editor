@@ -477,6 +477,7 @@ class Editor {
         var classesProperties = [
             "flex-direction",
             "justify-content",
+            "align-items",
             "position",
             "color",
             "background",
@@ -487,7 +488,8 @@ class Editor {
         var className = 'element ';
 
         if (element["flex-direction"] !== '' ||
-            element["justify-content"] !== '') {
+            element["justify-content"] !== '' ||
+            element["align-items"] !== '') {
 
             className += 'row ';
         }

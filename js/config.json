@@ -62,6 +62,17 @@
           ]
         },
         {
+          "name": "align-items",
+          "title": "Alignement vertical",
+          "type": "picker",
+          "value": "",
+          "optionsValues": [
+            "align-items-center",
+            "align-items-start",
+            "align-items-end"
+          ]
+        },
+        {
           "name": "position",
           "title": "Positionnement",
           "type": "select",
@@ -109,7 +120,9 @@
           "optionsValues": [
             "purple",
             "white",
-            "black"
+            "black",
+            "success",
+            "error"
           ]
         },
         {
@@ -120,7 +133,9 @@
           "optionsValues": [
             "bg-purple",
             "bg-white",
-            "bg-black"
+            "bg-black",
+            "success",
+            "error"
           ]
         },
         {
