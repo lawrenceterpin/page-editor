@@ -132,12 +132,9 @@ img {
 .row {
   display: flex;
   flex-wrap: wrap;
-  margin-left: -15px;
-  margin-right: -15px;
 }
 .row > [class*=col-] {
   margin: 0 !important;
-  padding: 0 !important;
   border: none !important;
 }
 

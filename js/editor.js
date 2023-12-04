@@ -131,31 +131,16 @@ class Editor {
 
         this.options.panel.form.fields.forEach(field => {
 
-            // var label = "<label for='" + field.name + "'>" + field.title + "</label>";
-
-            // if (field.type !== "hidden") {
-            //     content += label;
-            // }
-
             if (field.type == "text" || field.type == "hidden") {
-
-                // var input = "<div class='input-group accordion'>" +
-                //     "<h4>" + field.title + "&nbsp;<i class='fa fa-chevron-down'></i></h4>" +
-                //     "<div>";
 
                 var input = "<input type='" + field.type + "' id='" + field.name + "' name='" + field.name + "' placeholder='" + field.title + "' class='mb-1'>";
 
-                // input += "</div>" +
-                //     "</div>";
-
                 content += input;
-
             }
             else if (field.type == "picker") {
 
                 var input = "<div class='input-group accordion mb-1 border-bottom'>" +
                     "<label for='" + field.name + "' class='d-flex justify-content-between'><h4 class='m-0'>" + field.title + "</h4><i class='fa fa-chevron-down'></i></label>" +
-                    // "<h4>" + field.title + "&nbsp;<i class='fa fa-chevron-down'></i></h4>" +
                     "<div class='p-1'>";
 
                 input += "<input type='hidden' id='" + field.name + "' name='" + field.name + "' placeholder='" + field.title + "' class='mb-1'>";
@@ -191,7 +176,7 @@ class Editor {
             else if (field.type == "select") {
 
                 var select = "<select id='" + field.name + "' name='" + field.name + "' class='mb-1'>" +
-                    "<option selected>Type</option>";
+                    "<option selected>" + field.title + "</option>";
 
                 field.optionsValues.forEach(value => {
 
@@ -284,24 +269,24 @@ class Editor {
             // On ajoute l'identifiant de l'élément
             tag.id = element.id;
 
-            tag.className = 'element';
+            if (element.top !== '') {
 
-            console.log(element['flex-direction'], element['justify-content']);
+                tag.style.top = element.top;
+            }
+            if (element.bottom !== '') {
 
-            if ((typeof element['flex-direction'] !== 'undefined' && element['flex-direction'] !== '') ||
-                (typeof element['justify-content'] !== 'undefined' && element['justify-content'] !== '')) {
+                tag.style.bottom = element.bottom;
+            }
+            if (element.left !== '') {
 
-                tag.className += ' row';
+                tag.style.left = element.left;
+            }
+            if (element.right !== '') {
+
+                tag.style.right = element.right;
             }
 
-            if (element.classes !== '') {
-
-                tag.className += ' ' + element.classes;
-            }
-
-            // On ajoute la classe de l'élément
-            tag.className += ' ' + element['flex-direction'] + ' ' + element['justify-content'] + ' ' + element.color + ' ' + element.background;
-            tag.className = tag.className.trim();
+            tag.className = this.createElementClasses(element);
 
             tag.setAttribute('draggable', 'true');
             tag.setAttribute('ondragstart', 'editor.dragit(event);');
@@ -520,5 +505,44 @@ class Editor {
         }
 
         return icon;
+    }
+
+    createElementClasses(element) {
+
+        var className = 'element';
+
+        if ((typeof element['flex-direction'] !== 'undefined' && element['flex-direction'] !== '') ||
+            (typeof element['justify-content'] !== 'undefined' && element['justify-content'] !== '')) {
+
+            className += ' row';
+        }
+
+        if (element.position !== 'undefined') {
+
+            className += ' ' + element.position;
+        }
+
+        if (element.classes !== 'undefined') {
+
+            className += ' ' + element.classes;
+        }
+
+        if (element['flex-direction'] !== 'undefined') {
+
+            className += ' ' + element['flex-direction'];
+        }
+
+        if (element['justify-content'] !== 'undefined') {
+
+            className += ' ' + element['justify-content'];
+        }
+
+        console.log(element);
+
+        // On ajoute la classe de l'élément
+        className += ' ' + element.color + ' ' + element.background;
+        className = className.trim();
+
+        return className;
     }
 }
