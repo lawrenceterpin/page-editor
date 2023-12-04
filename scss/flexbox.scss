@@ -4,7 +4,7 @@
     margin-left: -$small;
     margin-right: -$small;
 
-    >[class^=col-] {
+    >[class*="col-"] {
         margin: 0 !important;
         padding: 0 !important;
         border: none !important;

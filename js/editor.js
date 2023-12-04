@@ -283,8 +283,26 @@ class Editor {
             element.id = parent.id + "-" + element.name + "-" + (index + 1);
             // On ajoute l'identifiant de l'élément
             tag.id = element.id;
+
+            tag.className = 'element';
+
+            console.log(element['flex-direction'], element['justify-content']);
+
+            if ((typeof element['flex-direction'] !== 'undefined' && element['flex-direction'] !== '') ||
+                (typeof element['justify-content'] !== 'undefined' && element['justify-content'] !== '')) {
+
+                tag.className += ' row';
+            }
+
+            if (element.classes !== '') {
+
+                tag.className += ' ' + element.classes;
+            }
+
             // On ajoute la classe de l'élément
-            tag.className = 'element ' + element.classes + ' ' + element['flex-direction'] + ' ' + element['justify-content'] + ' ' + element.color + ' ' + element.background;
+            tag.className += ' ' + element['flex-direction'] + ' ' + element['justify-content'] + ' ' + element.color + ' ' + element.background;
+            tag.className = tag.className.trim();
+
             tag.setAttribute('draggable', 'true');
             tag.setAttribute('ondragstart', 'editor.dragit(event);');
             tag.setAttribute('ondragover', 'editor.dragover(event);');
@@ -305,6 +323,7 @@ class Editor {
                 var img = document.createElement('img');
 
                 img.setAttribute('src', element.attributes);
+                img.setAttribute('class', 'w-100');
 
                 tag.appendChild(img);
             }
