@@ -18,6 +18,10 @@ figure {
   padding-left: 30px;
 }
 
+.pt-1 {
+  padding-top: 15px;
+}
+
 .pb-1 {
   padding-bottom: 15px;
 }
@@ -224,12 +228,20 @@ input[type=text], select {
   color: #000;
 }
 
+.transparent {
+  color: transparent;
+}
+
 .bg-black {
   background-color: #000;
 }
 
 .bg-white {
   background-color: #fff;
+}
+
+.bg-transparent {
+  background-color: transparent;
 }
 
 .purple {

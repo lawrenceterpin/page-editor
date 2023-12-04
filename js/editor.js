@@ -35,16 +35,28 @@ class Editor {
 
         this.container = document.getElementById(this.options.editorContainerId)
 
-        fetch(this.options.jsonDatasUrl)
-            .then(response => {
-                return response.json();
-            })
-            .then(data => {
+        const editorDatas = localStorage.getItem("editorDatas");
 
-                this.editorDatas = data;
+        // console.log(editorDatas);
 
-                this.generatePage();
-            });
+        if (editorDatas == null) {
+
+            fetch(this.options.jsonDatasUrl)
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
+
+                    this.editorDatas = data;
+
+                    this.generatePage();
+                });
+        }
+        else {
+            this.editorDatas = JSON.parse(editorDatas);
+
+            this.generatePage();
+        }
     }
 
     /**
@@ -60,9 +72,21 @@ class Editor {
 
         this.options.panel.form.fields.forEach(field => {
 
-            var field = document.querySelector('#' + this.formId + ' #' + field.name);
+            var field = document.querySelector('#' + this.formId + ' [name=' + field.name + ']');
 
-            field.value = (this.formType == 'edit') ? this.elementSelected[field.name] : "";
+            if (this.formType == 'edit') {
+
+                if (field.type !== 'radio') {
+                    field.value = this.elementSelected[field.name];
+                }
+            }
+
+            if (this.formType == 'add') {
+
+                if (field.type !== 'radio') {
+                    field.value = "";
+                }
+            }
         });
 
         this.panelDisplay(true);
@@ -85,7 +109,28 @@ class Editor {
 
         this.options.panel.form.fields.forEach(field => {
 
-            var value = document.querySelector('#' + this.formId + ' #' + field.name).value;
+            var value = document.querySelector('#' + this.formId + ' [name="' + field.name + '"]').value;
+
+
+            if (field.type == 'picker') {
+
+                if (document.querySelector('#' + this.formId + ' [name="' + field.name + '"]:checked') !== null) {
+                    value = document.querySelector('#' + this.formId + ' [name="' + field.name + '"]:checked').value;
+                }
+            }
+            //     // console.log(document.querySelector('#' + this.formId + ' [name="' + field.name + '"]'));
+
+            //     value = document.querySelector('#' + this.formId + ' [name="' + field.name + '"]').value;
+
+            //     console.log(value);
+
+            //     //     // var radios = Array.from(document.querySelectorAll('#' + this.formId + ' [name="' + field.name + '"]:checked'));
+
+            //     //     // for (var i = 0; i < radios.length; i++) {
+
+            //     //     //     console.log(radios[i]);
+            //     //     // }
+            // }
 
             data[field.name] = value;
         });
@@ -122,7 +167,15 @@ class Editor {
 
         this.options.panel.form.fields.forEach(field => {
 
-            if (field.type == "text" || field.type == "number" || field.type == "hidden") {
+            if (field.type == "text" || field.type == "number") {
+
+                var input = "<label for='" + field.name + "'>" + field.title + "</label>" +
+
+                    "<input type='" + field.type + "' id='" + field.name + "' name='" + field.name + "' placeholder='" + field.title + "' class='mb-1'>";
+
+                content += input;
+            }
+            else if (field.type == "hidden") {
 
                 var input = "<input type='" + field.type + "' id='" + field.name + "' name='" + field.name + "' placeholder='" + field.title + "' class='mb-1'>";
 
@@ -130,42 +183,35 @@ class Editor {
             }
             else if (field.type == "picker") {
 
-                var input = "<div class='input-group accordion mb-1 border-bottom'>" +
-                    "<label for='" + field.name + "' class='d-flex justify-content-between'><h4 class='m-0'>" + field.title + "</h4><i class='fa fa-chevron-down'></i></label>" +
-                    "<div class='p-1'>";
-
-                input += "<input type='hidden' id='" + field.name + "' name='" + field.name + "' placeholder='" + field.title + "' class='mb-1'>";
-
-                content += input;
-
-                var picker = "<ul class='colors-grid d-flex mb-1 gap-1'>";
+                var input = "<div class='input-group accordion mb-1 pb-1 border-bottom'>" +
+                    "<label for='" + field.name + "' class='d-flex justify-content-between pt-1'><h4 class='m-0'>" + field.title + "</h4><i class='fa fa-chevron-down'></i></label>" +
+                    "<div class='colors-grid row align-items-center pt-1 pb-1 gap-1'>";
 
                 field.optionsValues.forEach(value => {
 
                     var colorClass = "bg-" + value.replace('bg-', '');
 
-                    picker += "<li class='d-flex align-items-center justify-content-center " + colorClass + " border' onclick='editor.editFieldValue(\"" + field.name + "\", \"" + value + "\")'>";
+                    // var selectedClass = (this.elementSelected[field.name] == value) ? 'selected' : '';
 
                     if (field.name !== 'color' && field.name !== 'background') {
 
                         var iconClass = this.getIconByName(value);
-
-                        picker += "<i class='fa " + iconClass + "'></i>";
                     }
 
-                    picker += "</li>";
-
+                    input += "<input type='radio' id='" + value + "' name='" + field.name + "' value='" + value + "'  class='d-flex align-items-center justify-content-center " + colorClass + " border'>" +
+                        "<label for='" + value + "' class='d-flex justify-content-center align-items-center " + colorClass + "' title='" + value + "'><i class='fa " + iconClass + "'></i></label>";
                 });
 
-                picker += "</ul>" +
-                    "</div>" +
+                input += "</div>" +
                     "</div>";
 
-                content += picker;
+                content += input;
             }
             else if (field.type == "select") {
 
-                var select = "<select id='" + field.name + "' name='" + field.name + "' class='mb-1'>" +
+                var select = "<label for='" + field.name + "'>" + field.title + "</label>" +
+
+                    "<select id='" + field.name + "' name='" + field.name + "' class='mb-1'>" +
                     "<option value='' selected>" + field.title + "</option>";
 
                 field.optionsValues.forEach(value => {
@@ -352,9 +398,10 @@ class Editor {
                             element[field.name] = data[field.name];
                         });
                     }
-
                     // On regénère la page
                     this.generatePage();
+
+                    this.saveDatas();
                 }
                 else {
 
@@ -452,6 +499,18 @@ class Editor {
 
             icon = "fa-align-justify";
         }
+        else if (name == 'align-items-center') {
+
+            icon = "fa-align-center";
+        }
+        else if (name == 'align-items-start') {
+
+            icon = "fa-align-left";
+        }
+        else if (name == 'align-items-end') {
+
+            icon = "fa-align-right";
+        }
         else if (name == 'flex-direction-row') {
 
             icon = "fa-long-arrow-right";
@@ -475,6 +534,7 @@ class Editor {
     createElementClasses(element) {
 
         var classesProperties = [
+            "display",
             "flex-direction",
             "justify-content",
             "align-items",
@@ -487,9 +547,7 @@ class Editor {
         // On ajoute la classe de l'élément
         var className = 'element ';
 
-        if (element["flex-direction"] !== '' ||
-            element["justify-content"] !== '' ||
-            element["align-items"] !== '') {
+        if (element["display"] == '') {
 
             className += 'row ';
         }
@@ -502,5 +560,12 @@ class Editor {
         className = className.trim();
 
         return className;
+    }
+
+    saveDatas() {
+
+        localStorage.setItem("editorDatas", JSON.stringify(this.editorDatas));
+
+        alert('Les données ont été sauvegardées');
     }
 }

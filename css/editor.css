@@ -101,6 +101,10 @@ figure {
   padding-left: 30px;
 }
 
+.pt-1 {
+  padding-top: 15px;
+}
+
 .pb-1 {
   padding-bottom: 15px;
 }
@@ -224,12 +228,20 @@ input[type=text], select {
   color: #000;
 }
 
+.transparent {
+  color: transparent;
+}
+
 .bg-black {
   background-color: #000;
 }
 
 .bg-white {
   background-color: #fff;
+}
+
+.bg-transparent {
+  background-color: transparent;
 }
 
 .purple {
@@ -376,14 +388,23 @@ input[type=text], select {
 #editor-panel.open {
   margin-right: 0;
 }
-#editor-panel .colors-grid li {
-  width: 50px;
-  height: 50px;
+#editor-panel .accordion > label {
   cursor: pointer;
 }
 #editor-panel .accordion > div {
   display: none;
-  flex-direction: column;
+}
+#editor-panel .accordion > div input[type=radio] {
+  display: none;
+}
+#editor-panel .accordion > div input[type=radio] + label {
+  width: 30px;
+  height: 30px;
+  padding: 0.3rem 0.5rem;
+  border: 1px dashed #ccc;
+}
+#editor-panel .accordion > div input[type=radio]:checked + label {
+  border: 4px solid #000;
 }
 
 @media (max-width: 480px) {
