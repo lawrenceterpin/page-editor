@@ -62,6 +62,46 @@
           ]
         },
         {
+          "name": "position",
+          "title": "Positionnement",
+          "type": "select",
+          "value": "",
+          "optionsValues": [
+            "p-relative",
+            "p-absolute",
+            "p-fixed",
+            "p-static"
+          ]
+        },
+        {
+          "name": "top",
+          "title": "Haut",
+          "type": "text",
+          "value": "",
+          "optionsValues": []
+        },
+        {
+          "name": "bottom",
+          "title": "Bas",
+          "type": "text",
+          "value": "",
+          "optionsValues": []
+        },
+        {
+          "name": "left",
+          "title": "Gauche",
+          "type": "text",
+          "value": "",
+          "optionsValues": []
+        },
+        {
+          "name": "right",
+          "title": "Droite",
+          "type": "text",
+          "value": "",
+          "optionsValues": []
+        },
+        {
           "name": "color",
           "title": "Couleur",
           "type": "picker",
