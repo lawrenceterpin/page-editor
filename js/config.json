@@ -123,6 +123,13 @@
           "value": "",
           "optionsValues": []
         },
+         {
+          "name": "z-index",
+          "title": "Z-index",
+          "type": "text",
+          "value": "",
+          "optionsValues": []
+        },
         {
           "name": "color",
           "title": "Couleur",
