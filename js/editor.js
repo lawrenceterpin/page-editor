@@ -53,24 +53,16 @@ class Editor {
     updateEditorFormValues() {
 
         var typeElement = document.getElementById("selected-element");
-        typeElement.innerText = "élément: " + this.elementSelected.tag + "#" + this.elementSelected.id;
+        typeElement.innerText = this.elementSelected.tag + "#" + this.elementSelected.id;
 
         var formType = document.getElementById("form-type");
         formType.innerText = ((this.formType == 'add') ? 'Ajouter l\'élément' : 'Modifier l\'élément');
 
         this.options.panel.form.fields.forEach(field => {
 
-            var field = document.querySelector('#' + this.form.getAttribute('id') + ' #' + field.name);
+            var field = document.querySelector('#' + this.formId + ' #' + field.name);
 
-            if (this.formType == 'edit') {
-                if (typeof this.elementSelected[field.name] !== 'undefined') {
-                    field.value = this.elementSelected[field.name];
-                }
-            }
-            else if (this.formType == 'add') {
-
-                field.value = "";
-            }
+            field.value = (this.formType == 'edit') ? this.elementSelected[field.name] : "";
         });
 
         this.panelDisplay(true);
@@ -85,15 +77,15 @@ class Editor {
 
         event.preventDefault();
 
-        var typeValue = document.querySelector('#' + this.form.getAttribute('id') + ' #tag').value;
+        var typeValue = document.querySelector('#' + this.formId + ' #tag').value;
 
-        document.querySelector('#' + this.form.getAttribute('id') + ' #name').value = typeValue;
+        document.querySelector('#' + this.formId + ' #name').value = typeValue;
 
         var data = {};
 
         this.options.panel.form.fields.forEach(field => {
 
-            var value = document.querySelector('#' + this.form.getAttribute('id') + ' #' + field.name).value;
+            var value = document.querySelector('#' + this.formId + ' #' + field.name).value;
 
             data[field.name] = value;
         });
@@ -112,7 +104,6 @@ class Editor {
         this.editorModeButton.setAttribute('id', 'editor-mode-button');
         this.editorModeButton.setAttribute('class', 'p-absolute btn shadow round');
         this.editorModeButton.setAttribute('onclick', 'editor.editorMode()');
-
         this.editorModeButton.innerHTML = '<i class="fa fa-eye"></i></button>';
 
         document.body.prepend(this.editorModeButton);
@@ -122,16 +113,16 @@ class Editor {
         this.panel.setAttribute('id', 'editor-panel');
         this.panel.setAttribute('class', 'p-fixed shadow p-1');
 
-        var content = "<div class='p-relative'>" +
-            "<button id='close-panel' class='btn shadow bg-purple white p-absolute' onclick='editor.panelDisplay(false)'><i class='fa fa-close'></i></button>" +
-            "</div>" +
+        var content = "<div class='d-flex justify-content-between'>" +
             "<h2 id='form-type'>" + ((this.formType == 'add') ? 'Ajouter l\'élément' : 'Modifier l\'élément') + "</h2>" +
+            "<button id='close-panel' class='btn shadow bg-purple white' onclick='editor.panelDisplay(false)'><i class='fa fa-close'></i></button>" +
+            "</div>" +
             "<h3 id='selected-element'></h3>" +
-            "<form id='editor-form' class='d-flex flex-direction-column'>";
+            "<form id='editor-form' class='d-flex flex-direction-column' onsubmit='editor.submitEditorForm(event)'>";
 
         this.options.panel.form.fields.forEach(field => {
 
-            if (field.type == "text" || field.type == "hidden") {
+            if (field.type == "text" || field.type == "number" || field.type == "hidden") {
 
                 var input = "<input type='" + field.type + "' id='" + field.name + "' name='" + field.name + "' placeholder='" + field.title + "' class='mb-1'>";
 
@@ -147,12 +138,11 @@ class Editor {
 
                 content += input;
 
-                var picker = "<ul class='colors-grid d-flex mb-1'>";
+                var picker = "<ul class='colors-grid d-flex mb-1 gap-1'>";
 
                 field.optionsValues.forEach(value => {
 
-                    var colorClass = value.replace('bg-', '');
-                    colorClass = "bg-" + colorClass;
+                    var colorClass = "bg-" + value.replace('bg-', '');
 
                     picker += "<li class='d-flex align-items-center justify-content-center " + colorClass + " border' onclick='editor.editFieldValue(\"" + field.name + "\", \"" + value + "\")'>";
 
@@ -167,8 +157,8 @@ class Editor {
 
                 });
 
-                picker += "</ul>";
-                picker += "</div>" +
+                picker += "</ul>" +
+                    "</div>" +
                     "</div>";
 
                 content += picker;
@@ -176,7 +166,7 @@ class Editor {
             else if (field.type == "select") {
 
                 var select = "<select id='" + field.name + "' name='" + field.name + "' class='mb-1'>" +
-                    "<option selected>" + field.title + "</option>";
+                    "<option value='' selected>" + field.title + "</option>";
 
                 field.optionsValues.forEach(value => {
 
@@ -198,10 +188,9 @@ class Editor {
 
         document.body.prepend(this.panel);
 
-        // On récupère le formulaire d'édition d'élément
+        // On récupère le formulaire d'édition
         this.form = document.getElementById("editor-form");
-
-        this.form.addEventListener('submit', () => this.submitEditorForm(event), false);
+        this.formId = this.form.getAttribute('id');
 
         // Ouverture/fermeture du panneau d'édition 
         this.panelDisplay(this.options.panel.open);
@@ -269,22 +258,15 @@ class Editor {
             // On ajoute l'identifiant de l'élément
             tag.id = element.id;
 
-            if (element.top !== '') {
+            var styleProperties = ["top", "bottom", "left", "right"];
 
-                tag.style.top = element.top;
-            }
-            if (element.bottom !== '') {
+            styleProperties.forEach(property => {
 
-                tag.style.bottom = element.bottom;
-            }
-            if (element.left !== '') {
+                if (element[property] !== '') {
 
-                tag.style.left = element.left;
-            }
-            if (element.right !== '') {
-
-                tag.style.right = element.right;
-            }
+                    tag.style[property] = element[property];
+                }
+            });
 
             tag.className = this.createElementClasses(element);
 
@@ -313,7 +295,7 @@ class Editor {
                 tag.appendChild(img);
             }
 
-            if (typeof element.text !== 'undefined') {
+            if (element.text !== '') {
                 tag.innerHTML += element.text;
             }
 
@@ -398,7 +380,6 @@ class Editor {
         if (this.shadow.className !== 'edit-element p-relative w-100' && (e.target.parentNode.id == this.shadow.parentNode.id)) {
 
             setTimeout(() => {
-
                 // if (e.target.id !== this.shadow.id) {
                 // console.log(children.indexOf(e.target), children.indexOf(this.shadow));
 
@@ -440,23 +421,7 @@ class Editor {
 
                 if (panel.style.display !== "none") {
                     panel.style.display = "flex";
-
-                    return;
                 }
-
-                // console.log(panel.style.display);
-
-                // if (panel.style.display == "none") {
-                //     panel.style.display = "none";
-
-                //     return;
-                // }
-
-                // if (panel.style.display == 'flex') {
-                //     panel.style.display = "none";
-                // }
-
-
             });
         }
     }
@@ -509,38 +474,29 @@ class Editor {
 
     createElementClasses(element) {
 
-        var className = 'element';
-
-        if ((typeof element['flex-direction'] !== 'undefined' && element['flex-direction'] !== '') ||
-            (typeof element['justify-content'] !== 'undefined' && element['justify-content'] !== '')) {
-
-            className += ' row';
-        }
-
-        if (element.position !== 'undefined') {
-
-            className += ' ' + element.position;
-        }
-
-        if (element.classes !== 'undefined') {
-
-            className += ' ' + element.classes;
-        }
-
-        if (element['flex-direction'] !== 'undefined') {
-
-            className += ' ' + element['flex-direction'];
-        }
-
-        if (element['justify-content'] !== 'undefined') {
-
-            className += ' ' + element['justify-content'];
-        }
-
-        console.log(element);
+        var classesProperties = [
+            "flex-direction",
+            "justify-content",
+            "position",
+            "color",
+            "background",
+            "classes"
+        ];
 
         // On ajoute la classe de l'élément
-        className += ' ' + element.color + ' ' + element.background;
+        var className = 'element ';
+
+        if (element["flex-direction"] !== '' ||
+            element["justify-content"] !== '') {
+
+            className += 'row ';
+        }
+
+        classesProperties.forEach(property => {
+
+            className += element[property] + ' ';
+        });
+
         className = className.trim();
 
         return className;

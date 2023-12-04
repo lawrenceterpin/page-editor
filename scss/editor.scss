@@ -58,6 +58,7 @@ $zIndex: 1000;
             }
 
             #edit-element-button {
+                display: none;
                 position: absolute;
                 top: -$medium;
                 right: -$medium;
@@ -86,18 +87,19 @@ $zIndex: 1000;
         }
 
         &:hover {
-            // position: relative;
             background-color: rgba(0, 0, 0, 0.15);
             border: 3px dashed $black;
             z-index: 100;
 
             >.edit-element-options {
-                // display: flex;
+
+                #edit-element-button {
+                    display: flex;
+                }
 
                 #edit-element-buttons {
                     opacity: 1;
                     z-index: 100;
-                    // min-width: 400px;
                     justify-content: flex-end;
                     font-size: 14px;
                     color: $black;

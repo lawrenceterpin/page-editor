@@ -303,6 +303,7 @@ input[type=text], select {
   font-size: 15px;
 }
 #editor.editor-mode .element .edit-element-options #edit-element-button {
+  display: none;
   position: absolute;
   top: -30px;
   right: -30px;
@@ -329,6 +330,9 @@ input[type=text], select {
   background-color: rgba(0, 0, 0, 0.15);
   border: 3px dashed #000;
   z-index: 100;
+}
+#editor.editor-mode .element:hover > .edit-element-options #edit-element-button {
+  display: flex;
 }
 #editor.editor-mode .element:hover > .edit-element-options #edit-element-buttons {
   opacity: 1;
