@@ -67,8 +67,8 @@
           "type": "picker",
           "value": "",
           "optionsValues": [
-            "align-items-center",
             "align-items-start",
+            "align-items-center",
             "align-items-end"
           ]
         },
@@ -118,6 +118,7 @@
           "type": "picker",
           "value": "",
           "optionsValues": [
+            "transparent",
             "purple",
             "white",
             "black",
@@ -131,6 +132,7 @@
           "type": "picker",
           "value": "",
           "optionsValues": [
+            "bg-transparent",
             "bg-purple",
             "bg-white",
             "bg-black",
