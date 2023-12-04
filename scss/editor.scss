@@ -25,9 +25,12 @@ $zIndex: 1000;
     border-radius: 50%;
 }
 
-.add-element,
-.edit-element {
+.edit-element-options {
     display: none;
+}
+
+#editor {
+    height: 100%;
 }
 
 #editor.editor-mode {
@@ -37,74 +40,43 @@ $zIndex: 1000;
         font-size: 15px !important;
     }
 
-    .element,
-    header,
-    section,
-    h1,
-    h2,
-    nav,
-    li,
-    ul {
+    .element {
         margin: $medium;
         border: 3px dashed gray;
-
-        &:hover {
-            border: 3px dashed $black;
-        }
-    }
-
-    .element,
-    ul,
-    li,
-    h1,
-    h2,
-    h3,
-    nav,
-    header,
-    section {
         min-width: 100px;
         min-height: 100px;
-        background-color: rgba(0, 0, 0, 0.15);
 
-        .add-element {
-            display: none;
+        .edit-element-options {
+            display: flex;
+            flex-direction: row-reverse;
+            height: 0;
 
-            >div {
+            #edit-element-tag {
                 left: 0;
-                right: 0;
-                bottom: -30px;
-                justify-content: center;
-                z-index: 1;
-                opacity: 0.5;
-
-                button {
-                    width: 50px;
-                    height: 50px;
-                    border-radius: 50%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
+                top: -25px;
+                font-size: $small;
             }
-        }
 
-        .edit-element {
-            display: none;
+            #edit-element-button {
+                position: absolute;
+                top: -$medium;
+                right: -$medium;
+            }
 
-            >div {
-                top: 0;
-                right: 0;
+            #edit-element-buttons {
+                top: -$medium;
+                right: -$medium + calc($medium + $medium);
                 z-index: -1;
                 opacity: 0.5;
+            }
 
-                button {
-                    width: 50px;
-                    height: 50px;
-                    border-radius: 50%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
+            button {
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
 
             &:hover {
@@ -114,18 +86,18 @@ $zIndex: 1000;
         }
 
         &:hover {
-            position: relative;
+            // position: relative;
             background-color: rgba(0, 0, 0, 0.15);
+            border: 3px dashed $black;
             z-index: 100;
 
-            >.add-element,
-            >.edit-element {
-                display: flex;
+            >.edit-element-options {
+                // display: flex;
 
-                >div {
+                #edit-element-buttons {
                     opacity: 1;
                     z-index: 100;
-                    min-width: 400px;
+                    // min-width: 400px;
                     justify-content: flex-end;
                     font-size: 14px;
                     color: $black;
@@ -147,7 +119,7 @@ $zIndex: 1000;
     z-index: $zIndex;
     width: $seoCheckerPanelSize;
     margin-right: -$seoCheckerPanelSize - 30;
-    background-color: rgb(255 255 255 / 70%);
+    background-color: rgb(255 255 255 / 75%);
     transition: all 0.5s;
     overflow-y: scroll;
 
@@ -160,6 +132,22 @@ $zIndex: 1000;
 
     &.open {
         margin-right: 0;
+    }
+
+    .colors-grid {
+
+        li {
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+        }
+    }
+
+    .accordion {
+        >div {
+            display: none;
+            flex-direction: column;
+        }
     }
 }
 

@@ -106,7 +106,7 @@ figure {
 }
 
 .m-0 {
-  margin: 0;
+  margin: 0 !important;
 }
 
 .m-1 {
@@ -136,6 +136,8 @@ figure {
 .row {
   display: flex;
   flex-wrap: wrap;
+  margin-left: -15px;
+  margin-right: -15px;
 }
 .row > [class^=col-] {
   margin: 0 !important;
@@ -164,20 +166,32 @@ figure {
   flex-direction: row;
 }
 
+.flex-direction-row-reverse {
+  flex-direction: row-reverse;
+}
+
 .flex-direction-column {
   flex-direction: column;
 }
 
-.flex-direction-row-reverse {
-  flex-direction: row-reverse;
+.flex-direction-column-reverse {
+  flex-direction: column-reverse;
 }
 
 .align-items-center {
   align-items: center;
 }
 
+.justify-content-start {
+  justify-content: start;
+}
+
 .justify-content-center {
   justify-content: center;
+}
+
+.justify-content-end {
+  justify-content: end;
 }
 
 .justify-content-between {
@@ -253,9 +267,12 @@ input[type=text], select {
   border-radius: 50%;
 }
 
-.add-element,
-.edit-element {
+.edit-element-options {
   display: none;
+}
+
+#editor {
+  height: 100%;
 }
 
 #editor.editor-mode {
@@ -264,117 +281,34 @@ input[type=text], select {
 #editor.editor-mode i {
   font-size: 15px !important;
 }
-#editor.editor-mode .element,
-#editor.editor-mode header,
-#editor.editor-mode section,
-#editor.editor-mode h1,
-#editor.editor-mode h2,
-#editor.editor-mode nav,
-#editor.editor-mode li,
-#editor.editor-mode ul {
+#editor.editor-mode .element {
   margin: 30px;
   border: 3px dashed gray;
-}
-#editor.editor-mode .element:hover,
-#editor.editor-mode header:hover,
-#editor.editor-mode section:hover,
-#editor.editor-mode h1:hover,
-#editor.editor-mode h2:hover,
-#editor.editor-mode nav:hover,
-#editor.editor-mode li:hover,
-#editor.editor-mode ul:hover {
-  border: 3px dashed #000;
-}
-#editor.editor-mode .element,
-#editor.editor-mode ul,
-#editor.editor-mode li,
-#editor.editor-mode h1,
-#editor.editor-mode h2,
-#editor.editor-mode h3,
-#editor.editor-mode nav,
-#editor.editor-mode header,
-#editor.editor-mode section {
   min-width: 100px;
   min-height: 100px;
-  background-color: rgba(0, 0, 0, 0.15);
 }
-#editor.editor-mode .element .add-element,
-#editor.editor-mode ul .add-element,
-#editor.editor-mode li .add-element,
-#editor.editor-mode h1 .add-element,
-#editor.editor-mode h2 .add-element,
-#editor.editor-mode h3 .add-element,
-#editor.editor-mode nav .add-element,
-#editor.editor-mode header .add-element,
-#editor.editor-mode section .add-element {
-  display: none;
-}
-#editor.editor-mode .element .add-element > div,
-#editor.editor-mode ul .add-element > div,
-#editor.editor-mode li .add-element > div,
-#editor.editor-mode h1 .add-element > div,
-#editor.editor-mode h2 .add-element > div,
-#editor.editor-mode h3 .add-element > div,
-#editor.editor-mode nav .add-element > div,
-#editor.editor-mode header .add-element > div,
-#editor.editor-mode section .add-element > div {
-  left: 0;
-  right: 0;
-  bottom: -30px;
-  justify-content: center;
-  z-index: 1;
-  opacity: 0.5;
-}
-#editor.editor-mode .element .add-element > div button,
-#editor.editor-mode ul .add-element > div button,
-#editor.editor-mode li .add-element > div button,
-#editor.editor-mode h1 .add-element > div button,
-#editor.editor-mode h2 .add-element > div button,
-#editor.editor-mode h3 .add-element > div button,
-#editor.editor-mode nav .add-element > div button,
-#editor.editor-mode header .add-element > div button,
-#editor.editor-mode section .add-element > div button {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
+#editor.editor-mode .element .edit-element-options {
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: row-reverse;
+  height: 0;
 }
-#editor.editor-mode .element .edit-element,
-#editor.editor-mode ul .edit-element,
-#editor.editor-mode li .edit-element,
-#editor.editor-mode h1 .edit-element,
-#editor.editor-mode h2 .edit-element,
-#editor.editor-mode h3 .edit-element,
-#editor.editor-mode nav .edit-element,
-#editor.editor-mode header .edit-element,
-#editor.editor-mode section .edit-element {
-  display: none;
+#editor.editor-mode .element .edit-element-options #edit-element-tag {
+  left: 0;
+  top: -25px;
+  font-size: 15px;
 }
-#editor.editor-mode .element .edit-element > div,
-#editor.editor-mode ul .edit-element > div,
-#editor.editor-mode li .edit-element > div,
-#editor.editor-mode h1 .edit-element > div,
-#editor.editor-mode h2 .edit-element > div,
-#editor.editor-mode h3 .edit-element > div,
-#editor.editor-mode nav .edit-element > div,
-#editor.editor-mode header .edit-element > div,
-#editor.editor-mode section .edit-element > div {
-  top: 0;
-  right: 0;
+#editor.editor-mode .element .edit-element-options #edit-element-button {
+  position: absolute;
+  top: -30px;
+  right: -30px;
+}
+#editor.editor-mode .element .edit-element-options #edit-element-buttons {
+  top: -30px;
+  right: 30px;
   z-index: -1;
   opacity: 0.5;
 }
-#editor.editor-mode .element .edit-element > div button,
-#editor.editor-mode ul .edit-element > div button,
-#editor.editor-mode li .edit-element > div button,
-#editor.editor-mode h1 .edit-element > div button,
-#editor.editor-mode h2 .edit-element > div button,
-#editor.editor-mode h3 .edit-element > div button,
-#editor.editor-mode nav .edit-element > div button,
-#editor.editor-mode header .edit-element > div button,
-#editor.editor-mode section .edit-element > div button {
+#editor.editor-mode .element .edit-element-options button {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -382,72 +316,18 @@ input[type=text], select {
   align-items: center;
   justify-content: center;
 }
-#editor.editor-mode .element .edit-element:hover,
-#editor.editor-mode ul .edit-element:hover,
-#editor.editor-mode li .edit-element:hover,
-#editor.editor-mode h1 .edit-element:hover,
-#editor.editor-mode h2 .edit-element:hover,
-#editor.editor-mode h3 .edit-element:hover,
-#editor.editor-mode nav .edit-element:hover,
-#editor.editor-mode header .edit-element:hover,
-#editor.editor-mode section .edit-element:hover {
+#editor.editor-mode .element .edit-element-options:hover {
   z-index: 100;
   opacity: 1;
 }
-#editor.editor-mode .element:hover,
-#editor.editor-mode ul:hover,
-#editor.editor-mode li:hover,
-#editor.editor-mode h1:hover,
-#editor.editor-mode h2:hover,
-#editor.editor-mode h3:hover,
-#editor.editor-mode nav:hover,
-#editor.editor-mode header:hover,
-#editor.editor-mode section:hover {
-  position: relative;
+#editor.editor-mode .element:hover {
   background-color: rgba(0, 0, 0, 0.15);
+  border: 3px dashed #000;
   z-index: 100;
 }
-#editor.editor-mode .element:hover > .add-element,
-#editor.editor-mode .element:hover > .edit-element,
-#editor.editor-mode ul:hover > .add-element,
-#editor.editor-mode ul:hover > .edit-element,
-#editor.editor-mode li:hover > .add-element,
-#editor.editor-mode li:hover > .edit-element,
-#editor.editor-mode h1:hover > .add-element,
-#editor.editor-mode h1:hover > .edit-element,
-#editor.editor-mode h2:hover > .add-element,
-#editor.editor-mode h2:hover > .edit-element,
-#editor.editor-mode h3:hover > .add-element,
-#editor.editor-mode h3:hover > .edit-element,
-#editor.editor-mode nav:hover > .add-element,
-#editor.editor-mode nav:hover > .edit-element,
-#editor.editor-mode header:hover > .add-element,
-#editor.editor-mode header:hover > .edit-element,
-#editor.editor-mode section:hover > .add-element,
-#editor.editor-mode section:hover > .edit-element {
-  display: flex;
-}
-#editor.editor-mode .element:hover > .add-element > div,
-#editor.editor-mode .element:hover > .edit-element > div,
-#editor.editor-mode ul:hover > .add-element > div,
-#editor.editor-mode ul:hover > .edit-element > div,
-#editor.editor-mode li:hover > .add-element > div,
-#editor.editor-mode li:hover > .edit-element > div,
-#editor.editor-mode h1:hover > .add-element > div,
-#editor.editor-mode h1:hover > .edit-element > div,
-#editor.editor-mode h2:hover > .add-element > div,
-#editor.editor-mode h2:hover > .edit-element > div,
-#editor.editor-mode h3:hover > .add-element > div,
-#editor.editor-mode h3:hover > .edit-element > div,
-#editor.editor-mode nav:hover > .add-element > div,
-#editor.editor-mode nav:hover > .edit-element > div,
-#editor.editor-mode header:hover > .add-element > div,
-#editor.editor-mode header:hover > .edit-element > div,
-#editor.editor-mode section:hover > .add-element > div,
-#editor.editor-mode section:hover > .edit-element > div {
+#editor.editor-mode .element:hover > .edit-element-options #edit-element-buttons {
   opacity: 1;
   z-index: 100;
-  min-width: 400px;
   justify-content: flex-end;
   font-size: 14px;
   color: #000;
@@ -465,7 +345,7 @@ input[type=text], select {
   z-index: 1000;
   width: 400px;
   margin-right: -430px;
-  background-color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(255, 255, 255, 0.75);
   transition: all 0.5s;
   overflow-y: scroll;
 }
@@ -477,6 +357,15 @@ input[type=text], select {
 }
 #editor-panel.open {
   margin-right: 0;
+}
+#editor-panel .colors-grid li {
+  width: 50px;
+  height: 50px;
+  cursor: pointer;
+}
+#editor-panel .accordion > div {
+  display: none;
+  flex-direction: column;
 }
 
 @media (max-width: 480px) {

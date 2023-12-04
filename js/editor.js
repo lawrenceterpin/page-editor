@@ -1,38 +1,39 @@
 class Editor {
-    // Options de la classe Editor
-    options = {
-        editorMode: true,
-        editorContainerId: "editor",
-        jsonDatasUrl: "https://lawrenceterpin.github.io/page-editor/js/datas.json",
-        panel: {
-            open: false,
-        }
-    };
 
-    tags = ["header", "main", "footer", "nav", "section", "article", "h1", "h2", "h3", "h4", "ul", "li", "p", "a"];
+    configUrl = "https://lawrenceterpin.github.io/page-editor/js/config.json";
 
     constructor(options) {
 
-        if (typeof options !== 'undefined') {
-            this.options = options;
-        }
+        // if (typeof options !== 'undefined') {
+        //     this.options = options;
+        // }
+
         // Initialisation
-        this.init();
+        this.loadConfig();
     }
 
-    /**
-     * Initialisation
-     */
-    init() {
+    loadConfig() {
 
-        this.loadData();
+        fetch(this.configUrl)
+            .then(response => {
 
-        this.editorModeEnable();
+                return response.json();
+            })
+            .then(data => {
 
-        this.createPanel();
+                this.options = data;
+
+                this.loadDatas();
+
+                this.editorMode();
+
+                this.createEditorPanel();
+            });
     }
 
-    loadData() {
+    loadDatas() {
+
+        this.container = document.getElementById(this.options.editorContainerId)
 
         fetch(this.options.jsonDatasUrl)
             .then(response => {
@@ -40,84 +41,77 @@ class Editor {
             })
             .then(data => {
 
-                this.pageDatas = data;
+                this.editorDatas = data;
 
                 this.generatePage();
             });
     }
 
     /**
-     * Mise à jour des données du formulaire d'édition
-     * 
-     * @param {*} type 
-     * @param {*} parentElementId 
+     * Affichage du formulaire d'édition
      */
-    displayEditorForm(type) {
-
-        this.form = (type == 'edit') ? this.editElementForm : this.addElementForm;
-
-        this.elementSelected = document.getElementById(this.elementIdSelected);
+    updateEditorFormValues() {
 
         var typeElement = document.getElementById("selected-element");
-        typeElement.innerText = "élément: " + this.elementSelected.tagName.toLowerCase() + "#" + this.elementIdSelected;
+        typeElement.innerText = "élément: " + this.elementSelected.tag + "#" + this.elementSelected.id;
 
-        if (type == 'edit') {
+        var formType = document.getElementById("form-type");
+        formType.innerText = ((this.formType == 'add') ? 'Ajouter l\'élément' : 'Modifier l\'élément');
 
-            document.querySelector('#' + this.form.getAttribute('id') + ' #type').value = this.elementSelected.tagName.toLowerCase();
-            document.querySelector('#' + this.form.getAttribute('id') + ' #classes').value = this.elementSelected.classList;
-            // document.querySelector('#' + this.editElementForm.getAttribute('id') + ' #text').value = this.parentElement.innerText;
+        this.options.panel.form.fields.forEach(field => {
 
-            this.addElementForm.className = 'd-none flex-direction-column';
-        }
-        else if (type == 'add') {
+            var field = document.querySelector('#' + this.form.getAttribute('id') + ' #' + field.name);
 
-            document.querySelector('#' + this.form.getAttribute('id') + ' #type').value = "";
-            document.querySelector('#' + this.form.getAttribute('id') + ' #classes').value = "";
-            document.querySelector('#' + this.form.getAttribute('id') + ' #text').value = "";
+            if (this.formType == 'edit') {
+                if (typeof this.elementSelected[field.name] !== 'undefined') {
+                    field.value = this.elementSelected[field.name];
+                }
+            }
+            else if (this.formType == 'add') {
 
-            this.editElementForm.className = 'd-none flex-direction-column';
-        }
-
-        this.form.className = 'd-flex flex-direction-column';
+                field.value = "";
+            }
+        });
 
         this.panelDisplay(true);
     }
 
-    saveEditorForm(type, event) {
+    /**
+    * Soumission du formulaire d'édition
+    * 
+    * @param {Object} event 
+    */
+    submitEditorForm(event) {
 
         event.preventDefault();
 
-        var typeValue = document.querySelector('#' + this.form.getAttribute('id') + ' #type').value;
+        var typeValue = document.querySelector('#' + this.form.getAttribute('id') + ' #tag').value;
 
-        // var idValue = document.querySelector('#' + form.getAttribute('id') + ' #id').value;
-        // var sizeValue = document.querySelector('#' + form.getAttribute('id') + ' #size').value;
-        // var marginValue = document.querySelector('#' + form.getAttribute('id') + ' #margin').value;
-        // var paddingValue = document.querySelector('#' + form.getAttribute('id') + ' #padding').value;
-        // var bgColorValue = document.querySelector('#' + form.getAttribute('id') + ' #bg-color').value;
-        // var colorValue = document.querySelector('#' + form.getAttribute('id') + ' #color').value;
-        var classesValue = document.querySelector('#' + this.form.getAttribute('id') + ' #classes').value;
-        var textValue = document.querySelector('#' + this.form.getAttribute('id') + ' #text').value;
+        document.querySelector('#' + this.form.getAttribute('id') + ' #name').value = typeValue;
 
-        var data = {
-            "tag": typeValue,
-            "name": typeValue,
-            "classes": classesValue,
-            "text": textValue
-        };
+        var data = {};
 
-        if (type == 'add') {
-            data.elements = [];
-        }
+        this.options.panel.form.fields.forEach(field => {
 
-        this.getElementsFromArray(this.pageDatas, data, type);
+            var value = document.querySelector('#' + this.form.getAttribute('id') + ' #' + field.name).value;
+
+            data[field.name] = value;
+        });
+
+        this.panelDisplay(false);
+
+        this.searchElementByValueInArray(this.editorDatas, this.elementSelected.id, data, this.formType);
     }
 
-    createPanel() {
+    /**
+     * Création du panneau d'édition
+     */
+    createEditorPanel() {
         // Création du bouton de changement de mode d'édition
         this.editorModeButton = document.createElement('button');
         this.editorModeButton.setAttribute('id', 'editor-mode-button');
         this.editorModeButton.setAttribute('class', 'p-absolute btn shadow round');
-        this.editorModeButton.setAttribute('onclick', 'editor.editorModeEnable()');
+        this.editorModeButton.setAttribute('onclick', 'editor.editorMode()');
 
         this.editorModeButton.innerHTML = '<i class="fa fa-eye"></i></button>';
 
@@ -131,99 +125,86 @@ class Editor {
         var content = "<div class='p-relative'>" +
             "<button id='close-panel' class='btn shadow bg-purple white p-absolute' onclick='editor.panelDisplay(false)'><i class='fa fa-close'></i></button>" +
             "</div>" +
-            "<h2>Editeur</h2>" +
+            "<h2 id='form-type'>" + ((this.formType == 'add') ? 'Ajouter l\'élément' : 'Modifier l\'élément') + "</h2>" +
             "<h3 id='selected-element'></h3>" +
-            "<form id='edit-element-form' class='d-none flex-direction-column'>" +
-            "<label for='type'>Type</label>" +
-            "<select id='type' class='mb-1'>" +
-            "<option selected>Type</option>";
+            "<form id='editor-form' class='d-flex flex-direction-column'>";
 
-        this.tags.forEach(tag => {
+        this.options.panel.form.fields.forEach(field => {
 
-            content += "<option value='" + tag + "'>" + tag + "</option>";
-        });
+            // var label = "<label for='" + field.name + "'>" + field.title + "</label>";
 
-        content += "</select>" +
-            //     "<label for='size'>Taille</label>" +
-            //     "<select id='size' class='mb-1'>" +
-            //     "<option selected>Tailles</option>";
-
-            // for (var i = 1; i <= 12; i++) {
-
-            //     content += "<option value='col-lg-" + i + "'>col-lg-" + i + "</option>";
+            // if (field.type !== "hidden") {
+            //     content += label;
             // }
 
-            //content += "</select>" +
-            // "<label for='margin'>Marges extérieures</label>" +
-            // "<input type='text' id='margin' class='mb-1' placeholder='marges extérieures'>" +
-            // "<label for='padding'>Marges intérieures</label>" +
-            // "<input type='text' id='padding' class='mb-1' placeholder='marges intérieures'>" +
-            // "<label for='bg-color'>Couleur de fond</label>" +
-            // "<select id='bg-color' class='mb-1'>" +
-            // "<option selected>Couleurs de fond</option>" +
-            // "<option value='bg-purple'>bg-purple</option>" +
-            // "<option value='bg-white'>bg-white</option>" +
-            // "<option value='bg-black'>bg-black</option>" +
-            // "</select>" +
-            // "<label for='color'>Couleur de texte</label>" +
-            // "<select id='color' class='mb-1'>" +
-            // "<option selected>Couleurs</option>" +
-            // "<option value='purple'>purple</option>" +
-            // "<option value='white'>white</option>" +
-            // "<option value='black'>black</option>" +
-            // "</select>" +
-            "<label for='text'>Classes CSS</label>" +
-            "<input type='text' id='classes' name='classes' placeholder='Classes CSS' class='mb-1'>" +
-            "<label for='text'>Texte</label>" +
-            "<input type='text' id='text' name='text' placeholder='texte' class='mb-1'>" +
-            "<div class='text-center'>" +
-            "<input type='submit' value='enregistrer' class='btn bg-purple shadow white'>" +
-            "</div>" +
-            "</form>" +
-            "<form id='add-element-form' class='d-none flex-direction-column'>" +
-            "<label for='type'>Type</label>" +
-            "<select id='type' class='mb-1'>" +
-            "<option selected>Type</option>";
+            if (field.type == "text" || field.type == "hidden") {
 
-        this.tags.forEach(tag => {
+                // var input = "<div class='input-group accordion'>" +
+                //     "<h4>" + field.title + "&nbsp;<i class='fa fa-chevron-down'></i></h4>" +
+                //     "<div>";
 
-            content += "<option value='" + tag + "'>" + tag + "</option>";
+                var input = "<input type='" + field.type + "' id='" + field.name + "' name='" + field.name + "' placeholder='" + field.title + "' class='mb-1'>";
+
+                // input += "</div>" +
+                //     "</div>";
+
+                content += input;
+
+            }
+            else if (field.type == "picker") {
+
+                var input = "<div class='input-group accordion mb-1 border-bottom'>" +
+                    "<label for='" + field.name + "' class='d-flex justify-content-between'><h4 class='m-0'>" + field.title + "</h4><i class='fa fa-chevron-down'></i></label>" +
+                    // "<h4>" + field.title + "&nbsp;<i class='fa fa-chevron-down'></i></h4>" +
+                    "<div class='p-1'>";
+
+                input += "<input type='hidden' id='" + field.name + "' name='" + field.name + "' placeholder='" + field.title + "' class='mb-1'>";
+
+                content += input;
+
+                var picker = "<ul class='colors-grid d-flex mb-1'>";
+
+                field.optionsValues.forEach(value => {
+
+                    var colorClass = value.replace('bg-', '');
+                    colorClass = "bg-" + colorClass;
+
+                    picker += "<li class='d-flex align-items-center justify-content-center " + colorClass + " border' onclick='editor.editFieldValue(\"" + field.name + "\", \"" + value + "\")'>";
+
+                    if (field.name !== 'color' && field.name !== 'background') {
+
+                        var iconClass = this.getIconByName(value);
+
+                        picker += "<i class='fa " + iconClass + "'></i>";
+                    }
+
+                    picker += "</li>";
+
+                });
+
+                picker += "</ul>";
+                picker += "</div>" +
+                    "</div>";
+
+                content += picker;
+            }
+            else if (field.type == "select") {
+
+                var select = "<select id='" + field.name + "' name='" + field.name + "' class='mb-1'>" +
+                    "<option selected>Type</option>";
+
+                field.optionsValues.forEach(value => {
+
+                    select += "<option value='" + value + "'>" + value + "</option>";
+                });
+
+                select += "</select>";
+
+                content += select;
+            }
         });
 
-        content += "</select>" +
-            //     "<label for='size'>Taille</label>" +
-            //     "<select id='size' class='mb-1'>" +
-            //     "<option selected>Tailles</option>";
-
-            // for (var i = 1; i <= 12; i++) {
-
-            //     content += "<option value='col-lg-" + i + "'>col-lg-" + i + "</option>";
-            // }
-
-            // content += "</select>" +
-            // "<label for='margin'>Marges extérieures</label>" +
-            // "<input type='text' id='margin' class='mb-1' placeholder='marges extérieures'>" +
-            // "<label for='padding'>Marges intérieures</label>" +
-            // "<input type='text' id='padding' class='mb-1' placeholder='marges intérieures'>" +
-            // "<label for='bg-color'>Couleur de fond</label>" +
-            // "<select id='bg-color' class='mb-1'>" +
-            // "<option selected>Couleurs de fond</option>" +
-            // "<option value='bg-purple'>bg-purple</option>" +
-            // "<option value='bg-white'>bg-white</option>" +
-            // "<option value='bg-black'>bg-black</option>" +
-            // "</select>" +
-            // "<label for='color'>Couleur de texte</label>" +
-            // "<select id='color' class='mb-1'>" +
-            // "<option selected>Couleurs</option>" +
-            // "<option value='purple'>purple</option>" +
-            // "<option value='white'>white</option>" +
-            // "<option value='black'>black</option>" +
-            // "</select>" +
-            "<label for='text'>Classes CSS</label>" +
-            "<input type='text' id='classes' name='classes' placeholder='Classes CSS' class='mb-1'>" +
-            "<label for='text'>Texte</label>" +
-            "<input type='text' id='text' name='text' placeholder='texte' class='mb-1'>" +
-            "<div class='text-center'>" +
+        content += "<div class='text-center'>" +
             "<input type='submit' value='enregistrer' class='btn bg-purple shadow white'>" +
             "</div>" +
             "</form>";
@@ -233,31 +214,31 @@ class Editor {
         document.body.prepend(this.panel);
 
         // On récupère le formulaire d'édition d'élément
-        this.editElementForm = document.getElementById("edit-element-form");
+        this.form = document.getElementById("editor-form");
 
-        // On récupère le formulaire d'ajout d'élément
-        this.addElementForm = document.getElementById("add-element-form");
-
-        this.editElementForm.addEventListener('submit', () => this.saveEditorForm('edit', event), false);
-        this.addElementForm.addEventListener('submit', () => this.saveEditorForm('add', event), false);
+        this.form.addEventListener('submit', () => this.submitEditorForm(event), false);
 
         // Ouverture/fermeture du panneau d'édition 
         this.panelDisplay(this.options.panel.open);
+
+        this.accordion();
     }
 
     /**
      * Affichage du panneau
+     * 
+     * @param {Boolean} open 
      */
     panelDisplay(open) {
 
         this.options.panel.open = open;
 
         if (this.options.panel.open == true) {
-            // On affiche le panneau de la liste des balises
+            // On affiche le panneau
             this.panel.classList.add("open");
         }
         else {
-            // On cache le panneau de la liste des balises
+            // On cache le panneau
             this.panel.classList.remove("open");
         }
     }
@@ -265,7 +246,7 @@ class Editor {
     /**
      * Changement du mode d'édition
      */
-    editorModeEnable() {
+    editorMode() {
 
         this.options.editorMode = (this.options.editorMode) ? false : true;
 
@@ -279,39 +260,54 @@ class Editor {
      */
     generatePage() {
 
-        var page = document.getElementById(this.options.editorContainerId)
-        page.innerHTML = "";
+        this.container.innerHTML = "";
 
         // On ajoute les éléments
-        this.createElementsFromArray(page, this.pageDatas);
+        this.createElementsFromArray(this.container, this.editorDatas);
     }
 
     /**
      * Création d'éléments à partir d'un tableau
      * 
-     * @param {*} parent 
-     * @param {*} array 
+     * @param {Object} parent 
+     * @param {Array} array 
      */
     createElementsFromArray(parent, array) {
         // Pour chaque élément du tableau
         array.forEach((element, index) => {
 
+            var tag = (element.tag == 'img') ? 'div' : element.tag;
             // On créé la balise de l'élément
-            var tag = document.createElement(element.tag);
+            var tag = document.createElement(tag);
             // On créé l'identifiant de l'élément
             element.id = parent.id + "-" + element.name + "-" + (index + 1);
             // On ajoute l'identifiant de l'élément
             tag.id = element.id;
             // On ajoute la classe de l'élément
-            tag.className = element.classes;
+            tag.className = 'element ' + element.classes + ' ' + element['flex-direction'] + ' ' + element['justify-content'] + ' ' + element.color + ' ' + element.background;
+            tag.setAttribute('draggable', 'true');
+            tag.setAttribute('ondragstart', 'editor.dragit(event);');
+            tag.setAttribute('ondragover', 'editor.dragover(event);');
 
             // On ajoute le bouton d'édition
-            tag.innerHTML = '<div class="edit-element p-relative w-100">' +
-                '<div class="p-absolute d-flex gap-1 bg-white p-1 align-items-center">' +
-                '<h4><b>' + element.tag + '#' + tag.id + '</b></h4>&nbsp;' +
+            tag.innerHTML = '<div class="edit-element-options p-relative w-100">' +
+                '<div id="edit-element-tag" class="p-absolute bg-purple white">' +
+                '<b>&nbsp;' + element.tag + '&nbsp;</b>' +
+                '</div>' +
+                '<div id="edit-element-buttons" class="p-absolute d-none gap-1 align-items-center">' +
                 '<button class="btn bg-white purple shadow" title="#' + tag.id + '" onclick="editor.addElement(\'' + tag.id.trim() + '\')"><i class="fa fa-plus-circle"></i></button>' +
                 '<button class="btn bg-white purple shadow" title="#' + tag.id + '" onclick="editor.editElement(\'' + tag.id.trim() + '\')"><i class="fa fa-edit"></i></button>' +
-                '</div></div>';
+                '</div>' +
+                '<button id="edit-element-button" class="btn bg-white purple shadow" title="#' + tag.id + '" onclick="editor.showEditOptions(\'' + tag.id.trim() + '\')"><i class="fa fa-cog"></i></button>' +
+                '</div>';
+
+            if (element.tag == 'img') {
+                var img = document.createElement('img');
+
+                img.setAttribute('src', element.attributes);
+
+                tag.appendChild(img);
+            }
 
             if (typeof element.text !== 'undefined') {
                 tag.innerHTML += element.text;
@@ -327,38 +323,48 @@ class Editor {
         });
     }
 
-
     addElement(elementIdSelected) {
 
-        this.elementIdSelected = elementIdSelected;
-
-        this.getElementsFromArray(this.pageDatas, null, 'add');
+        this.searchElementByValueInArray(this.editorDatas, elementIdSelected, null, 'add');
     }
 
     editElement(elementIdSelected) {
 
-        this.elementIdSelected = elementIdSelected;
-
-        this.getElementsFromArray(this.pageDatas, null, 'edit');
+        this.searchElementByValueInArray(this.editorDatas, elementIdSelected, null, 'edit');
     }
 
-    getElementsFromArray(array, data, type) {
+    /**
+     * Recherche d'élément par valeur dans un tableau
+     * 
+     * @param {Array} array 
+     * @param {String} elementId 
+     * @param {Object} data 
+     * @param {String} type 
+     */
+    searchElementByValueInArray(array, elementId, data, type) {
         // Pour chaque élément du tableau
         array.forEach((element, index) => {
 
-            if (this.elementIdSelected == element.id) {
+            if (elementId == element.id) {
+
+                this.elementSelected = element;
+                this.formType = type;
 
                 if (data !== null) {
                     if (type == 'add') {
+
+                        if (typeof element.elements == "undefined") {
+                            element['elements'] = [];
+                        }
 
                         element.elements.push(data);
                     }
                     else if (type == 'edit') {
 
-                        element.tag = data.tag;
-                        element.id = data.id;
-                        element.classes = data.classes;
-                        element.text = data.text;
+                        this.options.panel.form.fields.forEach(field => {
+
+                            element[field.name] = data[field.name];
+                        });
                     }
 
                     // On regénère la page
@@ -366,15 +372,134 @@ class Editor {
                 }
                 else {
 
-                    this.displayEditorForm(type);
+                    this.updateEditorFormValues();
                 }
             }
 
             // Si l'élément contient un tableau d'éléments
             if (typeof element.elements !== 'undefined') {
                 // On parcours les éléments du tableau
-                this.getElementsFromArray(element.elements, data, type);
+                this.searchElementByValueInArray(element.elements, elementId, data, type);
             }
         });
+    }
+
+    dragit(event) {
+        this.shadow = event.target;
+    }
+
+    dragover(e) {
+        let children = Array.from(e.target.parentNode.children);
+
+        if (this.shadow.className !== 'edit-element p-relative w-100' && (e.target.parentNode.id == this.shadow.parentNode.id)) {
+
+            setTimeout(() => {
+
+                // if (e.target.id !== this.shadow.id) {
+                // console.log(children.indexOf(e.target), children.indexOf(this.shadow));
+
+                if (children.indexOf(e.target) > children.indexOf(this.shadow))
+                    e.target.after(this.shadow);
+                else e.target.before(this.shadow);
+
+            }, 500);
+            //}
+        }
+        // else {
+
+        //     if (typeof e.target.children[1] == 'undefined') {
+
+        //         e.target.appendChild(this.shadow);
+        //     }
+        // }
+    }
+
+    showEditOptions(elementId) {
+
+        var editElementButtons = document.querySelector('#' + elementId + ' #edit-element-buttons');
+
+        this.editOptionsIsOpen = (this.editOptionsIsOpen) ? false : true;
+
+        editElementButtons.classList.remove((this.editOptionsIsOpen) ? 'd-none' : 'd-flex');
+        editElementButtons.classList.add((this.editOptionsIsOpen) ? 'd-flex' : 'd-none');
+    }
+
+    accordion() {
+
+        var acc = Array.from(document.querySelectorAll(".accordion > label"));
+
+        for (var i = 0; i < acc.length; i++) {
+
+            acc[i].addEventListener("click", function (e) {
+
+                var panel = e.target.parentNode.children[1];
+
+                if (panel.style.display !== "none") {
+                    panel.style.display = "flex";
+
+                    return;
+                }
+
+                // console.log(panel.style.display);
+
+                // if (panel.style.display == "none") {
+                //     panel.style.display = "none";
+
+                //     return;
+                // }
+
+                // if (panel.style.display == 'flex') {
+                //     panel.style.display = "none";
+                // }
+
+
+            });
+        }
+    }
+
+    editFieldValue(fieldName, value) {
+
+        document.querySelector('#' + this.form.getAttribute('id') + ' #' + fieldName).type = "text";
+        document.querySelector('#' + this.form.getAttribute('id') + ' #' + fieldName).value = value;
+    }
+
+    getIconByName(name) {
+
+        let icon = "";
+
+        if (name == 'justify-content-start') {
+
+            icon = "fa-align-left";
+        }
+        else if (name == 'justify-content-center') {
+
+            icon = "fa-align-center";
+        }
+        else if (name == 'justify-content-end') {
+
+            icon = "fa-align-right";
+        }
+        else if (name == 'justify-content-between') {
+
+            icon = "fa-align-justify";
+        }
+        else if (name == 'flex-direction-row') {
+
+            icon = "fa-long-arrow-right";
+        }
+        else if (name == 'flex-direction-row-reverse') {
+
+            icon = "fa-long-arrow-left";
+        }
+        else if (name == 'flex-direction-column') {
+
+            icon = "fa-long-arrow-down";
+        }
+        else if (name == 'flex-direction-column-reverse') {
+
+            icon = "fa-long-arrow-up";
+        }
+
+        return icon;
     }
 }

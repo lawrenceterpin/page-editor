@@ -23,7 +23,7 @@ figure {
 }
 
 .m-0 {
-  margin: 0;
+  margin: 0 !important;
 }
 
 .m-1 {
@@ -124,6 +124,8 @@ img {
 .row {
   display: flex;
   flex-wrap: wrap;
+  margin-left: -15px;
+  margin-right: -15px;
 }
 .row > [class^=col-] {
   margin: 0 !important;
@@ -152,20 +154,32 @@ img {
   flex-direction: row;
 }
 
+.flex-direction-row-reverse {
+  flex-direction: row-reverse;
+}
+
 .flex-direction-column {
   flex-direction: column;
 }
 
-.flex-direction-row-reverse {
-  flex-direction: row-reverse;
+.flex-direction-column-reverse {
+  flex-direction: column-reverse;
 }
 
 .align-items-center {
   align-items: center;
 }
 
+.justify-content-start {
+  justify-content: start;
+}
+
 .justify-content-center {
   justify-content: center;
+}
+
+.justify-content-end {
+  justify-content: end;
 }
 
 .justify-content-between {
@@ -235,6 +249,11 @@ input[type=text], select {
 
 .border-bottom {
   border-bottom: 1px solid #000;
+}
+
+html,
+body {
+  height: 100%;
 }
 
 html {
