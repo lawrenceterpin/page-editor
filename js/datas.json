@@ -7,7 +7,7 @@
                         {
                                 "tag": "header",
                                 "name": "header",
-                                "classes": "row",
+                                "classes": "",
                                 "elements": []
                         },
                         {
@@ -19,7 +19,7 @@
                         {
                                 "tag": "footer",
                                 "name": "footer",
-                                "classes": "row",
+                                "classes": "",
                                 "elements": []
                         }
                 ]
