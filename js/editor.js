@@ -37,8 +37,6 @@ class Editor {
 
         const editorDatas = localStorage.getItem("editorDatas");
 
-        // console.log(editorDatas);
-
         if (editorDatas == null) {
 
             fetch(this.options.jsonDatasUrl)
@@ -118,19 +116,6 @@ class Editor {
                     value = document.querySelector('#' + this.formId + ' [name="' + field.name + '"]:checked').value;
                 }
             }
-            //     // console.log(document.querySelector('#' + this.formId + ' [name="' + field.name + '"]'));
-
-            //     value = document.querySelector('#' + this.formId + ' [name="' + field.name + '"]').value;
-
-            //     console.log(value);
-
-            //     //     // var radios = Array.from(document.querySelectorAll('#' + this.formId + ' [name="' + field.name + '"]:checked'));
-
-            //     //     // for (var i = 0; i < radios.length; i++) {
-
-            //     //     //     console.log(radios[i]);
-            //     //     // }
-            // }
 
             data[field.name] = value;
         });
@@ -165,65 +150,7 @@ class Editor {
             "<h3 id='selected-element'></h3>" +
             "<form id='editor-form' class='d-flex flex-direction-column' onsubmit='editor.submitEditorForm(event)'>";
 
-        this.options.panel.form.fields.forEach(field => {
-
-            if (field.type == "text" || field.type == "number") {
-
-                var input = "<label for='" + field.name + "'>" + field.title + "</label>" +
-
-                    "<input type='" + field.type + "' id='" + field.name + "' name='" + field.name + "' placeholder='" + field.title + "' class='mb-1'>";
-
-                content += input;
-            }
-            else if (field.type == "hidden") {
-
-                var input = "<input type='" + field.type + "' id='" + field.name + "' name='" + field.name + "' placeholder='" + field.title + "' class='mb-1'>";
-
-                content += input;
-            }
-            else if (field.type == "picker") {
-
-                var input = "<div class='input-group accordion mb-1 pb-1 border-bottom'>" +
-                    "<label for='" + field.name + "' class='d-flex justify-content-between pt-1'><h4 class='m-0'>" + field.title + "</h4><i class='fa fa-chevron-down'></i></label>" +
-                    "<div class='colors-grid row align-items-center pt-1 pb-1 gap-1'>";
-
-                field.optionsValues.forEach(value => {
-
-                    var colorClass = "bg-" + value.replace('bg-', '');
-
-                    // var selectedClass = (this.elementSelected[field.name] == value) ? 'selected' : '';
-
-                    if (field.name !== 'color' && field.name !== 'background') {
-
-                        var iconClass = this.getIconByName(value);
-                    }
-
-                    input += "<input type='radio' id='" + value + "' name='" + field.name + "' value='" + value + "'  class='d-flex align-items-center justify-content-center " + colorClass + " border'>" +
-                        "<label for='" + value + "' class='d-flex justify-content-center align-items-center " + colorClass + "' title='" + value + "'><i class='fa " + iconClass + "'></i></label>";
-                });
-
-                input += "</div>" +
-                    "</div>";
-
-                content += input;
-            }
-            else if (field.type == "select") {
-
-                var select = "<label for='" + field.name + "'>" + field.title + "</label>" +
-
-                    "<select id='" + field.name + "' name='" + field.name + "' class='mb-1'>" +
-                    "<option value='' selected>" + field.title + "</option>";
-
-                field.optionsValues.forEach(value => {
-
-                    select += "<option value='" + value + "'>" + value + "</option>";
-                });
-
-                select += "</select>";
-
-                content += select;
-            }
-        });
+        content += this.createForm();
 
         content += "<div class='text-center'>" +
             "<input type='submit' value='enregistrer' class='btn bg-purple shadow white'>" +
@@ -304,7 +231,7 @@ class Editor {
             // On ajoute l'identifiant de l'élément
             tag.id = element.id;
 
-            var styleProperties = ["top", "bottom", "left", "right"];
+            var styleProperties = ["top", "bottom", "left", "right", "z-index"];
 
             styleProperties.forEach(property => {
 
@@ -473,12 +400,6 @@ class Editor {
         }
     }
 
-    editFieldValue(fieldName, value) {
-
-        document.querySelector('#' + this.form.getAttribute('id') + ' #' + fieldName).type = "text";
-        document.querySelector('#' + this.form.getAttribute('id') + ' #' + fieldName).value = value;
-    }
-
     getIconByName(name) {
 
         let icon = "";
@@ -567,5 +488,70 @@ class Editor {
         localStorage.setItem("editorDatas", JSON.stringify(this.editorDatas));
 
         alert('Les données ont été sauvegardées');
+    }
+
+    createForm() {
+
+        let content = "";
+
+        this.options.panel.form.fields.forEach(field => {
+
+            if (field.type == "text" || field.type == "number") {
+
+                var input = "<label for='" + field.name + "'>" + field.title + "</label>" +
+
+                    "<input type='" + field.type + "' id='" + field.name + "' name='" + field.name + "' placeholder='" + field.title + "' class='mb-1'>";
+
+                content += input;
+            }
+            else if (field.type == "hidden") {
+
+                var input = "<input type='" + field.type + "' id='" + field.name + "' name='" + field.name + "' placeholder='" + field.title + "' class='mb-1'>";
+
+                content += input;
+            }
+            else if (field.type == "picker") {
+
+                var input = "<div class='input-group accordion mb-1 pb-1 border-bottom'>" +
+                    "<label for='" + field.name + "' class='d-flex justify-content-between pt-1'><h4 class='m-0'>" + field.title + "</h4><i class='fa fa-chevron-down'></i></label>" +
+                    "<div class='colors-grid row align-items-center pt-1 pb-1 gap-1'>";
+
+                field.optionsValues.forEach(value => {
+
+                    var colorClass = "bg-" + value.replace('bg-', '');
+
+                    if (field.name !== 'color' && field.name !== 'background') {
+
+                        var iconClass = this.getIconByName(value);
+                    }
+
+                    input += "<input type='radio' id='" + value + "' name='" + field.name + "' value='" + value + "'  class='d-flex align-items-center justify-content-center " + colorClass + " border'>" +
+                        "<label for='" + value + "' class='d-flex justify-content-center align-items-center " + colorClass + "' title='" + value + "'><i class='fa " + iconClass + "'></i></label>";
+                });
+
+                input += "</div>" +
+                    "</div>";
+
+                content += input;
+            }
+            else if (field.type == "select") {
+
+                var select = "<label for='" + field.name + "'>" + field.title + "</label>" +
+
+                    "<select id='" + field.name + "' name='" + field.name + "' class='mb-1'>" +
+                    "<option value='' selected>" + field.title + "</option>";
+
+                field.optionsValues.forEach(value => {
+
+                    select += "<option value='" + value + "'>" + value + "</option>";
+                });
+
+                select += "</select>";
+
+                content += select;
+            }
+        });
+
+        return content;
     }
 }
