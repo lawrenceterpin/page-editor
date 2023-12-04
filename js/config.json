@@ -38,6 +38,17 @@
           "optionsValues": []
         },
         {
+          "name": "display",
+          "title": "Affichage",
+          "type": "select",
+          "value": "",
+          "optionsValues": [
+            "d-block",
+            "d-flex",
+            "d-none"
+          ]
+        },
+        {
           "name": "flex-direction",
           "title": "Direction de l'alignement",
           "type": "picker",
