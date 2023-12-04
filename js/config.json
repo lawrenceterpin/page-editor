@@ -38,6 +38,17 @@
           "optionsValues": []
         },
         {
+          "name": "display",
+          "title": "Affichage",
+          "type": "select",
+          "value": "",
+          "optionsValues": [
+            "d-block",
+            "d-flex",
+            "d-none"
+          ]
+        },
+        {
           "name": "flex-direction",
           "title": "Direction de l'alignement",
           "type": "picker",
@@ -51,7 +62,7 @@
         },
         {
           "name": "justify-content",
-          "title": "Alignement",
+          "title": "Alignement horizontal",
           "type": "picker",
           "value": "",
           "optionsValues": [
@@ -67,8 +78,8 @@
           "type": "picker",
           "value": "",
           "optionsValues": [
-            "align-items-center",
             "align-items-start",
+            "align-items-center",
             "align-items-end"
           ]
         },
@@ -118,6 +129,7 @@
           "type": "picker",
           "value": "",
           "optionsValues": [
+            "transparent",
             "purple",
             "white",
             "black",
@@ -131,11 +143,12 @@
           "type": "picker",
           "value": "",
           "optionsValues": [
+            "bg-transparent",
             "bg-purple",
             "bg-white",
             "bg-black",
-            "success",
-            "error"
+            "bg-success",
+            "bg-error"
           ]
         },
         {
