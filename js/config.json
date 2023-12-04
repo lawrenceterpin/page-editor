@@ -147,8 +147,8 @@
             "bg-purple",
             "bg-white",
             "bg-black",
-            "success",
-            "error"
+            "bg-success",
+            "bg-error"
           ]
         },
         {
