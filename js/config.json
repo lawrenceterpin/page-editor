@@ -51,7 +51,7 @@
         },
         {
           "name": "justify-content",
-          "title": "Alignement",
+          "title": "Alignement horizontal",
           "type": "picker",
           "value": "",
           "optionsValues": [
