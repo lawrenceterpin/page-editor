@@ -1,0 +1,110 @@
+{
+  "editorMode": true,
+  "editorContainerId": "editor",
+  "jsonDatasUrl": "https://lawrenceterpin.github.io/page-editor/js/datas.json",
+  "panel": {
+    "open": false,
+    "form": {
+      "fields": [
+        {
+          "name": "tag",
+          "title": "Type",
+          "type": "select",
+          "value": "",
+          "optionsValues": [
+            "div",
+            "header",
+            "main",
+            "footer",
+            "nav",
+            "section",
+            "article",
+            "h1",
+            "h2",
+            "h3",
+            "h4",
+            "ul",
+            "li",
+            "p",
+            "a",
+            "img"
+          ]
+        },
+        {
+          "name": "name",
+          "title": "Name",
+          "type": "hidden",
+          "value": "",
+          "optionsValues": []
+        },
+        {
+          "name": "flex-direction",
+          "title": "Direction de l'alignement",
+          "type": "picker",
+          "value": "",
+          "optionsValues": [
+            "flex-direction-row",
+            "flex-direction-row-reverse",
+            "flex-direction-column",
+            "flex-direction-column-reverse"
+          ]
+        },
+        {
+          "name": "justify-content",
+          "title": "Alignement",
+          "type": "picker",
+          "value": "",
+          "optionsValues": [
+            "justify-content-start",
+            "justify-content-center",
+            "justify-content-end",
+            "justify-content-between"
+          ]
+        },
+        {
+          "name": "color",
+          "title": "Couleur",
+          "type": "picker",
+          "value": "",
+          "optionsValues": [
+            "purple",
+            "white",
+            "black"
+          ]
+        },
+        {
+          "name": "background",
+          "title": "Couleur de fond",
+          "type": "picker",
+          "value": "",
+          "optionsValues": [
+            "bg-purple",
+            "bg-white",
+            "bg-black"
+          ]
+        },
+        {
+          "name": "classes",
+          "title": "Classes",
+          "type": "text",
+          "value": "",
+          "optionsValues": []
+        },
+        {
+          "name": "text",
+          "title": "Texte",
+          "type": "text",
+          "value": "",
+          "optionsValues": []
+        },
+        {
+          "name": "attributes",
+          "title": "Attributs",
+          "type": "text",
+          "value": "",
+          "optionsValues": []
+        }
+      ]
+    }
+  }
+}
