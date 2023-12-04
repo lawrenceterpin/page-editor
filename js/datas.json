@@ -1,27 +1,19 @@
 [
         {
                 "tag": "div",
+                "id": "div",
                 "name": "div",
+                "flex-direction": "",
+                "justify-content": "",
+                "position": "",
+                "top": "",
+                "bottom": "",
+                "left": "",
+                "right": "",
+                "background": "",
+                "color": "",
+                "attributes": "",
                 "classes": "",
-                "elements": [
-                        {
-                                "tag": "header",
-                                "name": "header",
-                                "classes": "",
-                                "elements": []
-                        },
-                        {
-                                "tag": "main",
-                                "name": "main",
-                                "classes": "",
-                                "elements": []
-                        },
-                        {
-                                "tag": "footer",
-                                "name": "footer",
-                                "classes": "",
-                                "elements": []
-                        }
-                ]
+                "text": ""
         }
 ]
