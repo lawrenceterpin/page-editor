@@ -1,12 +1,26 @@
 class Editor {
 
+    editorMode = true;
+    jsonDatasUrl = "https://lawrenceterpin.github.io/page-editor/js/datas.json";
     configUrl = "https://lawrenceterpin.github.io/page-editor/js/config.json";
 
     constructor(options) {
 
-        // if (typeof options !== 'undefined') {
-        //     this.options = options;
-        // }
+        if (typeof options !== 'undefined') {
+
+            if (typeof options.jsonDatasUrl !== "undefined") {
+
+                this.jsonDatasUrl = options.jsonDatasUrl;
+            }
+            if (typeof options.configUrl !== "undefined") {
+
+                this.configUrl = options.configUrl;
+            }
+            if (typeof options.editorMode !== "undefined") {
+
+                this.editorMode = options.editorMode;
+            }
+        }
 
         // Initialisation
         this.loadConfig();
@@ -25,7 +39,7 @@ class Editor {
 
                 this.loadDatas();
 
-                this.editorMode();
+                this.switchEditorMode();
 
                 this.createEditorPanel();
             });
@@ -39,7 +53,7 @@ class Editor {
 
         if (editorDatas == null) {
 
-            fetch(this.options.jsonDatasUrl)
+            fetch(this.jsonDatasUrl)
                 .then(response => {
                     return response.json();
                 })
@@ -151,7 +165,7 @@ class Editor {
         this.editorModeButton = document.createElement('button');
         this.editorModeButton.setAttribute('id', 'editor-mode-button');
         this.editorModeButton.setAttribute('class', 'p-absolute btn shadow round');
-        this.editorModeButton.setAttribute('onclick', 'editor.editorMode()');
+        this.editorModeButton.setAttribute('onclick', 'editor.switchEditorMode()');
         this.editorModeButton.innerHTML = '<i class="fa fa-eye"></i></button>';
 
         document.body.prepend(this.editorModeButton);
@@ -211,13 +225,13 @@ class Editor {
     /**
      * Changement du mode d'édition
      */
-    editorMode() {
+    switchEditorMode() {
 
-        this.options.editorMode = (this.options.editorMode) ? false : true;
+        this.editorMode = (this.editorMode) ? false : true;
 
         var editor = document.getElementById('editor');
 
-        editor.className = (this.options.editorMode == true) ? "" : "editor-mode";
+        editor.className = (this.editorMode == true) ? "" : "editor-mode";
     }
 
     /**

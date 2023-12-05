@@ -1,0 +1,22 @@
+[
+        {
+                "tag": "div",
+                "id": "div",
+                "name": "div",
+                "flex-direction": "",
+                "justify-content": "",
+                "align-items": "",
+                "position": "",
+                "z-index": "",
+                "top": "",
+                "bottom": "",
+                "left": "",
+                "right": "",
+                "background": "",
+                "color": "",
+                "attributes": "",
+                "classes": "",
+                "text": "",
+                "font-size": ""
+        }
+]
