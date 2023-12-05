@@ -306,10 +306,11 @@
                     "z-index": "",
                     "color": "white",
                     "background": "bg-transparent",
-                    "classes": "",
+                    "classes": "m-0",
                     "text": "Bienvenue sur le site de démo",
                     "attributes": "",
-                    "id": "editor-div-1-main-2-section-1-div-1-h2-1"
+                    "id": "editor-div-1-main-2-section-1-div-1-h2-1",
+                    "font-size": "3.5em"
                   },
                   {
                     "tag": "h3",
@@ -346,10 +347,11 @@
                     "z-index": "",
                     "color": "white",
                     "background": "bg-transparent",
-                    "classes": "shadow p-1",
+                    "classes": "shadow border-radius mt-1 p-2 pt-1 pb-1",
                     "text": "En savoir +",
                     "attributes": "",
-                    "id": "editor-div-1-main-2-section-1-div-1-a-3"
+                    "id": "editor-div-1-main-2-section-1-div-1-a-3",
+                    "font-size": "undefined"
                   }
                 ]
               },
