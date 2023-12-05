@@ -81,7 +81,7 @@
             {
               "name": "flex-direction",
               "title": "Direction de l'alignement",
-              "type": "picker",
+              "type": "radio",
               "value": "",
               "optionsValues": [
                 "flex-direction-row",
@@ -93,7 +93,7 @@
             {
               "name": "justify-content",
               "title": "Alignement horizontal",
-              "type": "picker",
+              "type": "radio",
               "value": "",
               "optionsValues": [
                 "justify-content-start",
@@ -105,7 +105,7 @@
             {
               "name": "align-items",
               "title": "Alignement vertical",
-              "type": "picker",
+              "type": "radio",
               "value": "",
               "optionsValues": [
                 "align-items-start",
@@ -175,7 +175,7 @@
             {
               "name": "color",
               "title": "Couleur",
-              "type": "picker",
+              "type": "radio",
               "value": "",
               "optionsValues": [
                 "transparent",
@@ -189,7 +189,7 @@
             {
               "name": "background",
               "title": "Couleur de fond",
-              "type": "picker",
+              "type": "radio",
               "value": "",
               "optionsValues": [
                 "bg-transparent",

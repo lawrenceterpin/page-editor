@@ -500,10 +500,8 @@ class Editor {
 
         this.options.panel.form.fieldsGroups.forEach(group => {
 
-            console.log(group.name, group.title);
-
-            content += "<div id='" + group.name + "' class='field-group accordion mb-1 pb-1 border-bottom' onclick='editor.accordion(event);'>" +
-                "<h4 class='d-flex justify-content-between m-0'>" + group.title + "<i class='fa fa-chevron-down'></i></h4>" +
+            content += "<div id='" + group.name + "' class='field-group accordion mb-1 pb-1 border-bottom'>" +
+                "<h4 class='d-flex justify-content-between m-0' onclick='editor.accordion(event);'>" + group.title + "<i class='fa fa-chevron-down'></i></h4>" +
                 "<div class='flex-direction-column justify-content-center pt-1 pb-1 d-none'>";
 
             group.fields.forEach(field => {
@@ -519,10 +517,10 @@ class Editor {
                     content += "<input type='" + field.type + "' id='" + field.name + "' name='" + field.name + "' placeholder='" + field.title + "' class='mb-1'>";
 
                 }
-                else if (field.type == "picker") {
+                else if (field.type == "radio") {
 
                     content += "<label for='" + field.name + "'>" + field.title + "</label>" +
-                        "<div class='row flex-direction-row gap-1'>";
+                        "<div class='row flex-direction-row gap-1 mb-1'>";
 
                     field.optionsValues.forEach(value => {
 
