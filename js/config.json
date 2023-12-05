@@ -163,22 +163,8 @@
         },
         {
           "name": "group-5",
-          "title": "Couleurs",
+          "title": "Arrière plan",
           "fields": [
-            {
-              "name": "color",
-              "title": "Couleur",
-              "type": "radio",
-              "value": "",
-              "optionsValues": [
-                "transparent",
-                "purple",
-                "white",
-                "black",
-                "success",
-                "error"
-              ]
-            },
             {
               "name": "background",
               "title": "Couleur de fond",
@@ -225,6 +211,20 @@
               "type": "text",
               "value": "",
               "optionsValues": []
+            },
+            {
+              "name": "color",
+              "title": "Couleur",
+              "type": "radio",
+              "value": "",
+              "optionsValues": [
+                "transparent",
+                "purple",
+                "white",
+                "black",
+                "success",
+                "error"
+              ]
             }
           ]
         }
