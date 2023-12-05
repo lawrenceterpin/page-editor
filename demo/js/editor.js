@@ -1,8 +1,8 @@
 class Editor {
 
     editorMode = true;
-    jsonDatasUrl = "https://lawrenceterpin.github.io/page-editor/js/datas.json";
-    configUrl = "https://lawrenceterpin.github.io/page-editor/js/config.json";
+    jsonDatasUrl = "https://lawrenceterpin.github.io/page-editor/demo/js/datas.json";
+    configUrl = "https://lawrenceterpin.github.io/page-editor/demo/js/config.json";
 
     constructor(options) {
 
