@@ -1,6 +1,7 @@
 class Editor {
 
     editorMode = true;
+    editorId = "default";
     jsonDatasUrl = "https://lawrenceterpin.github.io/page-editor/demo/js/datas.json";
     configUrl = "https://lawrenceterpin.github.io/page-editor/demo/js/config.json";
 
@@ -8,6 +9,10 @@ class Editor {
 
         if (typeof options !== 'undefined') {
 
+            if (typeof options.editorId !== "undefined") {
+
+                this.editorId = options.editorId;
+            }
             if (typeof options.jsonDatasUrl !== "undefined") {
 
                 this.jsonDatasUrl = options.jsonDatasUrl;
@@ -49,7 +54,7 @@ class Editor {
 
         this.container = document.getElementById(this.options.editorContainerId)
 
-        const editorDatas = localStorage.getItem("editorDatas");
+        const editorDatas = localStorage.getItem(this.editorId);
 
         if (editorDatas == null) {
 
@@ -166,7 +171,7 @@ class Editor {
         // Création du bouton de changement de mode d'édition
         this.editorModeButton = document.createElement('button');
         this.editorModeButton.setAttribute('id', 'editor-mode-button');
-        this.editorModeButton.setAttribute('class', 'p-absolute btn shadow round');
+        this.editorModeButton.setAttribute('class', 'p-fixed btn shadow round');
         this.editorModeButton.setAttribute('onclick', 'editor.switchEditorMode()');
         this.editorModeButton.innerHTML = '<i class="fa fa-eye"></i></button>';
 
@@ -280,10 +285,9 @@ class Editor {
             tag.setAttribute('draggable', 'true');
             tag.setAttribute('ondragstart', 'editor.dragit(event);');
             tag.setAttribute('ondragover', 'editor.dragover(event);');
-            // tag.setAttribute('data-rellax-speed', '7');
 
             // On ajoute le bouton d'édition
-            tag.innerHTML = '<div class="edit-element-options p-relative w-100">' +
+            tag.innerHTML = '<div class="edit-element-options flex-direction-row-reverse p-relative w-100">' +
                 '<div id="edit-element-tag" class="p-absolute bg-primary white">' +
                 '<b>&nbsp;' + element.tag + '&nbsp;</b>' +
                 '</div>' +
@@ -533,7 +537,7 @@ class Editor {
 
     saveDatas() {
 
-        localStorage.setItem("editorDatas", JSON.stringify(this.editorDatas));
+        localStorage.setItem(this.editorId, JSON.stringify(this.editorDatas));
 
         alert('Les données ont été sauvegardées');
     }

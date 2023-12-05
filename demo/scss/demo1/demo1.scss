@@ -7,22 +7,27 @@
 @import "../colors.scss";
 @import "../editor.scss";
 
-html,
-body {
-    height: 100%;
-}
-
 html {
     scroll-behavior: smooth;
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: $fontFamily;
     font-size: $small;
+}
+
+h1,
+h2 {
+    color: $primary;
+}
+
+p {
+    color: $black;
 }
 
 a {
     text-decoration: none;
+    color: $primary;
 
     &:hover {
         text-decoration: underline;
@@ -68,8 +73,20 @@ li {
     aspect-ratio: 1/1;
 }
 
+.square {
+    aspect-ratio: 1/1;
+}
+
 .d-none {
     display: none;
+}
+
+.border {
+    border: 1px solid $black;
+}
+
+.border-bottom {
+    border-bottom: 1px solid $black;
 }
 
 @media (max-width: 480px) {

@@ -1,9 +1,6 @@
 .row {
     display: flex;
     flex-wrap: wrap;
-    // padding: $small;
-    // margin-left: -$small;
-    // margin-right: -$small;
 
     >[class*="col-"] {
         margin: 0 !important;

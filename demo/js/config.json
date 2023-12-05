@@ -172,6 +172,7 @@
               "optionsValues": [
                 "bg-transparent",
                 "bg-primary",
+                "bg-secondary",
                 "bg-white",
                 "bg-black",
                 "bg-success",
@@ -219,6 +220,7 @@
               "optionsValues": [
                 "transparent",
                 "primary",
+                "secondary",
                 "white",
                 "black",
                 "success",
