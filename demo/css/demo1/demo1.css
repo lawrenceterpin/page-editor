@@ -272,6 +272,14 @@ input[type=text], select {
   background-color: #9C27B0;
 }
 
+.secondary {
+  color: #222589;
+}
+
+.bg-secondary {
+  background-color: #222589;
+}
+
 .bg-success {
   background-color: #27ae60;
 }
