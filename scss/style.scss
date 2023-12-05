@@ -60,6 +60,10 @@ li {
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
+.border-radius {
+    border-radius: 25px;
+}
+
 .round {
     border-radius: 50%;
     aspect-ratio: 1/1;
@@ -147,12 +151,6 @@ pre.code-jquery code {
 
 .d-none {
     display: none;
-}
-
-.bg-landscape {
-    background: url('https://st2.depositphotos.com/3651191/50798/i/450/depositphotos_507989186-stock-photo-colorful-summer-view-of-fusine.jpg');
-    background-size: cover;
-    background-repeat: no-repeat;
 }
 
 @media (max-width: 480px) {

@@ -249,7 +249,7 @@ class Editor {
             // On ajoute l'identifiant de l'élément
             tag.id = element.id;
 
-            var styleProperties = ["top", "bottom", "left", "right", "z-index"];
+            var styleProperties = ["top", "bottom", "left", "right", "z-index", "font-size"];
 
             styleProperties.forEach(property => {
 
@@ -297,10 +297,20 @@ class Editor {
                 this.createElementsFromArray(tag, element.elements);
             }
 
+            // if (tag.classList.contains('rellax')) {
+
+            //     console.log(tag.classList.contains('rellax'))
+            // }
+
             parent.appendChild(tag);
         });
 
-        var rellax = new Rellax('.rellax');
+        var rellax = new Rellax('.rellax', {
+            center: true,
+            vertical: true,
+            horizontal: false,
+        });
+
     }
 
     addElement(elementIdSelected) {
@@ -573,8 +583,6 @@ class Editor {
 
             content += "</div>" +
                 "</div>";
-
-            // content += input;
         });
 
         return content;

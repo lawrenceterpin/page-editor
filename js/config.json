@@ -42,13 +42,6 @@
               "optionsValues": []
             },
             {
-              "name": "text",
-              "title": "Texte",
-              "type": "text",
-              "value": "",
-              "optionsValues": []
-            },
-            {
               "name": "attributes",
               "title": "Attributs",
               "type": "text",
@@ -209,6 +202,26 @@
             {
               "name": "classes",
               "title": "Classes",
+              "type": "text",
+              "value": "",
+              "optionsValues": []
+            }
+          ]
+        },
+        {
+          "name": "group-7",
+          "title": "Texte",
+          "fields": [
+            {
+              "name": "text",
+              "title": "Texte",
+              "type": "text",
+              "value": "",
+              "optionsValues": []
+            },
+            {
+              "name": "font-size",
+              "title": "Taille",
               "type": "text",
               "value": "",
               "optionsValues": []
