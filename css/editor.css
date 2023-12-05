@@ -402,9 +402,6 @@ input[type=text], select {
 #editor-panel .accordion > label {
   cursor: pointer;
 }
-#editor-panel .accordion > div {
-  display: none;
-}
 #editor-panel .accordion > div input[type=radio] {
   display: none;
 }

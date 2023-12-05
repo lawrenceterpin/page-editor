@@ -8,7 +8,7 @@
       "fieldsGroups": [
         {
           "name": "group-1",
-          "title": "Groupe 1",
+          "title": "Type d'élément",
           "fields": [
             {
               "name": "tag",
@@ -42,6 +42,26 @@
               "optionsValues": []
             },
             {
+              "name": "text",
+              "title": "Texte",
+              "type": "text",
+              "value": "",
+              "optionsValues": []
+            },
+            {
+              "name": "attributes",
+              "title": "Attributs",
+              "type": "text",
+              "value": "",
+              "optionsValues": []
+            }
+          ]
+        },
+        {
+          "name": "group-2",
+          "title": "Affichage",
+          "fields": [
+            {
               "name": "display",
               "title": "Affichage",
               "type": "select",
@@ -51,7 +71,13 @@
                 "d-flex",
                 "d-none"
               ]
-            },
+            }
+          ]
+        },
+        {
+          "name": "group-3",
+          "title": "Mise en page",
+          "fields": [
             {
               "name": "flex-direction",
               "title": "Direction de l'alignement",
@@ -86,7 +112,13 @@
                 "align-items-center",
                 "align-items-end"
               ]
-            },
+            }
+          ]
+        },
+        {
+          "name": "group-4",
+          "title": "Positionnement",
+          "fields": [
             {
               "name": "position",
               "title": "Positionnement",
@@ -133,7 +165,13 @@
               "type": "text",
               "value": "",
               "optionsValues": []
-            },
+            }
+          ]
+        },
+        {
+          "name": "group-5",
+          "title": "Couleurs",
+          "fields": [
             {
               "name": "color",
               "title": "Couleur",
@@ -161,24 +199,16 @@
                 "bg-success",
                 "bg-error"
               ]
-            },
+            }
+          ]
+        },
+        {
+          "name": "group-6",
+          "title": "CSS",
+          "fields": [
             {
               "name": "classes",
               "title": "Classes",
-              "type": "text",
-              "value": "",
-              "optionsValues": []
-            },
-            {
-              "name": "text",
-              "title": "Texte",
-              "type": "text",
-              "value": "",
-              "optionsValues": []
-            },
-            {
-              "name": "attributes",
-              "title": "Attributs",
               "type": "text",
               "value": "",
               "optionsValues": []

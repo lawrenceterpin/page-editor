@@ -170,7 +170,7 @@ class Editor {
         // Ouverture/fermeture du panneau d'édition 
         this.panelDisplay(this.options.panel.open);
 
-        this.accordion();
+        // this.accordion();
     }
 
     /**
@@ -388,20 +388,19 @@ class Editor {
         editElementButtons.classList.add((this.editOptionsIsOpen) ? 'd-flex' : 'd-none');
     }
 
-    accordion() {
+    accordion(event) {
 
-        var acc = Array.from(document.querySelectorAll(".accordion > label"));
+        var child = event.srcElement.parentNode.children[1];
 
-        for (var i = 0; i < acc.length; i++) {
+        if (child.classList.contains('d-none')) {
 
-            acc[i].addEventListener("click", function (e) {
+            child.classList.remove('d-none');
+            child.classList.add('d-flex');
+        }
+        else {
 
-                var panel = e.target.parentNode.children[1];
-
-                if (panel.style.display !== "none") {
-                    panel.style.display = "flex";
-                }
-            });
+            child.classList.remove('d-flex');
+            child.classList.add('d-none');
         }
     }
 
@@ -503,27 +502,27 @@ class Editor {
 
             console.log(group.name, group.title);
 
+            content += "<div id='" + group.name + "' class='field-group accordion mb-1 pb-1 border-bottom' onclick='editor.accordion(event);'>" +
+                "<h4 class='d-flex justify-content-between m-0'>" + group.title + "<i class='fa fa-chevron-down'></i></h4>" +
+                "<div class='flex-direction-column justify-content-center pt-1 pb-1 d-none'>";
+
             group.fields.forEach(field => {
 
                 if (field.type == "text" || field.type == "number") {
 
-                    var input = "<label for='" + field.name + "'>" + field.title + "</label>" +
-
+                    content += "<label for='" + field.name + "'>" + field.title + "</label>" +
                         "<input type='" + field.type + "' id='" + field.name + "' name='" + field.name + "' placeholder='" + field.title + "' class='mb-1'>";
 
-                    content += input;
                 }
                 else if (field.type == "hidden") {
 
-                    var input = "<input type='" + field.type + "' id='" + field.name + "' name='" + field.name + "' placeholder='" + field.title + "' class='mb-1'>";
+                    content += "<input type='" + field.type + "' id='" + field.name + "' name='" + field.name + "' placeholder='" + field.title + "' class='mb-1'>";
 
-                    content += input;
                 }
                 else if (field.type == "picker") {
 
-                    var input = "<div class='input-group accordion mb-1 pb-1 border-bottom'>" +
-                        "<label for='" + field.name + "' class='d-flex justify-content-between pt-1'><h4 class='m-0'>" + field.title + "</h4><i class='fa fa-chevron-down'></i></label>" +
-                        "<div class='colors-grid row align-items-center pt-1 pb-1 gap-1'>";
+                    content += "<label for='" + field.name + "'>" + field.title + "</label>" +
+                        "<div class='row flex-direction-row gap-1'>";
 
                     field.optionsValues.forEach(value => {
 
@@ -534,32 +533,32 @@ class Editor {
                             var iconClass = this.getIconByName(value);
                         }
 
-                        input += "<input type='radio' id='" + value + "' name='" + field.name + "' value='" + value + "'  class='d-flex align-items-center justify-content-center " + colorClass + " border'>" +
+                        content += "<input type='radio' id='" + value + "' name='" + field.name + "' value='" + value + "'  class='d-flex align-items-center justify-content-center " + colorClass + " border'>" +
                             "<label for='" + value + "' class='d-flex justify-content-center align-items-center " + colorClass + "' title='" + value + "'><i class='fa " + iconClass + "'></i></label>";
                     });
 
-                    input += "</div>" +
-                        "</div>";
-
-                    content += input;
+                    content += "</div>";
                 }
                 else if (field.type == "select") {
 
-                    var select = "<label for='" + field.name + "'>" + field.title + "</label>" +
+                    content += "<label for='" + field.name + "'>" + field.title + "</label>" +
 
                         "<select id='" + field.name + "' name='" + field.name + "' class='mb-1'>" +
                         "<option value='' selected>" + field.title + "</option>";
 
                     field.optionsValues.forEach(value => {
 
-                        select += "<option value='" + value + "'>" + value + "</option>";
+                        content += "<option value='" + value + "'>" + value + "</option>";
                     });
 
-                    select += "</select>";
-
-                    content += select;
+                    content += "</select>";
                 }
             });
+
+            content += "</div>" +
+                "</div>";
+
+            // content += input;
         });
 
         return content;
