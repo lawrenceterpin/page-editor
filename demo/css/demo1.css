@@ -296,6 +296,144 @@ input[type=text], select {
   border-bottom: 1px solid #000;
 }
 
+#editor-panel-button {
+  top: 0;
+  right: 0;
+  z-index: 1001;
+  cursor: pointer;
+  border: none;
+  background: #fff;
+  border: 4px solid #9C27B0;
+  border-radius: 25px;
+  aspect-ratio: 1/1;
+  text-decoration: none;
+  transition: all 0.5s;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 50%;
+}
+
+.edit-element-options {
+  display: none;
+}
+
+#editor {
+  min-height: 100%;
+}
+
+#editor.editor-mode {
+  padding: 30px;
+}
+#editor.editor-mode i {
+  font-size: 15px !important;
+}
+#editor.editor-mode .element {
+  margin: 30px;
+  border: 3px dashed gray;
+  min-width: 100px;
+  min-height: 100px;
+}
+#editor.editor-mode .element .edit-element-options {
+  display: flex;
+  flex-direction: row-reverse;
+  height: 0;
+}
+#editor.editor-mode .element .edit-element-options #edit-element-tag {
+  left: 0;
+  top: -25px;
+  font-size: 15px;
+}
+#editor.editor-mode .element .edit-element-options #edit-element-button {
+  display: none;
+  position: absolute;
+  top: -30px;
+  right: -30px;
+}
+#editor.editor-mode .element .edit-element-options #edit-element-buttons {
+  top: -30px;
+  right: 30px;
+  z-index: -1;
+  opacity: 0.5;
+}
+#editor.editor-mode .element .edit-element-options button {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#editor.editor-mode .element .edit-element-options:hover {
+  z-index: 100;
+  opacity: 1;
+}
+#editor.editor-mode .element:hover {
+  background-color: rgba(0, 0, 0, 0.15);
+  border: 3px dashed #000;
+  z-index: 100;
+}
+#editor.editor-mode .element:hover > .edit-element-options #edit-element-button {
+  display: flex;
+}
+#editor.editor-mode .element:hover > .edit-element-options #edit-element-buttons {
+  opacity: 1;
+  z-index: 100;
+  justify-content: flex-end;
+  font-size: 14px;
+  color: #000;
+}
+#editor.editor-mode .element.p-fixed {
+  position: static;
+}
+
+#editor-mode-button {
+  width: 50px;
+  height: 50px;
+  z-index: 1001;
+}
+
+#editor-panel {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  width: 400px;
+  margin-right: -430px;
+  background-color: rgba(255, 255, 255, 0.85);
+  transition: all 0.5s;
+  overflow-y: scroll;
+}
+#editor-panel #close-panel {
+  width: 50px;
+  height: 50px;
+  top: 0;
+  right: 0;
+}
+#editor-panel.open {
+  margin-right: 0;
+}
+#editor-panel .accordion > h4 {
+  cursor: pointer;
+}
+#editor-panel .accordion > div input[type=radio] {
+  display: none;
+}
+#editor-panel .accordion > div input[type=radio] + label {
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  padding: 0.3rem 0.5rem;
+  border: 1px solid #000;
+}
+#editor-panel .accordion > div input[type=radio]:checked + label {
+  border: 4px solid #000;
+}
+
+@media (max-width: 480px) {
+  #editor-panel.open {
+    width: auto;
+    left: 0;
+  }
+}
 html,
 body {
   height: 100%;
@@ -447,4 +585,4 @@ pre.code-jquery code {
   }
 }
 
-/*# sourceMappingURL=style.css.map */
+/*# sourceMappingURL=demo1.css.map */

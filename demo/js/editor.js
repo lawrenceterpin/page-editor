@@ -53,6 +53,8 @@ class Editor {
 
         if (editorDatas == null) {
 
+            console.log(this.jsonDatasUrl);
+
             fetch(this.jsonDatasUrl)
                 .then(response => {
                     return response.json();

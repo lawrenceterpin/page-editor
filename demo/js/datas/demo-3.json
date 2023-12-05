@@ -187,7 +187,7 @@
                     "classes": "text-center m-0",
                     "text": "DIGITAL AGENCY",
                     "font-size": "5em",
-                    "color": "success",
+                    "color": "primary",
                     "id": "editor-div-1-main-2-section-1-div-2-h2-1"
                   },
                   {
@@ -246,11 +246,11 @@
                         "left": "",
                         "right": "",
                         "z-index": "",
-                        "background": "bg-success",
+                        "background": "bg-primary",
                         "classes": "p-2 pt-1 pb-1 shadow border-radius",
                         "text": "NOS SERVICES",
                         "font-size": "1.2em",
-                        "color": "white",
+                        "color": "black",
                         "id": "editor-div-1-main-2-section-1-div-2-div-3-a-1"
                       },
                       {
@@ -267,11 +267,11 @@
                         "left": "",
                         "right": "",
                         "z-index": "",
-                        "background": "bg-white",
+                        "background": "bg-black",
                         "classes": "p-2 pt-1 pb-1 shadow border-radius",
                         "text": "EN SAVOIR +",
                         "font-size": "1.2em",
-                        "color": "success",
+                        "color": "primary",
                         "id": "editor-div-1-main-2-section-1-div-2-div-3-a-2"
                       }
                     ]
