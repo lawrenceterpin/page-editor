@@ -5,179 +5,185 @@
   "panel": {
     "open": false,
     "form": {
-      "fields": [
+      "fieldsGroups": [
         {
-          "name": "tag",
-          "title": "Type",
-          "type": "select",
-          "value": "",
-          "optionsValues": [
-            "div",
-            "header",
-            "main",
-            "footer",
-            "nav",
-            "section",
-            "article",
-            "h1",
-            "h2",
-            "h3",
-            "h4",
-            "ul",
-            "li",
-            "p",
-            "a",
-            "img"
+          "name": "group-1",
+          "title": "Groupe 1",
+          "fields": [
+            {
+              "name": "tag",
+              "title": "Type",
+              "type": "select",
+              "value": "",
+              "optionsValues": [
+                "div",
+                "header",
+                "main",
+                "footer",
+                "nav",
+                "section",
+                "article",
+                "h1",
+                "h2",
+                "h3",
+                "h4",
+                "ul",
+                "li",
+                "p",
+                "a",
+                "img"
+              ]
+            },
+            {
+              "name": "name",
+              "title": "Name",
+              "type": "hidden",
+              "value": "",
+              "optionsValues": []
+            },
+            {
+              "name": "display",
+              "title": "Affichage",
+              "type": "select",
+              "value": "",
+              "optionsValues": [
+                "d-block",
+                "d-flex",
+                "d-none"
+              ]
+            },
+            {
+              "name": "flex-direction",
+              "title": "Direction de l'alignement",
+              "type": "picker",
+              "value": "",
+              "optionsValues": [
+                "flex-direction-row",
+                "flex-direction-row-reverse",
+                "flex-direction-column",
+                "flex-direction-column-reverse"
+              ]
+            },
+            {
+              "name": "justify-content",
+              "title": "Alignement horizontal",
+              "type": "picker",
+              "value": "",
+              "optionsValues": [
+                "justify-content-start",
+                "justify-content-center",
+                "justify-content-end",
+                "justify-content-between"
+              ]
+            },
+            {
+              "name": "align-items",
+              "title": "Alignement vertical",
+              "type": "picker",
+              "value": "",
+              "optionsValues": [
+                "align-items-start",
+                "align-items-center",
+                "align-items-end"
+              ]
+            },
+            {
+              "name": "position",
+              "title": "Positionnement",
+              "type": "select",
+              "value": "",
+              "optionsValues": [
+                "p-relative",
+                "p-absolute",
+                "p-fixed",
+                "p-static"
+              ]
+            },
+            {
+              "name": "top",
+              "title": "Haut",
+              "type": "text",
+              "value": "",
+              "optionsValues": []
+            },
+            {
+              "name": "bottom",
+              "title": "Bas",
+              "type": "text",
+              "value": "",
+              "optionsValues": []
+            },
+            {
+              "name": "left",
+              "title": "Gauche",
+              "type": "text",
+              "value": "",
+              "optionsValues": []
+            },
+            {
+              "name": "right",
+              "title": "Droite",
+              "type": "text",
+              "value": "",
+              "optionsValues": []
+            },
+            {
+              "name": "z-index",
+              "title": "Z-index",
+              "type": "text",
+              "value": "",
+              "optionsValues": []
+            },
+            {
+              "name": "color",
+              "title": "Couleur",
+              "type": "picker",
+              "value": "",
+              "optionsValues": [
+                "transparent",
+                "purple",
+                "white",
+                "black",
+                "success",
+                "error"
+              ]
+            },
+            {
+              "name": "background",
+              "title": "Couleur de fond",
+              "type": "picker",
+              "value": "",
+              "optionsValues": [
+                "bg-transparent",
+                "bg-purple",
+                "bg-white",
+                "bg-black",
+                "bg-success",
+                "bg-error"
+              ]
+            },
+            {
+              "name": "classes",
+              "title": "Classes",
+              "type": "text",
+              "value": "",
+              "optionsValues": []
+            },
+            {
+              "name": "text",
+              "title": "Texte",
+              "type": "text",
+              "value": "",
+              "optionsValues": []
+            },
+            {
+              "name": "attributes",
+              "title": "Attributs",
+              "type": "text",
+              "value": "",
+              "optionsValues": []
+            }
           ]
-        },
-        {
-          "name": "name",
-          "title": "Name",
-          "type": "hidden",
-          "value": "",
-          "optionsValues": []
-        },
-        {
-          "name": "display",
-          "title": "Affichage",
-          "type": "select",
-          "value": "",
-          "optionsValues": [
-            "d-block",
-            "d-flex",
-            "d-none"
-          ]
-        },
-        {
-          "name": "flex-direction",
-          "title": "Direction de l'alignement",
-          "type": "picker",
-          "value": "",
-          "optionsValues": [
-            "flex-direction-row",
-            "flex-direction-row-reverse",
-            "flex-direction-column",
-            "flex-direction-column-reverse"
-          ]
-        },
-        {
-          "name": "justify-content",
-          "title": "Alignement horizontal",
-          "type": "picker",
-          "value": "",
-          "optionsValues": [
-            "justify-content-start",
-            "justify-content-center",
-            "justify-content-end",
-            "justify-content-between"
-          ]
-        },
-        {
-          "name": "align-items",
-          "title": "Alignement vertical",
-          "type": "picker",
-          "value": "",
-          "optionsValues": [
-            "align-items-start",
-            "align-items-center",
-            "align-items-end"
-          ]
-        },
-        {
-          "name": "position",
-          "title": "Positionnement",
-          "type": "select",
-          "value": "",
-          "optionsValues": [
-            "p-relative",
-            "p-absolute",
-            "p-fixed",
-            "p-static"
-          ]
-        },
-        {
-          "name": "top",
-          "title": "Haut",
-          "type": "text",
-          "value": "",
-          "optionsValues": []
-        },
-        {
-          "name": "bottom",
-          "title": "Bas",
-          "type": "text",
-          "value": "",
-          "optionsValues": []
-        },
-        {
-          "name": "left",
-          "title": "Gauche",
-          "type": "text",
-          "value": "",
-          "optionsValues": []
-        },
-        {
-          "name": "right",
-          "title": "Droite",
-          "type": "text",
-          "value": "",
-          "optionsValues": []
-        },
-        {
-          "name": "z-index",
-          "title": "Z-index",
-          "type": "text",
-          "value": "",
-          "optionsValues": []
-        },
-        {
-          "name": "color",
-          "title": "Couleur",
-          "type": "picker",
-          "value": "",
-          "optionsValues": [
-            "transparent",
-            "purple",
-            "white",
-            "black",
-            "success",
-            "error"
-          ]
-        },
-        {
-          "name": "background",
-          "title": "Couleur de fond",
-          "type": "picker",
-          "value": "",
-          "optionsValues": [
-            "bg-transparent",
-            "bg-purple",
-            "bg-white",
-            "bg-black",
-            "bg-success",
-            "bg-error"
-          ]
-        },
-        {
-          "name": "classes",
-          "title": "Classes",
-          "type": "text",
-          "value": "",
-          "optionsValues": []
-        },
-        {
-          "name": "text",
-          "title": "Texte",
-          "type": "text",
-          "value": "",
-          "optionsValues": []
-        },
-        {
-          "name": "attributes",
-          "title": "Attributs",
-          "type": "text",
-          "value": "",
-          "optionsValues": []
         }
       ]
     }
