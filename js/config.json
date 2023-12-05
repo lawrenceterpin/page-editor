@@ -123,7 +123,7 @@
           "value": "",
           "optionsValues": []
         },
-         {
+        {
           "name": "z-index",
           "title": "Z-index",
           "type": "text",

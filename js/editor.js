@@ -246,6 +246,7 @@ class Editor {
             tag.setAttribute('draggable', 'true');
             tag.setAttribute('ondragstart', 'editor.dragit(event);');
             tag.setAttribute('ondragover', 'editor.dragover(event);');
+            // tag.setAttribute('data-rellax-speed', '7');
 
             // On ajoute le bouton d'édition
             tag.innerHTML = '<div class="edit-element-options p-relative w-100">' +
@@ -280,6 +281,8 @@ class Editor {
 
             parent.appendChild(tag);
         });
+
+        var rellax = new Rellax('.rellax');
     }
 
     addElement(elementIdSelected) {
