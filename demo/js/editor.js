@@ -177,7 +177,7 @@ class Editor {
 
         var content = "<div class='d-flex justify-content-between'>" +
             "<h2 id='form-type'>" + ((this.formType == 'add') ? 'Ajouter l\'élément' : 'Modifier l\'élément') + "</h2>" +
-            "<button id='close-panel' class='btn shadow bg-purple white' onclick='editor.panelDisplay(false)'><i class='fa fa-close'></i></button>" +
+            "<button id='close-panel' class='btn shadow bg-primary white' onclick='editor.panelDisplay(false)'><i class='fa fa-close'></i></button>" +
             "</div>" +
             "<h3 id='selected-element'></h3>" +
             "<form id='editor-form' class='d-flex flex-direction-column' onsubmit='editor.submitEditorForm(event)'>";
@@ -185,7 +185,7 @@ class Editor {
         content += this.createForm();
 
         content += "<div class='text-center'>" +
-            "<input type='submit' value='enregistrer' class='btn bg-purple shadow white'>" +
+            "<input type='submit' value='enregistrer' class='btn bg-primary shadow white'>" +
             "</div>" +
             "</form>";
 
@@ -282,14 +282,14 @@ class Editor {
 
             // On ajoute le bouton d'édition
             tag.innerHTML = '<div class="edit-element-options p-relative w-100">' +
-                '<div id="edit-element-tag" class="p-absolute bg-purple white">' +
+                '<div id="edit-element-tag" class="p-absolute bg-primary white">' +
                 '<b>&nbsp;' + element.tag + '&nbsp;</b>' +
                 '</div>' +
                 '<div id="edit-element-buttons" class="p-absolute d-none gap-1 align-items-center">' +
-                '<button class="btn bg-white purple shadow" title="#' + tag.id + '" onclick="editor.addElement(\'' + tag.id.trim() + '\')"><i class="fa fa-plus-circle"></i></button>' +
-                '<button class="btn bg-white purple shadow" title="#' + tag.id + '" onclick="editor.editElement(\'' + tag.id.trim() + '\')"><i class="fa fa-edit"></i></button>' +
+                '<button class="btn bg-white primary shadow" title="#' + tag.id + '" onclick="editor.addElement(\'' + tag.id.trim() + '\')"><i class="fa fa-plus-circle"></i></button>' +
+                '<button class="btn bg-white primary shadow" title="#' + tag.id + '" onclick="editor.editElement(\'' + tag.id.trim() + '\')"><i class="fa fa-edit"></i></button>' +
                 '</div>' +
-                '<button id="edit-element-button" class="btn bg-white purple shadow" title="#' + tag.id + '" onclick="editor.showEditOptions(\'' + tag.id.trim() + '\')"><i class="fa fa-cog"></i></button>' +
+                '<button id="edit-element-button" class="btn bg-white primary shadow" title="#' + tag.id + '" onclick="editor.showEditOptions(\'' + tag.id.trim() + '\')"><i class="fa fa-cog"></i></button>' +
                 '</div>';
 
             if (element.tag == 'img') {

@@ -264,11 +264,11 @@ input[type=text], select {
   background-color: transparent;
 }
 
-.purple {
+.primary {
   color: #9C27B0;
 }
 
-.bg-purple {
+.bg-primary {
   background-color: #9C27B0;
 }
 

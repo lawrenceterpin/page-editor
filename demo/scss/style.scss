@@ -23,7 +23,7 @@ body {
 
 a {
     text-decoration: none;
-    color: $purple;
+    color: $primary;
 
     &:hover {
         text-decoration: underline;
@@ -43,7 +43,7 @@ li {
     transition: all 0.5s;
 
     &:hover {
-        background: $purple;
+        background: $primary;
         color: $white;
     }
 }
