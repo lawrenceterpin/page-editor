@@ -559,7 +559,8 @@
                             "attributes": "",
                             "id": "editor-div-1-main-2-section-2-div-2-div-1-article-1-h2-1"
                           }
-                        ]
+                        ],
+                        "font-size": "undefined"
                       }
                     ]
                   },
@@ -623,7 +624,8 @@
                             "attributes": "",
                             "id": "editor-div-1-main-2-section-2-div-2-div-2-article-1-h2-1"
                           }
-                        ]
+                        ],
+                        "font-size": "undefined"
                       }
                     ]
                   },
@@ -687,7 +689,8 @@
                             "attributes": "",
                             "id": "editor-div-1-main-2-section-2-div-2-div-3-article-1-h2-1"
                           }
-                        ]
+                        ],
+                        "font-size": "undefined"
                       }
                     ]
                   },
@@ -751,7 +754,8 @@
                             "attributes": "",
                             "id": "editor-div-1-main-2-section-2-div-2-div-4-article-1-h2-1"
                           }
-                        ]
+                        ],
+                        "font-size": "undefined"
                       }
                     ]
                   },
@@ -781,6 +785,7 @@
           }
         ]
       }
-    ]
+    ],
+    "font-size": "undefined"
   }
 ]
