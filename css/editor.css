@@ -399,7 +399,7 @@ input[type=text], select {
 #editor-panel.open {
   margin-right: 0;
 }
-#editor-panel .accordion > label {
+#editor-panel .accordion > h4 {
   cursor: pointer;
 }
 #editor-panel .accordion > div input[type=radio] {

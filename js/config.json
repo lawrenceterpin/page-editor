@@ -8,7 +8,7 @@
       "fieldsGroups": [
         {
           "name": "group-1",
-          "title": "Type d'élément",
+          "title": "Général",
           "fields": [
             {
               "name": "tag",

@@ -71,20 +71,35 @@ class Editor {
         this.options.panel.form.fieldsGroups.forEach(group => {
 
             group.fields.forEach(field => {
-                var field = document.querySelector('#' + this.formId + ' [name=' + field.name + ']');
+                var fieldForm = document.querySelector('#' + this.formId + ' [name=' + field.name + ']');
 
                 if (this.formType == 'edit') {
 
-                    if (field.type !== 'radio') {
-                        field.value = this.elementSelected[field.name];
+                    if (fieldForm.type !== 'radio') {
+                        fieldForm.value = this.elementSelected[field.name];
+
+
+                    }
+                    else if (fieldForm.type == 'radio') {
+
+                        console.log(field);
+
+                        field.optionsValues.forEach(value => {
+
+                            if (this.elementSelected[field.name] == value) {
+                                if (typeof document.querySelector('#' + this.formId + ' #' + value) !== "undefined") {
+                                    var fieldForm = document.querySelector('#' + this.formId + ' #' + value);
+
+                                    fieldForm.checked = true;
+                                }
+                            }
+                        });
                     }
                 }
 
                 if (this.formType == 'add') {
 
-                    if (field.type !== 'radio') {
-                        field.value = "";
-                    }
+                    this.form.reset();
                 }
             });
         });
@@ -107,19 +122,20 @@ class Editor {
 
         var data = {};
 
-        this.options.panel.form.fields.forEach(field => {
+        this.options.panel.form.fieldsGroups.forEach(group => {
 
-            var value = document.querySelector('#' + this.formId + ' [name="' + field.name + '"]').value;
+            group.fields.forEach(field => {
+                var value = document.querySelector('#' + this.formId + ' [name="' + field.name + '"]').value;
 
+                if (field.type == 'radio') {
 
-            if (field.type == 'picker') {
-
-                if (document.querySelector('#' + this.formId + ' [name="' + field.name + '"]:checked') !== null) {
-                    value = document.querySelector('#' + this.formId + ' [name="' + field.name + '"]:checked').value;
+                    if (document.querySelector('#' + this.formId + ' [name="' + field.name + '"]:checked') !== null) {
+                        value = document.querySelector('#' + this.formId + ' [name="' + field.name + '"]:checked').value;
+                    }
                 }
-            }
 
-            data[field.name] = value;
+                data[field.name] = value;
+            });
         });
 
         this.panelDisplay(false);
@@ -325,9 +341,11 @@ class Editor {
                     }
                     else if (type == 'edit') {
 
-                        this.options.panel.form.fields.forEach(field => {
+                        this.options.panel.form.fieldsGroups.forEach(group => {
 
-                            element[field.name] = data[field.name];
+                            group.fields.forEach(field => {
+                                element[field.name] = data[field.name];
+                            });
                         });
                     }
                     // On regénère la page
@@ -520,7 +538,7 @@ class Editor {
                 else if (field.type == "radio") {
 
                     content += "<label for='" + field.name + "'>" + field.title + "</label>" +
-                        "<div class='row flex-direction-row gap-1 mb-1'>";
+                        "<div class='row flex-direction-row align-items-center gap-1 mb-1'>";
 
                     field.optionsValues.forEach(value => {
 
