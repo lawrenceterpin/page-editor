@@ -254,7 +254,7 @@ class Editor {
         // Pour chaque élément du tableau
         array.forEach((element, index) => {
 
-            var tagName = (element.tag == 'img') ? 'div' : element.tag;
+            var tagName = (element.tag == 'img' || element.tag == 'i') ? 'div' : element.tag;
             // On créé la balise de l'élément
             var tag = this.createElement(tagName);
             // On créé l'identifiant de l'élément
@@ -296,6 +296,12 @@ class Editor {
                 this.addClass(img, 'w-100');
 
                 tag.appendChild(img);
+            }
+
+            if (element.tag == 'img') {
+                var i = this.createElement('i');
+
+                tag.appendChild(i);
             }
 
             if (element.tag == 'a') {
