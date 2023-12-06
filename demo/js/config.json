@@ -89,25 +89,25 @@
                   "label": "flex-direction-row",
                   "value": "flex-direction-row",
                   "class": "",
-                  "iconClass": "fa-long-arrow-right"
+                  "iconClass": "fa-arrow-right"
                 },
                 {
                   "label": "flex-direction-row-reverse",
                   "value": "flex-direction-row-reverse",
                   "class": "",
-                  "iconClass": "fa-long-arrow-left"
+                  "iconClass": "fa-arrow-left"
                 },
                 {
                   "label": "flex-direction-column",
                   "value": "flex-direction-column",
                   "class": "",
-                  "iconClass": "fa-long-arrow-down"
+                  "iconClass": "fa-arrow-down"
                 },
                 {
                   "label": "flex-direction-column-reverse",
                   "value": "flex-direction-column-reverse",
                   "class": "",
-                  "iconClass": "fa-long-arrow-up"
+                  "iconClass": "fa-arrow-up"
                 }
               ]
             },

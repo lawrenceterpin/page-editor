@@ -1,4 +1,12 @@
-input[type="text"], input[type="number"], select {
+input,
+select {
+    letter-spacing: 1px;
     padding: $small;
-    font-size: 15px;
+    font-size: $small;
+    color: $black;
+}
+
+input::placeholder {
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
 }

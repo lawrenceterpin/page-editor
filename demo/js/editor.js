@@ -198,7 +198,7 @@ class Editor {
 
         let content = "<div class='d-flex nowrap justify-content-between'>" +
             "<h2 id='form-type' class='m-0'>" + ((this.formType == 'add') ? 'Ajouter l\'élément' : 'Modifier l\'élément') + "</h2>" +
-            "<button id='close-panel' class='btn shadow bg-primary white' onclick='editor.panelDisplay(false)'><i class='fa fa-close'></i></button>" +
+            "<button id='close-panel' class='btn shadow bg-secondary white' onclick='editor.panelDisplay(false)'><i class='fa fa-times'></i></button>" +
             "</div>" +
             "<h3 id='selected-element'></h3>" +
             "<form id='editor-form' class='d-flex flex-direction-column' onsubmit='editor.submitEditorForm(event)'>";
@@ -206,7 +206,7 @@ class Editor {
         content += this.createForm();
 
         content += "<div class='text-center'>" +
-            "<input type='submit' value='enregistrer' class='btn bg-primary shadow white'>" +
+            "<input type='submit' value='ENREGISTRER' class='btn bg-primary black shadow white'>" +
             "</div>" +
             "</form>";
 
@@ -532,12 +532,14 @@ class Editor {
         this.options.panel.form.fieldsGroups.forEach(group => {
 
             content += "<div id='" + group.name + "' class='field-group accordion mb-1 pb-1 border-bottom'>" +
-                "<h4 class='d-flex justify-content-between m-0' onclick='editor.accordion(event);'><strong>" + group.title + "</strong><i class='fa fa-chevron-down'></i></h4>" +
-                "<div class='flex-direction-column justify-content-center pt-1 pb-1 d-none'>";
+                "<h4 class='d-flex justify-content-between m-0' onclick='editor.accordion(event);'><strong>" + group.title + "</strong><i class='fa fa-chevron-circle-down fa-1x'></i></h4>" +
+                "<div class='flex-direction-column justify-content-center pt-1 d-none'>";
 
             group.fields.forEach(field => {
 
-                content += "<label for='" + field.name + "' class='mb-1'>" + field.title + "</label>";
+                if (field.type !== "hidden") {
+                    content += "<label for='" + field.name + "' class='mb-1'>" + field.title + "</label>";
+                }
 
                 if (field.type == "text" || field.type == "number") {
 
@@ -580,10 +582,9 @@ class Editor {
                 }
                 else if (field.type == "autocompletion") {
 
-                    var search_terms = ['apple', 'apple watch', 'apple macbook', 'apple macbook pro', 'iphone', 'iphone 12'];
-
-                    content += "<input type='" + field.type + "' id='" + field.name + "' name='" + field.name + "' placeholder='" + field.title + "' onKeyUp='showResults(this.value)' class='mb-1'>" +
-                        "<div id='result'></div>";
+                    let options = field.options;
+                    content += "<input type='text' id='" + field.name + "' name='" + field.name + "' onKeyUp='editor.showResults(\"" + options + "\", \"" + field.name + "\", this.value)' placeholder='&#xF002; (Ex: div, ...)'>" +
+                        "<div id='result' class='mb-1'></div>";
 
                 }
             });
@@ -634,7 +635,8 @@ class Editor {
         return document.getElementById(id);
     }
 
-    autocompleteMatch(input) {
+    autocompleteMatch(search_terms, input) {
+
         if (input == '') {
             return [];
         }
@@ -646,14 +648,27 @@ class Editor {
         });
     }
 
-    showResults(val) {
-        res = document.getElementById("result");
+    showResults(search_terms, id, val) {
+
+        search_terms = search_terms.split(',');
+
+        var res = document.getElementById("result");
         res.innerHTML = '';
         let list = '';
-        let terms = autocompleteMatch(val);
-        for (i = 0; i < terms.length; i++) {
-            list += '<li>' + terms[i] + '</li>';
+        let terms = this.autocompleteMatch(search_terms, val);
+        for (var i = 0; i < terms.length; i++) {
+            list += '<li onclick="editor.setFieldValue(\'' + id + '\', \'' + terms[i] + '\')">' + terms[i] + '</li>';
         }
-        res.innerHTML = '<ul>' + list + '</ul>';
+        res.innerHTML = '<ul class="shadow p-1 bg-white">' + list + '</ul>';
+    }
+
+    setFieldValue(fieldId, value) {
+
+        let field = this.getById(fieldId.trim());
+
+        field.value = value;
+
+        var res = document.getElementById("result");
+        res.innerHTML = "";
     }
 }
