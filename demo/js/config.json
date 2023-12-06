@@ -50,7 +50,7 @@
             {
               "name": "display",
               "title": "Affichage",
-              "type": "select",
+              "type": "radio",
               "value": "",
               "optionsValues": [
                 "d-block",
@@ -148,7 +148,7 @@
             {
               "name": "z-index",
               "title": "Z-index",
-              "type": "text",
+              "type": "number",
               "value": "",
               "optionsValues": []
             }
@@ -205,8 +205,8 @@
               "type": "radio",
               "value": "",
               "optionsValues": [
-                "text-center",
                 "text-left",
+                "text-center",
                 "text-right",
                 "text-justify"
               ]

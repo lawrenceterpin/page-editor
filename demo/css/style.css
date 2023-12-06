@@ -153,22 +153,13 @@ img {
     width: 100%;
   }
 }
-.row {
+.row, d-flex {
   display: flex;
   flex-wrap: wrap;
 }
-.row > [class*=col-] {
+.row > [class*=col-], d-flex > [class*=col-] {
   margin: 0 !important;
   border: none !important;
-}
-
-.d-flex {
-  display: flex;
-  flex: 0 0 auto;
-}
-
-.wrap {
-  flex-wrap: wrap;
 }
 
 .gap-1 {
@@ -235,7 +226,7 @@ img {
   position: fixed;
 }
 
-input[type=text], select {
+input[type=text], input[type=number], select {
   padding: 15px;
   font-size: 15px;
 }
@@ -459,8 +450,20 @@ li {
   color: #fff;
 }
 
+.text-left {
+  text-align: left;
+}
+
 .text-center {
   text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-justify {
+  text-align: justify;
 }
 
 .shadow-inner {

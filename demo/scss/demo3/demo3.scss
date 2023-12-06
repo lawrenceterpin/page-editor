@@ -53,6 +53,22 @@ li {
     list-style: none;
 }
 
+.text-left {
+    text-align: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.text-justify {
+    text-align: justify;
+}
+
 .btn {
     padding: $small;
     cursor: pointer;
@@ -65,10 +81,6 @@ li {
         background: $primary;
         color: $white;
     }
-}
-
-.text-center {
-    text-align: center;
 }
 
 .text-shadow {

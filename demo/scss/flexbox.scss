@@ -1,4 +1,4 @@
-.row {
+.row, d-flex {
     display: flex;
     flex-wrap: wrap;
 
@@ -9,14 +9,14 @@
     }
 }
 
-.d-flex {
-    display: flex;
-    flex: 0 0 auto;
-}
+// .d-flex {
+//     display: flex;
+//     flex: 0 0 auto;
+// }
 
-.wrap {
-    flex-wrap: wrap;
-}
+// .wrap {
+//     flex-wrap: wrap;
+// }
 
 .gap-1 {
     gap: $small;

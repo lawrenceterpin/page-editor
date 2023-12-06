@@ -482,6 +482,18 @@ class Editor {
 
             icon = "fa-long-arrow-up";
         }
+        else if (name == 'd-block') {
+
+            icon = "fa-eye";
+        }
+        else if (name == 'd-flex') {
+
+            icon = "fa-th-large";
+        }
+        else if (name == 'd-none') {
+
+            icon = "fa-eye-slash";
+        }
 
         return icon;
     }
@@ -491,6 +503,7 @@ class Editor {
         var classesProperties = [
             "display",
             "position",
+            "text-align",
             "color",
             "background",
             "classes"
