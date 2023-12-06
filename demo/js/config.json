@@ -12,7 +12,7 @@
             {
               "name": "tag",
               "title": "Type",
-              "type": "select",
+              "type": "autocompletion",
               "value": "",
               "options": [
                 "div",

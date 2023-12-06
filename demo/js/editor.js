@@ -113,7 +113,7 @@ class Editor {
                     }
                     else if (fieldForm.type == 'radio') {
 
-                        field.optionsValues.forEach(value => {
+                        field.options.forEach(value => {
 
                             if (this.elementSelected[field.name] == value) {
                                 if (typeof this.getBySelector('#' + this.formId + ' #' + value) !== "undefined") {
@@ -478,70 +478,6 @@ class Editor {
         }
     }
 
-    // getIconByName(name) {
-
-    //     let icon = "";
-
-    //     if (name == 'justify-content-start' || name == 'text-left') {
-
-    //         icon = "fa-align-left";
-    //     }
-    //     else if (name == 'justify-content-center' || name == 'text-center') {
-
-    //         icon = "fa-align-center";
-    //     }
-    //     else if (name == 'justify-content-end' || name == 'text-right') {
-
-    //         icon = "fa-align-right";
-    //     }
-    //     else if (name == 'justify-content-between' || name == 'text-justify') {
-
-    //         icon = "fa-align-justify";
-    //     }
-    //     else if (name == 'align-items-center') {
-
-    //         icon = "fa-align-center";
-    //     }
-    //     else if (name == 'align-items-start') {
-
-    //         icon = "fa-align-left";
-    //     }
-    //     else if (name == 'align-items-end') {
-
-    //         icon = "fa-align-right";
-    //     }
-    //     else if (name == 'flex-direction-row') {
-
-    //         icon = "fa-long-arrow-right";
-    //     }
-    //     else if (name == 'flex-direction-row-reverse') {
-
-    //         icon = "fa-long-arrow-left";
-    //     }
-    //     else if (name == 'flex-direction-column') {
-
-    //         icon = "fa-long-arrow-down";
-    //     }
-    //     else if (name == 'flex-direction-column-reverse') {
-
-    //         icon = "fa-long-arrow-up";
-    //     }
-    //     else if (name == 'd-block') {
-
-    //         icon = "fa-eye";
-    //     }
-    //     else if (name == 'd-flex') {
-
-    //         icon = "fa-th-large";
-    //     }
-    //     else if (name == 'd-none') {
-
-    //         icon = "fa-eye-slash";
-    //     }
-
-    //     return icon;
-    // }
-
     createElementClasses(element) {
 
         const classesProperties = [
@@ -606,25 +542,16 @@ class Editor {
                 if (field.type == "text" || field.type == "number") {
 
                     content += "<input type='" + field.type + "' id='" + field.name + "' name='" + field.name + "' placeholder='" + field.title + "' class='mb-1'>";
-
                 }
                 else if (field.type == "hidden") {
 
                     content += "<input type='" + field.type + "' id='" + field.name + "' name='" + field.name + "' placeholder='" + field.title + "' class='mb-1'>";
-
                 }
                 else if (field.type == "radio") {
 
                     content += "<div class='row flex-direction-row align-items-center gap-1 mb-1'>";
 
                     field.options.forEach(option => {
-
-                        // var colorClass = "bg-" + value.replace('bg-', '');
-
-                        // if (field.name !== 'color' && field.name !== 'background') {
-
-                        //     var iconClass = this.getIconByName(value);
-                        // }
 
                         content += "<input type='radio' id='" + option.value + "' name='" + field.name + "' value='" + option.value + "'>" +
                             "<label for='" + option.value + "' class='d-flex justify-content-center align-items-center " + option.class + "' title='" + option.value + "'>";
@@ -644,12 +571,20 @@ class Editor {
                     content += "<select id='" + field.name + "' name='" + field.name + "' class='mb-1'>" +
                         "<option value='' selected>" + field.title + "</option>";
 
-                    field.optionsValues.forEach(value => {
+                    field.options.forEach(value => {
 
                         content += "<option value='" + value + "'>" + value + "</option>";
                     });
 
                     content += "</select>";
+                }
+                else if (field.type == "autocompletion") {
+
+                    var search_terms = ['apple', 'apple watch', 'apple macbook', 'apple macbook pro', 'iphone', 'iphone 12'];
+
+                    content += "<input type='" + field.type + "' id='" + field.name + "' name='" + field.name + "' placeholder='" + field.title + "' onKeyUp='showResults(this.value)' class='mb-1'>" +
+                        "<div id='result'></div>";
+
                 }
             });
 
@@ -697,5 +632,28 @@ class Editor {
     getById(id) {
 
         return document.getElementById(id);
+    }
+
+    autocompleteMatch(input) {
+        if (input == '') {
+            return [];
+        }
+        var reg = new RegExp(input)
+        return search_terms.filter(function (term) {
+            if (term.match(reg)) {
+                return term;
+            }
+        });
+    }
+
+    showResults(val) {
+        res = document.getElementById("result");
+        res.innerHTML = '';
+        let list = '';
+        let terms = autocompleteMatch(val);
+        for (i = 0; i < terms.length; i++) {
+            list += '<li>' + terms[i] + '</li>';
+        }
+        res.innerHTML = '<ul>' + list + '</ul>';
     }
 }
