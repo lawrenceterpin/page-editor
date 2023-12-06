@@ -129,9 +129,9 @@ class Editor {
 
         event.preventDefault();
 
-        var typeValue = this.getBySelector('#' + this.formId + ' #tag').value;
+        var tag = this.getBySelector('#' + this.formId + ' #tag').value;
 
-        this.getBySelector('#' + this.formId + ' #name').value = typeValue;
+        this.getBySelector('#' + this.formId + ' #name').value = tag;
 
         var data = {};
 
@@ -298,12 +298,6 @@ class Editor {
                 tag.appendChild(img);
             }
 
-            // if (element.tag == 'img') {
-            //     var i = this.createElement('i');
-
-            //     tag.appendChild(i);
-            // }
-
             if (element.tag == 'a') {
 
                 tag.setAttribute('href', element.href);
@@ -444,19 +438,19 @@ class Editor {
 
         let icon = "";
 
-        if (name == 'justify-content-start') {
+        if (name == 'justify-content-start' || name == 'text-left') {
 
             icon = "fa-align-left";
         }
-        else if (name == 'justify-content-center') {
+        else if (name == 'justify-content-center' || name == 'text-center') {
 
             icon = "fa-align-center";
         }
-        else if (name == 'justify-content-end') {
+        else if (name == 'justify-content-end' || name == 'text-right') {
 
             icon = "fa-align-right";
         }
-        else if (name == 'justify-content-between') {
+        else if (name == 'justify-content-between' || name == 'text-justify') {
 
             icon = "fa-align-justify";
         }
@@ -608,7 +602,6 @@ class Editor {
 
         tag.addEventListener("change", function () {
 
-            alert(tag.value);
         });
     }
 

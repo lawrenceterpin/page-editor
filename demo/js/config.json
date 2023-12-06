@@ -200,6 +200,18 @@
               "optionsValues": []
             },
             {
+              "name": "text-align",
+              "title": "Alignement horizontal",
+              "type": "radio",
+              "value": "",
+              "optionsValues": [
+                "text-center",
+                "text-left",
+                "text-right",
+                "text-justify"
+              ]
+            },
+            {
               "name": "font-size",
               "title": "Taille",
               "type": "text",
