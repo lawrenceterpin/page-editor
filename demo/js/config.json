@@ -14,7 +14,7 @@
               "title": "Type",
               "type": "select",
               "value": "",
-              "optionsValues": [
+              "options": [
                 "div",
                 "header",
                 "main",
@@ -39,7 +39,7 @@
               "title": "Name",
               "type": "hidden",
               "value": "",
-              "optionsValues": []
+              "options": []
             }
           ]
         },
@@ -52,10 +52,25 @@
               "title": "Type de bloc",
               "type": "radio",
               "value": "",
-              "optionsValues": [
-                "d-block",
-                "d-flex",
-                "d-none"
+              "options": [
+                {
+                  "label": "d-block",
+                  "value": "d-block",
+                  "class": "",
+                  "iconClass": "fa-eye"
+                },
+                {
+                  "label": "d-flex",
+                  "value": "d-flex",
+                  "class": "",
+                  "iconClass": "fa-th-large"
+                },
+                {
+                  "label": "d-none",
+                  "value": "d-none",
+                  "class": "",
+                  "iconClass": "fa-eye-slash"
+                }
               ]
             }
           ]
@@ -69,11 +84,31 @@
               "title": "Direction de l'alignement",
               "type": "radio",
               "value": "",
-              "optionsValues": [
-                "flex-direction-row",
-                "flex-direction-row-reverse",
-                "flex-direction-column",
-                "flex-direction-column-reverse"
+              "options": [
+                {
+                  "label": "flex-direction-row",
+                  "value": "flex-direction-row",
+                  "class": "",
+                  "iconClass": "fa-long-arrow-right"
+                },
+                {
+                  "label": "flex-direction-row-reverse",
+                  "value": "flex-direction-row-reverse",
+                  "class": "",
+                  "iconClass": "fa-long-arrow-left"
+                },
+                {
+                  "label": "flex-direction-column",
+                  "value": "flex-direction-column",
+                  "class": "",
+                  "iconClass": "fa-long-arrow-down"
+                },
+                {
+                  "label": "flex-direction-column-reverse",
+                  "value": "flex-direction-column-reverse",
+                  "class": "",
+                  "iconClass": "fa-long-arrow-up"
+                }
               ]
             },
             {
@@ -81,11 +116,31 @@
               "title": "Alignement horizontal",
               "type": "radio",
               "value": "",
-              "optionsValues": [
-                "justify-content-start",
-                "justify-content-center",
-                "justify-content-end",
-                "justify-content-between"
+              "options": [
+                {
+                  "label": "justify-content-start",
+                  "value": "justify-content-start",
+                  "class": "",
+                  "iconClass": "fa-align-left"
+                },
+                {
+                  "label": "justify-content-center",
+                  "value": "justify-content-center",
+                  "class": "",
+                  "iconClass": "fa-align-center"
+                },
+                {
+                  "label": "justify-content-end",
+                  "value": "justify-content-end",
+                  "class": "",
+                  "iconClass": "fa-align-right"
+                },
+                {
+                  "label": "justify-content-between",
+                  "value": "justify-content-between",
+                  "class": "",
+                  "iconClass": "fa-align-justify"
+                }
               ]
             },
             {
@@ -93,10 +148,25 @@
               "title": "Alignement vertical",
               "type": "radio",
               "value": "",
-              "optionsValues": [
-                "align-items-start",
-                "align-items-center",
-                "align-items-end"
+              "options": [
+                {
+                  "label": "align-items-start",
+                  "value": "align-items-start",
+                  "class": "",
+                  "iconClass": "fa-align-left"
+                },
+                {
+                  "label": "align-items-center",
+                  "value": "align-items-center",
+                  "class": "",
+                  "iconClass": "fa-align-center"
+                },
+                {
+                  "label": "align-items-end",
+                  "value": "align-items-end",
+                  "class": "",
+                  "iconClass": "fa-align-right"
+                }
               ]
             }
           ]
@@ -110,11 +180,31 @@
               "title": "Positionnement",
               "type": "select",
               "value": "",
-              "optionsValues": [
-                "p-relative",
-                "p-absolute",
-                "p-fixed",
-                "p-static"
+              "options": [
+                {
+                  "label": "p-relative",
+                  "value": "p-relative",
+                  "class": "",
+                  "iconClass": ""
+                },
+                {
+                  "label": "p-absolute",
+                  "value": "p-absolute",
+                  "class": "",
+                  "iconClass": ""
+                },
+                {
+                  "label": "p-fixed",
+                  "value": "p-fixed",
+                  "class": "",
+                  "iconClass": ""
+                },
+                {
+                  "label": "p-static",
+                  "value": "p-static",
+                  "class": "",
+                  "iconClass": ""
+                }
               ]
             },
             {
@@ -122,35 +212,35 @@
               "title": "Haut",
               "type": "text",
               "value": "",
-              "optionsValues": []
+              "options": []
             },
             {
               "name": "bottom",
               "title": "Bas",
               "type": "text",
               "value": "",
-              "optionsValues": []
+              "options": []
             },
             {
               "name": "left",
               "title": "Gauche",
               "type": "text",
               "value": "",
-              "optionsValues": []
+              "options": []
             },
             {
               "name": "right",
               "title": "Droite",
               "type": "text",
               "value": "",
-              "optionsValues": []
+              "options": []
             },
             {
               "name": "z-index",
               "title": "Z-index",
               "type": "number",
               "value": "",
-              "optionsValues": []
+              "options": []
             }
           ]
         },
@@ -163,14 +253,31 @@
               "title": "Couleur de fond",
               "type": "radio",
               "value": "",
-              "optionsValues": [
-                "bg-transparent",
-                "bg-primary",
-                "bg-secondary",
-                "bg-white",
-                "bg-black",
-                "bg-success",
-                "bg-error"
+              "options": [
+                {
+                  "label": "bg-primary",
+                  "value": "bg-primary",
+                  "class": "bg-primary",
+                  "iconClass": ""
+                },
+                {
+                  "label": "bg-secondary",
+                  "value": "bg-secondary",
+                  "class": "bg-secondary",
+                  "iconClass": ""
+                },
+                {
+                  "label": "bg-white",
+                  "value": "bg-white",
+                  "class": "bg-white",
+                  "iconClass": ""
+                },
+                {
+                  "label": "bg-black",
+                  "value": "bg-black",
+                  "class": "bg-black",
+                  "iconClass": ""
+                }
               ]
             }
           ]
@@ -184,7 +291,7 @@
               "title": "Classes",
               "type": "text",
               "value": "",
-              "optionsValues": []
+              "options": []
             }
           ]
         },
@@ -197,18 +304,38 @@
               "title": "Texte",
               "type": "text",
               "value": "",
-              "optionsValues": []
+              "options": []
             },
             {
               "name": "text-align",
               "title": "Alignement horizontal",
               "type": "radio",
               "value": "",
-              "optionsValues": [
-                "text-left",
-                "text-center",
-                "text-right",
-                "text-justify"
+              "options": [
+                {
+                  "label": "text-left",
+                  "value": "text-left",
+                  "class": "",
+                  "iconClass": "fa-align-left"
+                },
+                {
+                  "label": "text-center",
+                  "value": "text-center",
+                  "class": "",
+                  "iconClass": "fa-align-center"
+                },
+                {
+                  "label": "text-right",
+                  "value": "text-right",
+                  "class": "",
+                  "iconClass": "fa-align-right"
+                },
+                {
+                  "label": "text-justify",
+                  "value": "text-justify",
+                  "class": "",
+                  "iconClass": "fa-align-justify"
+                }
               ]
             },
             {
@@ -216,21 +343,38 @@
               "title": "Taille",
               "type": "text",
               "value": "",
-              "optionsValues": []
+              "options": []
             },
             {
               "name": "color",
               "title": "Couleur",
               "type": "radio",
               "value": "",
-              "optionsValues": [
-                "transparent",
-                "primary",
-                "secondary",
-                "white",
-                "black",
-                "success",
-                "error"
+              "options": [
+                {
+                  "label": "primary",
+                  "value": "primary",
+                  "class": "bg-primary",
+                  "iconClass": ""
+                },
+                {
+                  "label": "secondary",
+                  "value": "secondary",
+                  "class": "bg-secondary",
+                  "iconClass": ""
+                },
+                {
+                  "label": "white",
+                  "value": "white",
+                  "class": "bg-white",
+                  "iconClass": ""
+                },
+                {
+                  "label": "black",
+                  "value": "black",
+                  "class": "bg-black",
+                  "iconClass": ""
+                }
               ]
             }
           ]
@@ -244,28 +388,28 @@
               "title": "Lien",
               "type": "text",
               "value": "",
-              "optionsValues": []
+              "options": []
             },
             {
               "name": "title",
               "title": "Titre",
               "type": "text",
               "value": "",
-              "optionsValues": []
+              "options": []
             },
             {
               "name": "src",
               "title": "URL de l'image",
               "type": "text",
               "value": "",
-              "optionsValues": []
+              "options": []
             },
             {
               "name": "alt",
               "title": "Description",
               "type": "text",
               "value": "",
-              "optionsValues": []
+              "options": []
             }
           ]
         }

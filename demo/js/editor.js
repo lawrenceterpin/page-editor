@@ -43,18 +43,28 @@ class Editor {
                 this.options = data;
 
                 this.loadDatas();
-
-                this.createEditorPanel();
             });
+    }
+
+    loadLocalDatas() {
+
+        const datas = localStorage.getItem(this.editorId);
+
+        if (datas !== null) {
+
+            this.editorDatas = JSON.parse(datas);
+
+            this.startEditor();
+        }
+
+        return datas;
     }
 
     loadDatas() {
 
-        this.container = this.getById(this.options.editorContainerId)
+        const datas = this.loadLocalDatas();
 
-        const editorDatas = localStorage.getItem(this.editorId);
-
-        if (editorDatas == null) {
+        if (datas == null) {
 
             fetch(this.jsonDatasUrl)
                 .then(response => {
@@ -64,18 +74,20 @@ class Editor {
 
                     this.editorDatas = data;
 
-                    this.generatePage();
-
-                    this.switchEditorMode();
+                    this.startEditor();
                 });
         }
-        else {
-            this.editorDatas = JSON.parse(editorDatas);
+    }
 
-            this.generatePage();
+    startEditor() {
 
-            this.switchEditorMode();
-        }
+        this.container = this.getById(this.options.editorContainerId)
+
+        this.generatePage();
+
+        this.switchEditorMode();
+
+        this.createEditorPanel();
     }
 
     /**
@@ -83,16 +95,16 @@ class Editor {
      */
     updateEditorFormValues() {
 
-        var typeElement = this.getById("selected-element");
+        const typeElement = this.getById("selected-element");
         typeElement.innerText = this.elementSelected.tag + "#" + this.elementSelected.id;
 
-        var formType = this.getById("form-type");
+        const formType = this.getById("form-type");
         formType.innerText = ((this.formType == 'add') ? 'Ajouter l\'élément' : 'Modifier l\'élément');
 
         this.options.panel.form.fieldsGroups.forEach(group => {
 
             group.fields.forEach(field => {
-                var fieldForm = this.getBySelector('#' + this.formId + ' [name=' + field.name + ']');
+                let fieldForm = this.getBySelector('#' + this.formId + ' [name=' + field.name + ']');
 
                 if (this.formType == 'edit') {
 
@@ -105,7 +117,7 @@ class Editor {
 
                             if (this.elementSelected[field.name] == value) {
                                 if (typeof this.getBySelector('#' + this.formId + ' #' + value) !== "undefined") {
-                                    var fieldForm = this.getBySelector('#' + this.formId + ' #' + value);
+                                    let fieldForm = this.getBySelector('#' + this.formId + ' #' + value);
 
                                     fieldForm.checked = true;
                                 }
@@ -133,31 +145,37 @@ class Editor {
 
         event.preventDefault();
 
-        var tag = this.getBySelector('#' + this.formId + ' #tag').value;
+        const tag = this.getBySelector('#' + this.formId + ' #tag').value;
 
-        this.getBySelector('#' + this.formId + ' #name').value = tag;
+        if (tag !== '') {
+            this.getBySelector('#' + this.formId + ' #name').value = tag;
 
-        var data = {};
+            let data = {};
 
-        this.options.panel.form.fieldsGroups.forEach(group => {
+            this.options.panel.form.fieldsGroups.forEach(group => {
 
-            group.fields.forEach(field => {
-                var value = this.getBySelector('#' + this.formId + ' [name="' + field.name + '"]').value;
+                group.fields.forEach(field => {
+                    let value = this.getBySelector('#' + this.formId + ' [name="' + field.name + '"]').value;
 
-                if (field.type == 'radio') {
+                    if (field.type == 'radio') {
 
-                    if (this.getBySelector('#' + this.formId + ' [name="' + field.name + '"]:checked') !== null) {
-                        value = this.getBySelector('#' + this.formId + ' [name="' + field.name + '"]:checked').value;
+                        if (this.getBySelector('#' + this.formId + ' [name="' + field.name + '"]:checked') !== null) {
+                            value = this.getBySelector('#' + this.formId + ' [name="' + field.name + '"]:checked').value;
+                        }
                     }
-                }
 
-                data[field.name] = value;
+                    data[field.name] = value;
+                });
             });
-        });
 
-        this.panelDisplay(false);
+            this.panelDisplay(false);
 
-        this.searchElementByValueInArray(this.editorDatas, this.elementSelected.id, data, this.formType);
+            this.searchElementByValueInArray(this.editorDatas, this.elementSelected.id, data, this.formType);
+        }
+        else {
+
+            alert('Veuillez renseigner le type');
+        }
     }
 
     /**
@@ -178,7 +196,7 @@ class Editor {
         this.panel.setAttribute('id', 'editor-panel');
         this.panel.setAttribute('class', 'p-fixed shadow p-1');
 
-        var content = "<div class='d-flex nowrap justify-content-between'>" +
+        let content = "<div class='d-flex nowrap justify-content-between'>" +
             "<h2 id='form-type' class='m-0'>" + ((this.formType == 'add') ? 'Ajouter l\'élément' : 'Modifier l\'élément') + "</h2>" +
             "<button id='close-panel' class='btn shadow bg-primary white' onclick='editor.panelDisplay(false)'><i class='fa fa-close'></i></button>" +
             "</div>" +
@@ -232,7 +250,7 @@ class Editor {
 
         this.editorMode = (this.editorMode) ? false : true;
 
-        var editor = this.getById('editor');
+        const editor = this.getById('editor');
 
         editor.className = (this.editorMode == true) ? "" : "editor-mode";
 
@@ -242,7 +260,7 @@ class Editor {
         }
         else {
 
-            var editElement = Array.from(document.querySelectorAll('.edit-element-options'));
+            const editElement = Array.from(document.querySelectorAll('.edit-element-options'));
 
             for (var i = 0; i < editElement.length; i++) {
 
@@ -279,15 +297,15 @@ class Editor {
         // Pour chaque élément du tableau
         array.forEach((element, index) => {
 
-            var tagName = (element.tag == 'img') ? 'div' : element.tag;
+            let tagName = (element.tag == 'img') ? 'div' : element.tag;
             // On créé la balise de l'élément
-            var tag = this.createElement(tagName);
+            let tag = this.createElement(tagName);
             // On créé l'identifiant de l'élément
             element.id = parent.id + "-" + element.name + "-" + (index + 1);
             // On ajoute l'identifiant de l'élément
             tag.id = element.id;
 
-            var inlineProperties = ["top", "bottom", "left", "right", "z-index", "font-size"];
+            const inlineProperties = ["top", "bottom", "left", "right", "z-index", "font-size"];
 
             inlineProperties.forEach(property => {
 
@@ -315,7 +333,7 @@ class Editor {
                 '</div>';
 
             if (element.tag == 'img') {
-                var img = this.createElement('img');
+                const img = this.createElement('img');
 
                 img.setAttribute('src', element.src);
                 this.addClass(img, 'w-100');
@@ -419,7 +437,8 @@ class Editor {
     dragover(e) {
         let children = Array.from(e.target.parentNode.children);
 
-        if (!this.hasClass(this.shadow, 'edit-element') && (e.target.parentNode.id == this.shadow.parentNode.id)) {
+        if (!this.hasClass(this.shadow, 'edit-element') &&
+            (e.target.parentNode.id == this.shadow.parentNode.id)) {
 
             setTimeout(() => {
                 // if (e.target.id !== this.shadow.id) {
@@ -435,7 +454,7 @@ class Editor {
 
     showEditOptions(elementId) {
 
-        var editElementButtons = this.getBySelector('#' + elementId + ' #edit-element-buttons');
+        const editElementButtons = this.getBySelector('#' + elementId + ' #edit-element-buttons');
 
         this.editOptionsIsOpen = (this.editOptionsIsOpen) ? false : true;
 
@@ -445,7 +464,7 @@ class Editor {
 
     accordion(event) {
 
-        var child = event.srcElement.parentNode.children[1];
+        const child = event.srcElement.parentNode.children[1];
 
         if (this.hasClass(child, 'd-none')) {
 
@@ -459,73 +478,73 @@ class Editor {
         }
     }
 
-    getIconByName(name) {
+    // getIconByName(name) {
 
-        let icon = "";
+    //     let icon = "";
 
-        if (name == 'justify-content-start' || name == 'text-left') {
+    //     if (name == 'justify-content-start' || name == 'text-left') {
 
-            icon = "fa-align-left";
-        }
-        else if (name == 'justify-content-center' || name == 'text-center') {
+    //         icon = "fa-align-left";
+    //     }
+    //     else if (name == 'justify-content-center' || name == 'text-center') {
 
-            icon = "fa-align-center";
-        }
-        else if (name == 'justify-content-end' || name == 'text-right') {
+    //         icon = "fa-align-center";
+    //     }
+    //     else if (name == 'justify-content-end' || name == 'text-right') {
 
-            icon = "fa-align-right";
-        }
-        else if (name == 'justify-content-between' || name == 'text-justify') {
+    //         icon = "fa-align-right";
+    //     }
+    //     else if (name == 'justify-content-between' || name == 'text-justify') {
 
-            icon = "fa-align-justify";
-        }
-        else if (name == 'align-items-center') {
+    //         icon = "fa-align-justify";
+    //     }
+    //     else if (name == 'align-items-center') {
 
-            icon = "fa-align-center";
-        }
-        else if (name == 'align-items-start') {
+    //         icon = "fa-align-center";
+    //     }
+    //     else if (name == 'align-items-start') {
 
-            icon = "fa-align-left";
-        }
-        else if (name == 'align-items-end') {
+    //         icon = "fa-align-left";
+    //     }
+    //     else if (name == 'align-items-end') {
 
-            icon = "fa-align-right";
-        }
-        else if (name == 'flex-direction-row') {
+    //         icon = "fa-align-right";
+    //     }
+    //     else if (name == 'flex-direction-row') {
 
-            icon = "fa-long-arrow-right";
-        }
-        else if (name == 'flex-direction-row-reverse') {
+    //         icon = "fa-long-arrow-right";
+    //     }
+    //     else if (name == 'flex-direction-row-reverse') {
 
-            icon = "fa-long-arrow-left";
-        }
-        else if (name == 'flex-direction-column') {
+    //         icon = "fa-long-arrow-left";
+    //     }
+    //     else if (name == 'flex-direction-column') {
 
-            icon = "fa-long-arrow-down";
-        }
-        else if (name == 'flex-direction-column-reverse') {
+    //         icon = "fa-long-arrow-down";
+    //     }
+    //     else if (name == 'flex-direction-column-reverse') {
 
-            icon = "fa-long-arrow-up";
-        }
-        else if (name == 'd-block') {
+    //         icon = "fa-long-arrow-up";
+    //     }
+    //     else if (name == 'd-block') {
 
-            icon = "fa-eye";
-        }
-        else if (name == 'd-flex') {
+    //         icon = "fa-eye";
+    //     }
+    //     else if (name == 'd-flex') {
 
-            icon = "fa-th-large";
-        }
-        else if (name == 'd-none') {
+    //         icon = "fa-th-large";
+    //     }
+    //     else if (name == 'd-none') {
 
-            icon = "fa-eye-slash";
-        }
+    //         icon = "fa-eye-slash";
+    //     }
 
-        return icon;
-    }
+    //     return icon;
+    // }
 
     createElementClasses(element) {
 
-        var classesProperties = [
+        const classesProperties = [
             "display",
             "position",
             "text-align",
@@ -534,7 +553,7 @@ class Editor {
             "classes"
         ];
 
-        var flexboxClassesProperties = [
+        const flexboxClassesProperties = [
             "flex-direction",
             "justify-content",
             "align-items"
@@ -598,17 +617,24 @@ class Editor {
 
                     content += "<div class='row flex-direction-row align-items-center gap-1 mb-1'>";
 
-                    field.optionsValues.forEach(value => {
+                    field.options.forEach(option => {
 
-                        var colorClass = "bg-" + value.replace('bg-', '');
+                        // var colorClass = "bg-" + value.replace('bg-', '');
 
-                        if (field.name !== 'color' && field.name !== 'background') {
+                        // if (field.name !== 'color' && field.name !== 'background') {
 
-                            var iconClass = this.getIconByName(value);
+                        //     var iconClass = this.getIconByName(value);
+                        // }
+
+                        content += "<input type='radio' id='" + option.value + "' name='" + field.name + "' value='" + option.value + "'>" +
+                            "<label for='" + option.value + "' class='d-flex justify-content-center align-items-center " + option.class + "' title='" + option.value + "'>";
+
+                        if (option.iconClass !== '') {
+
+                            content += "<i class='fa " + option.iconClass + "'></i>";
                         }
 
-                        content += "<input type='radio' id='" + value + "' name='" + field.name + "' value='" + value + "'  class='d-flex align-items-center justify-content-center " + colorClass + " border'>" +
-                            "<label for='" + value + "' class='d-flex justify-content-center align-items-center " + colorClass + "' title='" + value + "'><i class='fa " + iconClass + "'></i></label>";
+                        content += "</label>";
                     });
 
                     content += "</div>";
@@ -636,7 +662,7 @@ class Editor {
 
     getSelectedTag() {
 
-        var tag = this.getBySelector('#' + this.formId + ' #tag');
+        const tag = this.getBySelector('#' + this.formId + ' #tag');
 
         tag.addEventListener("change", function () {
 
