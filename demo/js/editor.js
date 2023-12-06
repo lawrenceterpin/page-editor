@@ -292,10 +292,15 @@ class Editor {
             if (element.tag == 'img') {
                 var img = this.createElement('img');
 
-                img.setAttribute('src', element.attributes);
+                img.setAttribute('src', element.src);
                 this.addClass(img, 'w-100');
 
                 tag.appendChild(img);
+            }
+
+            if (element.tag == 'a') {
+
+                tag.setAttribute('href', element.href);
             }
 
             if (element.text !== '') {
@@ -485,13 +490,16 @@ class Editor {
 
         var classesProperties = [
             "display",
-            "flex-direction",
-            "justify-content",
-            "align-items",
             "position",
             "color",
             "background",
             "classes"
+        ];
+
+        var flexboxClassesProperties = [
+            "flex-direction",
+            "justify-content",
+            "align-items"
         ];
 
         // On ajoute la classe de l'élément
@@ -500,6 +508,11 @@ class Editor {
         if (element["display"] == '') {
 
             className += 'row ';
+
+            flexboxClassesProperties.forEach(property => {
+
+                className += element[property] + ' ';
+            });
         }
 
         classesProperties.forEach(property => {
@@ -586,8 +599,8 @@ class Editor {
     getSelectedTag() {
 
         var tag = this.getBySelector('#' + this.formId + ' #tag');
-        
-        tag.addEventListener("change", function() {
+
+        tag.addEventListener("change", function () {
 
             alert(tag.value);
         });

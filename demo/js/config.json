@@ -234,8 +234,22 @@
               "optionsValues": []
             },
             {
+              "name": "title",
+              "title": "Titre",
+              "type": "text",
+              "value": "",
+              "optionsValues": []
+            },
+            {
               "name": "src",
               "title": "URL de l'image",
+              "type": "text",
+              "value": "",
+              "optionsValues": []
+            },
+            {
+              "name": "alt",
+              "title": "Description",
               "type": "text",
               "value": "",
               "optionsValues": []
