@@ -573,17 +573,16 @@ class Editor {
                     content += "<select id='" + field.name + "' name='" + field.name + "' class='mb-1'>" +
                         "<option value='' selected>" + field.title + "</option>";
 
-                    field.options.forEach(value => {
+                    field.options.forEach(option => {
 
-                        content += "<option value='" + value + "'>" + value + "</option>";
+                        content += "<option value='" + option.value + "'>" + option.value + "</option>";
                     });
 
                     content += "</select>";
                 }
                 else if (field.type == "autocompletion") {
 
-                    let options = field.options;
-                    content += "<input type='text' id='" + field.name + "' name='" + field.name + "' onKeyUp='editor.showResults(\"" + options + "\", \"" + field.name + "\", this.value)' placeholder='&#xF002; (Ex: div, ...)'>" +
+                    content += "<input type='text' id='" + field.name + "' name='" + field.name + "' onKeyUp='editor.showResults(\"" + options + "\", \"" + field.name + "\", this.value)' placeholder='&#xF002; (Ex: div, ...)' class='fa'>" +
                         "<div id='result' class='mb-1'></div>";
 
                 }
