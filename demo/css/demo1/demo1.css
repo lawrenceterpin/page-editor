@@ -278,11 +278,11 @@ input.fa::placeholder {
 }
 
 .primary {
-  color: #9C27B0;
+  color: #8e44ad;
 }
 
 .bg-primary {
-  background-color: #9C27B0;
+  background-color: #8e44ad;
 }
 
 .secondary {
@@ -439,7 +439,7 @@ body {
 
 h1,
 h2 {
-  color: #9C27B0;
+  color: #8e44ad;
 }
 
 p {
@@ -448,7 +448,7 @@ p {
 
 a {
   text-decoration: none;
-  color: #9C27B0;
+  color: #8e44ad;
 }
 a:hover {
   text-decoration: underline;
@@ -467,7 +467,7 @@ li {
   transition: all 0.5s;
 }
 .btn:hover {
-  background: #9C27B0;
+  background: #8e44ad;
   color: #fff;
 }
 

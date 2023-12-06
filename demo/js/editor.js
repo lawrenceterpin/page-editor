@@ -584,7 +584,6 @@ class Editor {
 
                     content += "<input type='text' id='" + field.name + "' name='" + field.name + "' onKeyUp='editor.showResults(\"" + options + "\", \"" + field.name + "\", this.value)' placeholder='&#xF002; (Ex: div, ...)' class='fa'>" +
                         "<div id='result' class='mb-1'></div>";
-
                 }
             });
 

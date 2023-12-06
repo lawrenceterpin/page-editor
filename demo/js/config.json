@@ -255,6 +255,12 @@
               "value": "",
               "options": [
                 {
+                  "label": "bg-transparent",
+                  "value": "bg-transparent",
+                  "class": "bg-transparent",
+                  "iconClass": ""
+                },
+                {
                   "label": "bg-primary",
                   "value": "bg-primary",
                   "class": "bg-primary",
@@ -351,6 +357,12 @@
               "type": "radio",
               "value": "",
               "options": [
+                {
+                  "label": "transparent",
+                  "value": "transparent",
+                  "class": "bg-transparent",
+                  "iconClass": ""
+                },
                 {
                   "label": "primary",
                   "value": "primary",
