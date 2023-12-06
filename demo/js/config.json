@@ -49,7 +49,7 @@
           "fields": [
             {
               "name": "display",
-              "title": "Affichage",
+              "title": "Type de bloc",
               "type": "radio",
               "value": "",
               "optionsValues": [
