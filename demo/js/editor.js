@@ -2,7 +2,7 @@ class Editor {
 
     editorMode = true;
     editorId = "default";
-    jsonDatasUrl = "https://lawrenceterpin.github.io/page-editor/demo/js/datas.json";
+    jsonDatasUrl = "https://lawrenceterpin.github.io/page-editor/demo/js/datas/datas.json";
     configUrl = "https://lawrenceterpin.github.io/page-editor/demo/js/config.json";
 
     constructor(options) {
@@ -44,8 +44,6 @@ class Editor {
 
                 this.loadDatas();
 
-                this.switchEditorMode();
-
                 this.createEditorPanel();
             });
     }
@@ -57,8 +55,6 @@ class Editor {
         const editorDatas = localStorage.getItem(this.editorId);
 
         if (editorDatas == null) {
-
-            console.log(this.jsonDatasUrl);
 
             fetch(this.jsonDatasUrl)
                 .then(response => {
@@ -98,12 +94,8 @@ class Editor {
 
                     if (fieldForm.type !== 'radio') {
                         fieldForm.value = this.elementSelected[field.name];
-
-
                     }
                     else if (fieldForm.type == 'radio') {
-
-                        console.log(field);
 
                         field.optionsValues.forEach(value => {
 
@@ -206,14 +198,12 @@ class Editor {
 
         // Ouverture/fermeture du panneau d'édition 
         this.panelDisplay(this.options.panel.open);
-
-        // this.accordion();
     }
 
     /**
      * Affichage du panneau
      * 
-     * @param {Boolean} open 
+     * @param {Boolean} open
      */
     panelDisplay(open) {
 
@@ -255,7 +245,7 @@ class Editor {
     /**
      * Création d'éléments à partir d'un tableau
      * 
-     * @param {Object} parent 
+     * @param {HTMLElement} parent 
      * @param {Array} array 
      */
     createElementsFromArray(parent, array) {
@@ -270,12 +260,11 @@ class Editor {
             // On ajoute l'identifiant de l'élément
             tag.id = element.id;
 
-            var styleProperties = ["top", "bottom", "left", "right", "z-index", "font-size"];
+            var inlineProperties = ["top", "bottom", "left", "right", "z-index", "font-size"];
 
-            styleProperties.forEach(property => {
+            inlineProperties.forEach(property => {
 
                 if (element[property] !== '') {
-
                     tag.style[property] = element[property];
                 }
             });
@@ -308,7 +297,7 @@ class Editor {
             }
 
             if (element.text !== '') {
-                tag.innerHTML += element.text;
+                tag.innerText = element.text;
             }
 
             // Si l'élément contient un tableau d'éléments
@@ -316,11 +305,6 @@ class Editor {
                 // On parcours les éléments du tableau
                 this.createElementsFromArray(tag, element.elements);
             }
-
-            // if (tag.classList.contains('rellax')) {
-
-            //     console.log(tag.classList.contains('rellax'))
-            // }
 
             parent.appendChild(tag);
         });
@@ -330,7 +314,6 @@ class Editor {
             vertical: true,
             horizontal: false,
         });
-
     }
 
     addElement(elementIdSelected) {
@@ -415,15 +398,7 @@ class Editor {
                 else e.target.before(this.shadow);
 
             }, 500);
-            //}
         }
-        // else {
-
-        //     if (typeof e.target.children[1] == 'undefined') {
-
-        //         e.target.appendChild(this.shadow);
-        //     }
-        // }
     }
 
     showEditOptions(elementId) {
@@ -549,15 +524,16 @@ class Editor {
         this.options.panel.form.fieldsGroups.forEach(group => {
 
             content += "<div id='" + group.name + "' class='field-group accordion mb-1 pb-1 border-bottom'>" +
-                "<h4 class='d-flex justify-content-between m-0' onclick='editor.accordion(event);'>" + group.title + "<i class='fa fa-chevron-down'></i></h4>" +
+                "<h4 class='d-flex justify-content-between m-0' onclick='editor.accordion(event);'><strong>" + group.title + "</strong><i class='fa fa-chevron-down'></i></h4>" +
                 "<div class='flex-direction-column justify-content-center pt-1 pb-1 d-none'>";
 
             group.fields.forEach(field => {
 
+                content += "<label for='" + field.name + "' class='mb-1'>" + field.title + "</label>";
+
                 if (field.type == "text" || field.type == "number") {
 
-                    content += "<label for='" + field.name + "'>" + field.title + "</label>" +
-                        "<input type='" + field.type + "' id='" + field.name + "' name='" + field.name + "' placeholder='" + field.title + "' class='mb-1'>";
+                    content += "<input type='" + field.type + "' id='" + field.name + "' name='" + field.name + "' placeholder='" + field.title + "' class='mb-1'>";
 
                 }
                 else if (field.type == "hidden") {
@@ -567,8 +543,7 @@ class Editor {
                 }
                 else if (field.type == "radio") {
 
-                    content += "<label for='" + field.name + "'>" + field.title + "</label>" +
-                        "<div class='row flex-direction-row align-items-center gap-1 mb-1'>";
+                    content += "<div class='row flex-direction-row align-items-center gap-1 mb-1'>";
 
                     field.optionsValues.forEach(value => {
 
@@ -587,9 +562,7 @@ class Editor {
                 }
                 else if (field.type == "select") {
 
-                    content += "<label for='" + field.name + "'>" + field.title + "</label>" +
-
-                        "<select id='" + field.name + "' name='" + field.name + "' class='mb-1'>" +
+                    content += "<select id='" + field.name + "' name='" + field.name + "' class='mb-1'>" +
                         "<option value='' selected>" + field.title + "</option>";
 
                     field.optionsValues.forEach(value => {
