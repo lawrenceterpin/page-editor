@@ -43,7 +43,7 @@
             "name": "div",
             "text": "",
             "attributes": "",
-            "display": "",
+            "display": "d-flex",
             "flex-direction": "flex-direction-row",
             "justify-content": "justify-content-between",
             "align-items": "align-items-center",
@@ -170,7 +170,12 @@
                 ]
               }
             ],
-            "font-size": ""
+            "font-size": "",
+            "text-align": "text-left",
+            "href": "undefined",
+            "title": "undefined",
+            "src": "undefined",
+            "alt": "undefined"
           }
         ]
       },
@@ -233,14 +238,16 @@
                 "background": "bg-transparent",
                 "classes": "rellax",
                 "id": "editor-div-1-main-2-section-1-img-1",
-                "font-size": "undefined"
+                "font-size": "undefined",
+                "href": "",
+                "src": "https://images01.nicepage.com/a1389d7bc73adea1e1c1fb7e/f207e54596f652a282899cb3/pexels-photo-5965948.jpeg"
               },
               {
                 "tag": "div",
                 "name": "div",
                 "text": "",
                 "attributes": "",
-                "display": "",
+                "display": "d-flex",
                 "flex-direction": "flex-direction-column",
                 "justify-content": "justify-content-center",
                 "align-items": "align-items-start",
@@ -319,7 +326,12 @@
                     "id": "editor-div-1-main-2-section-1-div-2-a-3"
                   }
                 ],
-                "font-size": ""
+                "font-size": "",
+                "text-align": "text-left",
+                "href": "undefined",
+                "title": "undefined",
+                "src": "undefined",
+                "alt": "undefined"
               }
             ]
           }

@@ -167,7 +167,6 @@ img {
 .d-flex {
   display: flex;
   flex: 0 0 auto;
-  flex-wrap: nowrap;
 }
 
 .wrap {
@@ -304,19 +303,12 @@ input[type=text], input[type=number], select {
 }
 
 /* TAILLE DU PANNEAU */
-.edit-element-options {
-  display: none;
-}
-
 #editor {
   min-height: 100%;
 }
 
 #editor.editor-mode {
   padding: 30px;
-}
-#editor.editor-mode i {
-  font-size: 15px !important;
 }
 #editor.editor-mode .element {
   margin: 30px;
@@ -353,6 +345,9 @@ input[type=text], input[type=number], select {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+#editor.editor-mode .element .edit-element-options button i {
+  font-size: 15px;
 }
 #editor.editor-mode .element .edit-element-options:hover {
   z-index: 100;

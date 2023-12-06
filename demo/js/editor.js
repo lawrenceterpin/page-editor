@@ -65,12 +65,16 @@ class Editor {
                     this.editorDatas = data;
 
                     this.generatePage();
+
+                    this.switchEditorMode();
                 });
         }
         else {
             this.editorDatas = JSON.parse(editorDatas);
 
             this.generatePage();
+
+            this.switchEditorMode();
         }
     }
 
@@ -174,8 +178,8 @@ class Editor {
         this.panel.setAttribute('id', 'editor-panel');
         this.panel.setAttribute('class', 'p-fixed shadow p-1');
 
-        var content = "<div class='d-flex justify-content-between'>" +
-            "<h2 id='form-type'>" + ((this.formType == 'add') ? 'Ajouter l\'élément' : 'Modifier l\'élément') + "</h2>" +
+        var content = "<div class='d-flex nowrap justify-content-between'>" +
+            "<h2 id='form-type' class='m-0'>" + ((this.formType == 'add') ? 'Ajouter l\'élément' : 'Modifier l\'élément') + "</h2>" +
             "<button id='close-panel' class='btn shadow bg-primary white' onclick='editor.panelDisplay(false)'><i class='fa fa-close'></i></button>" +
             "</div>" +
             "<h3 id='selected-element'></h3>" +
@@ -231,12 +235,33 @@ class Editor {
         var editor = this.getById('editor');
 
         editor.className = (this.editorMode == true) ? "" : "editor-mode";
+
+        if (this.editorMode == false) {
+
+            this.generatePage();
+        }
+        else {
+
+            var editElement = Array.from(document.querySelectorAll('.edit-element-options'));
+
+            for (var i = 0; i < editElement.length; i++) {
+
+                editElement[i].parentNode.removeAttribute('draggable');
+                editElement[i].parentNode.removeAttribute('ondragstart');
+                editElement[i].parentNode.removeAttribute('ondragover');
+
+                editElement[i].parentNode.removeChild(editElement[i]).remove();
+            }
+        }
     }
 
     /**
      * Génération de la page
      */
     generatePage() {
+
+        console.log('page généré');
+        console.log(this.container.id, this.editorDatas);
 
         this.container.innerHTML = "";
 
@@ -282,7 +307,7 @@ class Editor {
                 '<div id="edit-element-tag" class="p-absolute bg-primary white">' +
                 '<b>&nbsp;' + element.tag + '&nbsp;</b>' +
                 '</div>' +
-                '<div id="edit-element-buttons" class="p-absolute d-none gap-1 align-items-center">' +
+                '<div id="edit-element-buttons" class="p-absolute d-none gap-1 nowrap align-items-center">' +
                 '<button class="btn bg-white primary shadow" title="#' + tag.id + '" onclick="editor.addElement(\'' + tag.id.trim() + '\')"><i class="fa fa-plus-circle"></i></button>' +
                 '<button class="btn bg-white primary shadow" title="#' + tag.id + '" onclick="editor.editElement(\'' + tag.id.trim() + '\')"><i class="fa fa-edit"></i></button>' +
                 '</div>' +
@@ -518,15 +543,15 @@ class Editor {
         // On ajoute la classe de l'élément
         var className = 'element ';
 
-        if (element["display"] == '') {
+        // if (element["display"] == '') {
 
-            className += 'row ';
+        // className += 'row ';
 
-            flexboxClassesProperties.forEach(property => {
+        flexboxClassesProperties.forEach(property => {
 
-                className += element[property] + ' ';
-            });
-        }
+            className += element[property] + ' ';
+        });
+        //}
 
         classesProperties.forEach(property => {
 

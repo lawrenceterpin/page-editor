@@ -2,20 +2,12 @@
 $seoCheckerPanelSize: 400px;
 $zIndex: 1000;
 
-.edit-element-options {
-    display: none;
-}
-
 #editor {
     min-height: 100%;
 }
 
 #editor.editor-mode {
     padding: $medium;
-
-    i {
-        font-size: 15px !important;
-    }
 
     .element {
         margin: $medium;
@@ -55,6 +47,10 @@ $zIndex: 1000;
                 display: flex;
                 align-items: center;
                 justify-content: center;
+
+                i {
+                    font-size: $small;
+                }
             }
 
             &:hover {
