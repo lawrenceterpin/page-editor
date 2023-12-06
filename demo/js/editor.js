@@ -50,7 +50,7 @@ class Editor {
 
     loadDatas() {
 
-        this.container = document.getElementById(this.options.editorContainerId)
+        this.container = this.getById(this.options.editorContainerId)
 
         const editorDatas = localStorage.getItem(this.editorId);
 
@@ -79,16 +79,16 @@ class Editor {
      */
     updateEditorFormValues() {
 
-        var typeElement = document.getElementById("selected-element");
+        var typeElement = this.getById("selected-element");
         typeElement.innerText = this.elementSelected.tag + "#" + this.elementSelected.id;
 
-        var formType = document.getElementById("form-type");
+        var formType = this.getById("form-type");
         formType.innerText = ((this.formType == 'add') ? 'Ajouter l\'élément' : 'Modifier l\'élément');
 
         this.options.panel.form.fieldsGroups.forEach(group => {
 
             group.fields.forEach(field => {
-                var fieldForm = document.querySelector('#' + this.formId + ' [name=' + field.name + ']');
+                var fieldForm = this.getBySelector('#' + this.formId + ' [name=' + field.name + ']');
 
                 if (this.formType == 'edit') {
 
@@ -100,8 +100,8 @@ class Editor {
                         field.optionsValues.forEach(value => {
 
                             if (this.elementSelected[field.name] == value) {
-                                if (typeof document.querySelector('#' + this.formId + ' #' + value) !== "undefined") {
-                                    var fieldForm = document.querySelector('#' + this.formId + ' #' + value);
+                                if (typeof this.getBySelector('#' + this.formId + ' #' + value) !== "undefined") {
+                                    var fieldForm = this.getBySelector('#' + this.formId + ' #' + value);
 
                                     fieldForm.checked = true;
                                 }
@@ -129,21 +129,21 @@ class Editor {
 
         event.preventDefault();
 
-        var typeValue = document.querySelector('#' + this.formId + ' #tag').value;
+        var typeValue = this.getBySelector('#' + this.formId + ' #tag').value;
 
-        document.querySelector('#' + this.formId + ' #name').value = typeValue;
+        this.getBySelector('#' + this.formId + ' #name').value = typeValue;
 
         var data = {};
 
         this.options.panel.form.fieldsGroups.forEach(group => {
 
             group.fields.forEach(field => {
-                var value = document.querySelector('#' + this.formId + ' [name="' + field.name + '"]').value;
+                var value = this.getBySelector('#' + this.formId + ' [name="' + field.name + '"]').value;
 
                 if (field.type == 'radio') {
 
-                    if (document.querySelector('#' + this.formId + ' [name="' + field.name + '"]:checked') !== null) {
-                        value = document.querySelector('#' + this.formId + ' [name="' + field.name + '"]:checked').value;
+                    if (this.getBySelector('#' + this.formId + ' [name="' + field.name + '"]:checked') !== null) {
+                        value = this.getBySelector('#' + this.formId + ' [name="' + field.name + '"]:checked').value;
                     }
                 }
 
@@ -161,7 +161,7 @@ class Editor {
      */
     createEditorPanel() {
         // Création du bouton de changement de mode d'édition
-        this.editorModeButton = document.createElement('button');
+        this.editorModeButton = this.createElement('button');
         this.editorModeButton.setAttribute('id', 'editor-mode-button');
         this.editorModeButton.setAttribute('class', 'p-fixed btn shadow round');
         this.editorModeButton.setAttribute('onclick', 'editor.switchEditorMode()');
@@ -170,7 +170,7 @@ class Editor {
         document.body.prepend(this.editorModeButton);
 
         // Création du panneau
-        this.panel = document.createElement('div');
+        this.panel = this.createElement('div');
         this.panel.setAttribute('id', 'editor-panel');
         this.panel.setAttribute('class', 'p-fixed shadow p-1');
 
@@ -193,8 +193,10 @@ class Editor {
         document.body.prepend(this.panel);
 
         // On récupère le formulaire d'édition
-        this.form = document.getElementById("editor-form");
+        this.form = this.getById("editor-form");
         this.formId = this.form.getAttribute('id');
+
+        this.getSelectedTag();
 
         // Ouverture/fermeture du panneau d'édition 
         this.panelDisplay(this.options.panel.open);
@@ -211,11 +213,11 @@ class Editor {
 
         if (this.options.panel.open == true) {
             // On affiche le panneau
-            this.panel.classList.add("open");
+            this.addClass(this.panel, "open");
         }
         else {
             // On cache le panneau
-            this.panel.classList.remove("open");
+            this.removeClass(this.panel, "open");
         }
     }
 
@@ -226,7 +228,7 @@ class Editor {
 
         this.editorMode = (this.editorMode) ? false : true;
 
-        var editor = document.getElementById('editor');
+        var editor = this.getById('editor');
 
         editor.className = (this.editorMode == true) ? "" : "editor-mode";
     }
@@ -252,9 +254,9 @@ class Editor {
         // Pour chaque élément du tableau
         array.forEach((element, index) => {
 
-            var tag = (element.tag == 'img') ? 'div' : element.tag;
+            var tagName = (element.tag == 'img') ? 'div' : element.tag;
             // On créé la balise de l'élément
-            var tag = document.createElement(tag);
+            var tag = this.createElement(tagName);
             // On créé l'identifiant de l'élément
             element.id = parent.id + "-" + element.name + "-" + (index + 1);
             // On ajoute l'identifiant de l'élément
@@ -288,16 +290,16 @@ class Editor {
                 '</div>';
 
             if (element.tag == 'img') {
-                var img = document.createElement('img');
+                var img = this.createElement('img');
 
                 img.setAttribute('src', element.attributes);
-                img.setAttribute('class', 'w-100');
+                this.addClass(img, 'w-100');
 
                 tag.appendChild(img);
             }
 
             if (element.text !== '') {
-                tag.innerText = element.text;
+                tag.innerHTML += element.text;
             }
 
             // Si l'élément contient un tableau d'éléments
@@ -387,7 +389,7 @@ class Editor {
     dragover(e) {
         let children = Array.from(e.target.parentNode.children);
 
-        if (this.shadow.className !== 'edit-element p-relative w-100' && (e.target.parentNode.id == this.shadow.parentNode.id)) {
+        if (!this.hasClass(this.shadow, 'edit-element') && (e.target.parentNode.id == this.shadow.parentNode.id)) {
 
             setTimeout(() => {
                 // if (e.target.id !== this.shadow.id) {
@@ -403,27 +405,27 @@ class Editor {
 
     showEditOptions(elementId) {
 
-        var editElementButtons = document.querySelector('#' + elementId + ' #edit-element-buttons');
+        var editElementButtons = this.getBySelector('#' + elementId + ' #edit-element-buttons');
 
         this.editOptionsIsOpen = (this.editOptionsIsOpen) ? false : true;
 
-        editElementButtons.classList.remove((this.editOptionsIsOpen) ? 'd-none' : 'd-flex');
-        editElementButtons.classList.add((this.editOptionsIsOpen) ? 'd-flex' : 'd-none');
+        this.removeClass(editElementButtons, (this.editOptionsIsOpen) ? 'd-none' : 'd-flex');
+        this.addClass(editElementButtons, (this.editOptionsIsOpen) ? 'd-flex' : 'd-none');
     }
 
     accordion(event) {
 
         var child = event.srcElement.parentNode.children[1];
 
-        if (child.classList.contains('d-none')) {
+        if (this.hasClass(child, 'd-none')) {
 
-            child.classList.remove('d-none');
-            child.classList.add('d-flex');
+            this.removeClass(child, 'd-none');
+            this.addClass(child, 'd-flex');
         }
         else {
 
-            child.classList.remove('d-flex');
-            child.classList.add('d-none');
+            this.removeClass(child, 'd-flex');
+            this.addClass(child, 'd-none');
         }
     }
 
@@ -579,5 +581,45 @@ class Editor {
         });
 
         return content;
+    }
+
+    getSelectedTag() {
+
+        var tag = this.getBySelector('#' + this.formId + ' #tag');
+        
+        tag.addEventListener("change", function() {
+
+            alert(tag.value);
+        });
+    }
+
+    hasClass(element, string) {
+
+        return element.classList.contains(string);
+    }
+
+    addClass(element, string) {
+
+        element.classList.add(string);
+    }
+
+    removeClass(element, string) {
+
+        element.classList.remove(string);
+    }
+
+    createElement(tag) {
+
+        return document.createElement(tag);
+    }
+
+    getBySelector(selectors) {
+
+        return document.querySelector(selectors);
+    }
+
+    getById(id) {
+
+        return document.getElementById(id);
     }
 }

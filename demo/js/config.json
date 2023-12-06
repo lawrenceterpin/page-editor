@@ -39,13 +39,6 @@
               "type": "hidden",
               "value": "",
               "optionsValues": []
-            },
-            {
-              "name": "attributes",
-              "title": "Attributs",
-              "type": "text",
-              "value": "",
-              "optionsValues": []
             }
           ]
         },
@@ -226,6 +219,26 @@
                 "success",
                 "error"
               ]
+            }
+          ]
+        },
+        {
+          "name": "group-8",
+          "title": "Attributs",
+          "fields": [
+            {
+              "name": "href",
+              "title": "Lien",
+              "type": "text",
+              "value": "",
+              "optionsValues": []
+            },
+            {
+              "name": "src",
+              "title": "URL de l'image",
+              "type": "text",
+              "value": "",
+              "optionsValues": []
             }
           ]
         }
