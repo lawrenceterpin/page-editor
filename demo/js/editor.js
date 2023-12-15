@@ -108,15 +108,13 @@ class Editor {
             this.options.panel.form.fieldsGroups.forEach(group => {
 
                 group.fields.forEach(field => {
-                    let fieldForm = this.getBySelector('#' + this.formId + ' [name=' + field.name + ']');
-
                     if (field.type == 'radio') {
 
                         field.options.forEach(option => {
 
                             if (this.elementSelected[field.name] == option.value) {
-                                if (typeof this.getBySelector('#' + this.formId + ' #' + option.value) !== "undefined") {
-                                    let fieldForm = this.getBySelector('#' + this.formId + ' #' + option.value);
+                                if (typeof this.getFormField(this.formId, '#' + option.value) !== "undefined") {
+                                    let fieldForm = this.getFormField(this.formId, '#' + option.value);
 
                                     fieldForm.checked = true;
                                 }
@@ -124,6 +122,7 @@ class Editor {
                         });
                     }
                     else {
+                        let fieldForm = this.getFormField(this.formId, '[name=' + field.name + ']');
 
                         fieldForm.value = this.elementSelected[field.name];
                     }
@@ -148,22 +147,22 @@ class Editor {
 
         event.preventDefault();
 
-        const tag = this.getBySelector('#' + this.formId + ' #tag').value;
+        const tag = this.getFormField(this.formId, '#tag').value;
 
         if (tag !== '') {
-            this.getBySelector('#' + this.formId + ' #name').value = tag;
+            this.getFormField(this.formId, '#name').value = tag;
 
             let data = {};
 
             this.options.panel.form.fieldsGroups.forEach(group => {
 
                 group.fields.forEach(field => {
-                    let value = this.getBySelector('#' + this.formId + ' [name="' + field.name + '"]').value;
+                    let value = this.getFormField(this.formId, '[name=' + field.name + ']').value;
 
                     if (field.type == 'radio') {
 
-                        if (this.getBySelector('#' + this.formId + ' [name="' + field.name + '"]:checked') !== null) {
-                            value = this.getBySelector('#' + this.formId + ' [name="' + field.name + '"]:checked').value;
+                        if (this.getFormField(this.formId, '[name=' + field.name + ']:checked') !== null) {
+                            value = this.getFormField(this.formId, '[name=' + field.name + ']:checked').value;
                         }
                     }
 
@@ -203,7 +202,7 @@ class Editor {
             "<h2 id='form-type' class='m-0'>" + ((this.formType == 'add') ? 'Ajouter l\'élément' : 'Modifier l\'élément') + "</h2>" +
             "<button id='close-panel' class='btn shadow bg-secondary white' onclick='editor.panelDisplay(false)'><i class='fa fa-times'></i></button>" +
             "</div>" +
-            "<h3 id='selected-element' class='bg-white black shadow p-1'></h3>";
+            "<h3 id='selected-element' class='bg-primary white text-shadow shadow p-1'></h3>";
 
         content += this.createForm();
 
@@ -320,7 +319,7 @@ class Editor {
 
             // On ajoute le bouton d'édition
             tag.innerHTML = '<div class="edit-element-options flex-direction-row-reverse p-relative w-100">' +
-                '<div id="edit-element-tag" class="p-absolute bg-primary white">' +
+                '<div id="edit-element-tag" class="p-absolute bg-primary white text-shadow">' +
                 '<b>&nbsp;' + element.tag + '&nbsp;</b>' +
                 '</div>' +
                 '<div id="edit-element-buttons" class="p-absolute d-none gap-1 nowrap align-items-center">' +
@@ -423,7 +422,7 @@ class Editor {
                             });
                         });
                     }
-                    
+
                     // On regénère la page
                     this.generatePage();
 
@@ -592,8 +591,8 @@ class Editor {
                 }
                 else if (field.type == "autocompletion") {
 
-                    content += "<input type='text' id='" + field.name + "' name='" + field.name + "' onKeyUp='editor.showResults(\"" + options + "\", \"" + field.name + "\", this.value)' placeholder='&#xF002; (Ex: div, ...)' class='fa'>" +
-                        "<div id='result' class='mb-1'></div>";
+                    content += "<input type='text' id='" + field.name + "' name='" + field.name + "' onKeyUp='editor.showResults(\"" + field.options + "\", \"" + field.name + "\", this.value)' placeholder='&#xF002; (Ex: div, ...)'>" +
+                        "<div id='autocompetion-result' class='mb-1'></div>";
                 }
             });
 
@@ -665,14 +664,20 @@ class Editor {
 
         search_terms = search_terms.split(',');
 
-        var res = document.getElementById("result");
+        var res = document.getElementById("autocompetion-result");
         res.innerHTML = '';
         let list = '';
+
         let terms = this.autocompleteMatch(search_terms, val);
-        for (var i = 0; i < terms.length; i++) {
-            list += '<li onclick="editor.setFieldValue(\'' + id + '\', \'' + terms[i] + '\')">' + terms[i] + '</li>';
+
+        if (val == '') {
+            terms = search_terms;
         }
-        res.innerHTML = '<ul class="shadow p-1 bg-white">' + list + '</ul>';
+
+        for (var i = 0; i < terms.length; i++) {
+            list += '<li onclick="editor.setFieldValue(\'' + id + '\', \'' + terms[i] + '\')" class="d-flex justify-content-center align-items-center bg-white">' + terms[i] + '</li>';
+        }
+        res.innerHTML = '<ul class="row gap-1 p-1">' + list + '</ul>';
     }
 
     setFieldValue(fieldId, value) {
@@ -681,7 +686,13 @@ class Editor {
 
         field.value = value;
 
-        var res = document.getElementById("result");
+        var res = document.getElementById("autocompetion-result");
         res.innerHTML = "";
+    }
+
+    getFormField(formId, fieldSelector) {
+
+        let field = this.getBySelector('#' + formId + ' ' + fieldSelector);
+        return field;
     }
 }

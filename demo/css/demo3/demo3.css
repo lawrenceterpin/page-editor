@@ -247,11 +247,6 @@ select {
   color: #000;
 }
 
-input.fa::placeholder {
-  font-family: "Font Awesome 5 Free";
-  font-weight: 900;
-}
-
 .text-left {
   text-align: left;
 }
@@ -402,9 +397,6 @@ input.fa::placeholder {
   transition: all 0.5s;
   overflow-y: scroll;
 }
-#editor-panel #selected-element {
-  border: 3px dashed #000;
-}
 #editor-panel #close-panel {
   width: 50px;
   height: 50px;
@@ -413,6 +405,15 @@ input.fa::placeholder {
 }
 #editor-panel.open {
   margin-right: 0;
+}
+#editor-panel .accordion #autocompetion-result li {
+  height: 30px;
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid #000;
+}
+#editor-panel .accordion #autocompetion-result li:hover {
+  border: 4px solid #000;
 }
 #editor-panel .accordion > h4 {
   cursor: pointer;
@@ -424,7 +425,7 @@ input.fa::placeholder {
   width: 30px;
   height: 30px;
   cursor: pointer;
-  padding: 0.3rem 0.5rem;
+  padding: 10px;
   border: 1px solid #000;
 }
 #editor-panel .accordion > div input[type=radio]:checked + label {
