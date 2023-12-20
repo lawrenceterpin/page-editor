@@ -17,6 +17,10 @@ class Editor {
 
                 this.jsonDatasUrl = options.jsonDatasUrl;
             }
+            if (typeof options.jsonStyleUrl !== "undefined") {
+
+                this.jsonStyleUrl = options.jsonStyleUrl;
+            }
             if (typeof options.configUrl !== "undefined") {
 
                 this.configUrl = options.configUrl;
@@ -42,7 +46,7 @@ class Editor {
 
                 this.options = data;
 
-                this.loadDatas();
+                this.loadStyle();
             });
     }
 
@@ -73,6 +77,77 @@ class Editor {
                     this.startEditor(data);
                 });
         }
+    }
+
+    loadStyle() {
+
+        fetch(this.jsonStyleUrl)
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+
+                console.log(data);
+
+                // insert the css styles
+                this.styleInject(`
+        body {
+            font-family: 'Lato', sans-serif;
+            font-size: 15px;
+            letter-spacing: 1px;
+        }
+        
+        h1,
+        h2 {
+            font-family: 'Raleway', sans-serif;
+            letter-spacing: 4px;
+            color: #62ecc1;
+        }
+        
+        h2 {
+            font-size: 3rem;
+        }
+        
+        h3 {
+            letter-spacing: 0px;
+            line-height: 1.4;
+        }
+        
+        p {
+            letter-spacing: 0px;
+            line-height: 1.4;
+            color: #000;
+        }
+        
+        a {
+            font-family: 'Raleway', sans-serif;
+            text-decoration: none;
+            color: #62ecc1;
+        
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+
+        .primary {
+            color: #62ecc1;
+        }
+
+        .bg-primary {
+            background-color: #62ecc1;
+        }
+
+        .secondary {
+            color: #222589;
+        }
+
+        .bg-secondary {
+            background-color: #222589;
+        }
+    `);
+
+                this.loadDatas(data);
+            });
     }
 
     /**
@@ -694,5 +769,13 @@ class Editor {
 
         let field = this.getBySelector('#' + formId + ' ' + fieldSelector);
         return field;
+    }
+
+    styleInject(cssText) {
+        const head = document.head || document.getElementsByTagName('head')[0];
+        const style = document.createElement('style');
+        style.type = 'text/css';
+        style.appendChild(document.createTextNode(cssText));
+        head.appendChild(style);
     }
 }
