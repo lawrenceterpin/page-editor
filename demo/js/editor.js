@@ -144,11 +144,11 @@ class Editor {
      */
     updateEditorFormValues() {
 
-        const typeElement = this.getById("selected-element");
-        typeElement.innerHTML = this.elementSelected.tag + "#" + this.elementSelected.id;
+        // const typeElement = this.getById("selected-element");
+        // typeElement.innerHTML = this.elementSelected.tag + "#" + this.elementSelected.id;
 
-        const formType = this.getById("form-type");
-        formType.innerText = ((this.formType == 'add') ? 'Ajouter l\'élément' : 'Modifier l\'élément');
+        // const formType = this.getById("form-type");
+        // formType.innerText = ((this.formType == 'add') ? 'Ajouter l\'élément' : 'Modifier l\'élément');
 
         if (this.formType == 'edit') {
             this.options.panel.form[1].fieldsGroups.forEach(group => {
@@ -193,36 +193,43 @@ class Editor {
 
         event.preventDefault();
 
-        const tag = this.getFormField(this.formId, '#tag').value;
+        if (event.srcElement.id == 'element-form') {
 
-        if (tag !== '') {
-            this.getFormField(this.formId, '#name').value = tag;
+            const tag = this.getFormField(this.formId, '#tag').value;
 
-            let data = {};
+            if (tag !== '') {
+                this.getFormField(this.formId, '#name').value = tag;
 
-            this.options.panel.form[1].fieldsGroups.forEach(group => {
+                let data = {};
 
-                group.fields.forEach(field => {
-                    let value = this.getFormField(this.formId, '[name=' + field.name + ']').value;
+                this.options.panel.form[1].fieldsGroups.forEach(group => {
 
-                    if (field.type == 'radio') {
+                    group.fields.forEach(field => {
+                        let value = this.getFormField(this.formId, '[name=' + field.name + ']').value;
 
-                        if (this.getFormField(this.formId, '[name=' + field.name + ']:checked') !== null) {
-                            value = this.getFormField(this.formId, '[name=' + field.name + ']:checked').value;
+                        if (field.type == 'radio') {
+
+                            if (this.getFormField(this.formId, '[name=' + field.name + ']:checked') !== null) {
+                                value = this.getFormField(this.formId, '[name=' + field.name + ']:checked').value;
+                            }
                         }
-                    }
 
-                    data[field.name] = value;
+                        data[field.name] = value;
+                    });
                 });
-            });
 
-            this.panelDisplay(false);
+                this.panelDisplay(false);
 
-            this.searchElementByValueInArray(this.editorDatas, this.elementSelected.id, data, this.formType);
+                this.searchElementByValueInArray(this.editorDatas, this.elementSelected.id, data, this.formType);
+            }
+            else {
+
+                alert('Veuillez renseigner le type');
+            }
         }
         else {
 
-            alert('Veuillez renseigner le type');
+            alert('ok');
         }
     }
 
@@ -245,10 +252,10 @@ class Editor {
         this.panel.setAttribute('class', 'p-fixed shadow p-1');
 
         let content = "<div class='d-flex nowrap justify-content-between'>" +
-            "<h2 id='form-type' class='m-0'>" + ((this.formType == 'add') ? 'Ajouter l\'élément' : 'Modifier l\'élément') + "</h2>" +
+            "<h2 id='form-type' class='m-0'>Edition</h2>" +
             "<button id='close-panel' class='btn shadow bg-secondary white' onclick='editor.panelDisplay(false)'><i class='fa fa-times'></i></button>" +
-            "</div>" +
-            "<h3 id='selected-element' class='bg-primary white text-shadow shadow p-1'></h3>";
+            "</div>";
+        // "<h3 id='selected-element' class='bg-primary white text-shadow shadow p-1'></h3>";
 
         this.options.panel.form.forEach(form => {
 
@@ -260,7 +267,7 @@ class Editor {
         document.body.prepend(this.panel);
 
         // On récupère le formulaire d'édition
-        this.form = this.getById("editor-form");
+        this.form = this.getById("element-form");
         this.formId = this.form.getAttribute('id');
 
         this.getSelectedTag();
@@ -585,7 +592,7 @@ class Editor {
 
     createForm(form) {
 
-        let content = "<form id='" + form.id + "' class='d-flex flex-direction-column' onsubmit='editor.submitEditorForm(event)'>";
+        let content = '<form id="' + form.id + '" class="d-flex flex-direction-column" onsubmit="editor.submitEditorForm(event)">';
 
         form.fieldsGroups.forEach(group => {
 

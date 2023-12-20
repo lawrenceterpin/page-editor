@@ -8,32 +8,17 @@
         "id": "style-form",
         "fieldsGroups": [
           {
-            "name": "group-1",
-            "title": "Général",
+            "name": "body",
+            "title": "Corps de la page",
             "fields": [
               {
-                "name": "tag",
-                "title": "Type",
-                "type": "autocompletion",
+                "name": "font-family",
+                "title": "Police",
+                "type": "select",
                 "value": "",
                 "options": [
-                  "div",
-                  "header",
-                  "main",
-                  "footer",
-                  "nav",
-                  "section",
-                  "article",
-                  "h1",
-                  "h2",
-                  "h3",
-                  "h4",
-                  "ul",
-                  "li",
-                  "p",
-                  "a",
-                  "img",
-                  "i"
+                  "Raleway",
+                  "Lato"
                 ]
               }
             ]
