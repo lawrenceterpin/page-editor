@@ -87,64 +87,73 @@ class Editor {
             })
             .then(data => {
 
-                console.log(data);
+                data.forEach(selector => {
+
+                    let css = selector.tag + ` {
+                        font-family: ` + selector["font-family"] + `;
+                        font-size:  ` + selector["font-size"] + `;
+                        letter-spacing:  ` + selector["letter-spacing"] + `;
+                    }`;
+
+                    this.styleInject(css.trim());
+                });
 
                 // insert the css styles
-                this.styleInject(`
-        body {
-            font-family: 'Lato', sans-serif;
-            font-size: 15px;
-            letter-spacing: 1px;
-        }
-        
-        h1,
-        h2 {
-            font-family: 'Raleway', sans-serif;
-            letter-spacing: 4px;
-            color: #62ecc1;
-        }
-        
-        h2 {
-            font-size: 3rem;
-        }
-        
-        h3 {
-            letter-spacing: 0px;
-            line-height: 1.4;
-        }
-        
-        p {
-            letter-spacing: 0px;
-            line-height: 1.4;
-            color: #000;
-        }
-        
-        a {
-            font-family: 'Raleway', sans-serif;
-            text-decoration: none;
-            color: #62ecc1;
-        
-            &:hover {
-                text-decoration: underline;
-            }
-        }
+                //             this.styleInject(`
+                //     body {
+                //         font-family: 'Lato', sans-serif;
+                //         font-size: 15px;
+                //         letter-spacing: 1px;
+                //     }
 
-        .primary {
-            color: #62ecc1;
-        }
+                //     h1,
+                //     h2 {
+                //         font-family: 'Raleway', sans-serif;
+                //         letter-spacing: 4px;
+                //         color: #62ecc1;
+                //     }
 
-        .bg-primary {
-            background-color: #62ecc1;
-        }
+                //     h2 {
+                //         font-size: 3rem;
+                //     }
 
-        .secondary {
-            color: #222589;
-        }
+                //     h3 {
+                //         letter-spacing: 0px;
+                //         line-height: 1.4;
+                //     }
 
-        .bg-secondary {
-            background-color: #222589;
-        }
-    `);
+                //     p {
+                //         letter-spacing: 0px;
+                //         line-height: 1.4;
+                //         color: #000;
+                //     }
+
+                //     a {
+                //         font-family: 'Raleway', sans-serif;
+                //         text-decoration: none;
+                //         color: #62ecc1;
+
+                //         &:hover {
+                //             text-decoration: underline;
+                //         }
+                //     }
+
+                //     .primary {
+                //         color: #62ecc1;
+                //     }
+
+                //     .bg-primary {
+                //         background-color: #62ecc1;
+                //     }
+
+                //     .secondary {
+                //         color: #222589;
+                //     }
+
+                //     .bg-secondary {
+                //         background-color: #222589;
+                //     }
+                // `);
 
                 this.loadDatas(data);
             });
