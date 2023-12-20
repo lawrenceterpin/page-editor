@@ -59,13 +59,13 @@
                   },
                   {
                     "label": "primary",
-                    "value": "#62ecc1",
+                    "value": "primary",
                     "class": "bg-primary",
                     "iconClass": ""
                   },
                   {
                     "label": "secondary",
-                    "value": "#222589",
+                    "value": "secondary",
                     "class": "bg-secondary",
                     "iconClass": ""
                   },
