@@ -20,6 +20,72 @@
                   "Raleway",
                   "Lato"
                 ]
+              },
+              {
+                "name": "font-size",
+                "title": "Taille de la police",
+                "type": "text",
+                "value": ""
+              },
+              {
+                "name": "letter-spacing",
+                "title": "Espacement du texte",
+                "type": "text",
+                "value": ""
+              },
+              {
+                "name": "color",
+                "title": "Couleur",
+                "type": "radio",
+                "value": "",
+                "options": [
+                  {
+                    "label": "transparent",
+                    "value": "transparent",
+                    "class": "bg-transparent",
+                    "iconClass": ""
+                  },
+                  {
+                    "label": "primary",
+                    "value": "primary",
+                    "class": "bg-primary",
+                    "iconClass": ""
+                  },
+                  {
+                    "label": "secondary",
+                    "value": "secondary",
+                    "class": "bg-secondary",
+                    "iconClass": ""
+                  },
+                  {
+                    "label": "white",
+                    "value": "white",
+                    "class": "bg-white",
+                    "iconClass": ""
+                  },
+                  {
+                    "label": "black",
+                    "value": "black",
+                    "class": "bg-black",
+                    "iconClass": ""
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "h1",
+            "title": "Titre 1",
+            "fields": [
+              {
+                "name": "font-family",
+                "title": "Police",
+                "type": "select",
+                "value": "",
+                "options": [
+                  "Raleway",
+                  "Lato"
+                ]
               }
             ]
           }
