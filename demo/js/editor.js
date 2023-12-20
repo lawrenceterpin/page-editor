@@ -207,12 +207,12 @@ class Editor {
                         form.fieldsGroups.forEach(group => {
 
                             group.fields.forEach(field => {
-                                let value = this.getFormField(this.formId, '[name=' + field.name + ']').value;
+                                let value = this.getFormField(this.selectedFormId, '[name=' + field.name + ']').value;
 
                                 if (field.type == 'radio') {
 
-                                    if (this.getFormField(this.formId, '[name=' + field.name + ']:checked') !== null) {
-                                        value = this.getFormField(this.formId, '[name=' + field.name + ']:checked').value;
+                                    if (this.getFormField(this.selectedFormId, '[name=' + field.name + ']:checked') !== null) {
+                                        value = this.getFormField(this.selectedFormId, '[name=' + field.name + ']:checked').value;
                                     }
                                 }
 
@@ -233,7 +233,33 @@ class Editor {
         }
         else {
 
-            alert('ok');
+            let data = {};
+
+            // On parcours les groupes de champs
+            this.options.panel.form.forEach(form => {
+
+                if (form.id == this.selectedFormId) {
+                    form.fieldsGroups.forEach(group => {
+
+                        group.fields.forEach(field => {
+                            let value = this.getFormField(this.selectedFormId, '[name=' + field.name + ']').value;
+
+                            if (field.type == 'radio') {
+
+                                if (this.getFormField(this.selectedFormId, '[name=' + field.name + ']:checked') !== null) {
+                                    value = this.getFormField(this.selectedFormId, '[name=' + field.name + ']:checked').value;
+                                }
+                            }
+
+                            data[field.name] = value;
+                        });
+                    });
+                }
+            });
+
+            this.panelDisplay(false);
+
+            this.searchElementByValueInArray(this.styleDatas, 'body', data, 'edit');
         }
     }
 
@@ -497,6 +523,8 @@ class Editor {
                                 });
                             }
                         });
+
+                        console.log(element);
                     }
 
                     // On regénère la page
