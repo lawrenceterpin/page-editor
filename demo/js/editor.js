@@ -158,7 +158,7 @@ class Editor {
                             else {
                                 let fieldForm = this.getFormField(this.selectedFormId, '#' + this.elementSelected.id + ' [name=' + field.name + ']');
 
-                                console.log(fieldForm);
+                                console.log(this.elementSelected[field.name]);
 
                                 if (fieldForm !== null) {
 
