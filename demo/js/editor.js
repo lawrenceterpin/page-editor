@@ -90,7 +90,6 @@ class Editor {
                 const head = document.head || document.getElementsByTagName('head')[0];
                 this.style = document.createElement('style');
                 this.style.type = 'text/css';
-                // this.style.appendChild(document.createTextNode(cssText));
                 head.appendChild(this.style);
 
                 data.forEach(selector => {
@@ -117,63 +116,6 @@ class Editor {
 
                     this.style.appendChild(document.createTextNode(css.trim()));
                 });
-
-                // insert the css styles
-                //             this.styleInject(`
-                //     body {
-                //         font-family: 'Lato', sans-serif;
-                //         font-size: 15px;
-                //         letter-spacing: 1px;
-                //     }
-
-                //     h1,
-                //     h2 {
-                //         font-family: 'Raleway', sans-serif;
-                //         letter-spacing: 4px;
-                //         color: #62ecc1;
-                //     }
-
-                //     h2 {
-                //         font-size: 3rem;
-                //     }
-
-                //     h3 {
-                //         letter-spacing: 0px;
-                //         line-height: 1.4;
-                //     }
-
-                //     p {
-                //         letter-spacing: 0px;
-                //         line-height: 1.4;
-                //         color: #000;
-                //     }
-
-                //     a {
-                //         font-family: 'Raleway', sans-serif;
-                //         text-decoration: none;
-                //         color: #62ecc1;
-
-                //         &:hover {
-                //             text-decoration: underline;
-                //         }
-                //     }
-
-                //     .primary {
-                //         color: #62ecc1;
-                //     }
-
-                //     .bg-primary {
-                //         background-color: #62ecc1;
-                //     }
-
-                //     .secondary {
-                //         color: #222589;
-                //     }
-
-                //     .bg-secondary {
-                //         background-color: #222589;
-                //     }
-                // `);
 
                 this.loadDatas(data);
             });
@@ -209,7 +151,7 @@ class Editor {
         formType.innerText = ((this.formType == 'add') ? 'Ajouter l\'élément' : 'Modifier l\'élément');
 
         if (this.formType == 'edit') {
-            this.options.panel.form.fieldsGroups.forEach(group => {
+            this.options.panel.form[1].fieldsGroups.forEach(group => {
 
                 group.fields.forEach(field => {
                     if (field.type == 'radio') {
@@ -258,7 +200,7 @@ class Editor {
 
             let data = {};
 
-            this.options.panel.form.fieldsGroups.forEach(group => {
+            this.options.panel.form[1].fieldsGroups.forEach(group => {
 
                 group.fields.forEach(field => {
                     let value = this.getFormField(this.formId, '[name=' + field.name + ']').value;
@@ -308,7 +250,10 @@ class Editor {
             "</div>" +
             "<h3 id='selected-element' class='bg-primary white text-shadow shadow p-1'></h3>";
 
-        content += this.createForm();
+        this.options.panel.form.forEach(form => {
+
+            content += this.createForm(form);
+        });
 
         this.panel.innerHTML = content;
 
@@ -518,7 +463,7 @@ class Editor {
                     }
                     else if (type == 'edit') {
                         // On parcours les groupes de champs
-                        this.options.panel.form.fieldsGroups.forEach(group => {
+                        this.options.panel.form[1].fieldsGroups.forEach(group => {
                             // On parcours les champs
                             group.fields.forEach(field => {
                                 // On remplace les données de l'élément
@@ -638,11 +583,11 @@ class Editor {
         alert('Les données ont été sauvegardées');
     }
 
-    createForm() {
+    createForm(form) {
 
-        let content = "<form id='editor-form' class='d-flex flex-direction-column' onsubmit='editor.submitEditorForm(event)'>";
+        let content = "<form id='" + form.id + "' class='d-flex flex-direction-column' onsubmit='editor.submitEditorForm(event)'>";
 
-        this.options.panel.form.fieldsGroups.forEach(group => {
+        form.fieldsGroups.forEach(group => {
 
             content += "<div id='" + group.name + "' class='accordion border-bottom'>" +
                 "<h4 class='d-flex justify-content-between m-0 pt-1 pb-1' onclick='editor.accordion(event);'><strong>" + group.title + "</strong><i class='fa fa-chevron-circle-down fa-1x'></i></h4>" +

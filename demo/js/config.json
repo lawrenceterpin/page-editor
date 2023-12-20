@@ -3,429 +3,468 @@
   "editorContainerId": "editor",
   "panel": {
     "open": false,
-    "form": {
-      "fieldsGroups": [
-        {
-          "name": "group-1",
-          "title": "Général",
-          "fields": [
-            {
-              "name": "tag",
-              "title": "Type",
-              "type": "autocompletion",
-              "value": "",
-              "options": [
-                "div",
-                "header",
-                "main",
-                "footer",
-                "nav",
-                "section",
-                "article",
-                "h1",
-                "h2",
-                "h3",
-                "h4",
-                "ul",
-                "li",
-                "p",
-                "a",
-                "img",
-                "i"
-              ]
-            },
-            {
-              "name": "name",
-              "title": "Name",
-              "type": "hidden",
-              "value": "",
-              "options": []
-            }
-          ]
-        },
-        {
-          "name": "group-2",
-          "title": "Affichage",
-          "fields": [
-            {
-              "name": "display",
-              "title": "Type de bloc",
-              "type": "radio",
-              "value": "",
-              "options": [
-                {
-                  "label": "d-block",
-                  "value": "d-block",
-                  "class": "",
-                  "iconClass": "fa-eye"
-                },
-                {
-                  "label": "d-flex",
-                  "value": "d-flex",
-                  "class": "",
-                  "iconClass": "fa-th-large"
-                },
-                {
-                  "label": "d-none",
-                  "value": "d-none",
-                  "class": "",
-                  "iconClass": "fa-eye-slash"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "group-3",
-          "title": "Mise en page",
-          "fields": [
-            {
-              "name": "flex-direction",
-              "title": "Direction de l'alignement",
-              "type": "radio",
-              "value": "",
-              "options": [
-                {
-                  "label": "flex-direction-row",
-                  "value": "flex-direction-row",
-                  "class": "",
-                  "iconClass": "fa-arrow-right"
-                },
-                {
-                  "label": "flex-direction-row-reverse",
-                  "value": "flex-direction-row-reverse",
-                  "class": "",
-                  "iconClass": "fa-arrow-left"
-                },
-                {
-                  "label": "flex-direction-column",
-                  "value": "flex-direction-column",
-                  "class": "",
-                  "iconClass": "fa-arrow-down"
-                },
-                {
-                  "label": "flex-direction-column-reverse",
-                  "value": "flex-direction-column-reverse",
-                  "class": "",
-                  "iconClass": "fa-arrow-up"
-                }
-              ]
-            },
-            {
-              "name": "justify-content",
-              "title": "Alignement horizontal",
-              "type": "radio",
-              "value": "",
-              "options": [
-                {
-                  "label": "justify-content-start",
-                  "value": "justify-content-start",
-                  "class": "",
-                  "iconClass": "fa-align-left"
-                },
-                {
-                  "label": "justify-content-center",
-                  "value": "justify-content-center",
-                  "class": "",
-                  "iconClass": "fa-align-center"
-                },
-                {
-                  "label": "justify-content-end",
-                  "value": "justify-content-end",
-                  "class": "",
-                  "iconClass": "fa-align-right"
-                },
-                {
-                  "label": "justify-content-between",
-                  "value": "justify-content-between",
-                  "class": "",
-                  "iconClass": "fa-align-justify"
-                }
-              ]
-            },
-            {
-              "name": "align-items",
-              "title": "Alignement vertical",
-              "type": "radio",
-              "value": "",
-              "options": [
-                {
-                  "label": "align-items-start",
-                  "value": "align-items-start",
-                  "class": "",
-                  "iconClass": "fa-align-left"
-                },
-                {
-                  "label": "align-items-center",
-                  "value": "align-items-center",
-                  "class": "",
-                  "iconClass": "fa-align-center"
-                },
-                {
-                  "label": "align-items-end",
-                  "value": "align-items-end",
-                  "class": "",
-                  "iconClass": "fa-align-right"
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "group-4",
-          "title": "Positionnement",
-          "fields": [
-            {
-              "name": "position",
-              "title": "Positionnement",
-              "type": "select",
-              "value": "",
-              "options": [
-                {
-                  "label": "p-relative",
-                  "value": "p-relative",
-                  "class": "",
-                  "iconClass": ""
-                },
-                {
-                  "label": "p-absolute",
-                  "value": "p-absolute",
-                  "class": "",
-                  "iconClass": ""
-                },
-                {
-                  "label": "p-fixed",
-                  "value": "p-fixed",
-                  "class": "",
-                  "iconClass": ""
-                },
-                {
-                  "label": "p-static",
-                  "value": "p-static",
-                  "class": "",
-                  "iconClass": ""
-                }
-              ]
-            },
-            {
-              "name": "top",
-              "title": "Haut",
-              "type": "text",
-              "value": "",
-              "options": []
-            },
-            {
-              "name": "bottom",
-              "title": "Bas",
-              "type": "text",
-              "value": "",
-              "options": []
-            },
-            {
-              "name": "left",
-              "title": "Gauche",
-              "type": "text",
-              "value": "",
-              "options": []
-            },
-            {
-              "name": "right",
-              "title": "Droite",
-              "type": "text",
-              "value": "",
-              "options": []
-            },
-            {
-              "name": "z-index",
-              "title": "Z-index",
-              "type": "number",
-              "value": "",
-              "options": []
-            }
-          ]
-        },
-        {
-          "name": "group-5",
-          "title": "Arrière plan",
-          "fields": [
-            {
-              "name": "background",
-              "title": "Couleur de fond",
-              "type": "radio",
-              "value": "",
-              "options": [
-                {
-                  "label": "bg-transparent",
-                  "value": "bg-transparent",
-                  "class": "bg-transparent",
-                  "iconClass": ""
-                },
-                {
-                  "label": "bg-primary",
-                  "value": "bg-primary",
-                  "class": "bg-primary",
-                  "iconClass": ""
-                },
-                {
-                  "label": "bg-secondary",
-                  "value": "bg-secondary",
-                  "class": "bg-secondary",
-                  "iconClass": ""
-                },
-                {
-                  "label": "bg-white",
-                  "value": "bg-white",
-                  "class": "bg-white",
-                  "iconClass": ""
-                },
-                {
-                  "label": "bg-black",
-                  "value": "bg-black",
-                  "class": "bg-black",
-                  "iconClass": ""
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "group-6",
-          "title": "CSS",
-          "fields": [
-            {
-              "name": "classes",
-              "title": "Classes",
-              "type": "text",
-              "value": "",
-              "options": []
-            }
-          ]
-        },
-        {
-          "name": "group-7",
-          "title": "Texte",
-          "fields": [
-            {
-              "name": "text",
-              "title": "Texte",
-              "type": "text",
-              "value": "",
-              "options": []
-            },
-            {
-              "name": "text-align",
-              "title": "Alignement horizontal",
-              "type": "radio",
-              "value": "",
-              "options": [
-                {
-                  "label": "text-left",
-                  "value": "text-left",
-                  "class": "",
-                  "iconClass": "fa-align-left"
-                },
-                {
-                  "label": "text-center",
-                  "value": "text-center",
-                  "class": "",
-                  "iconClass": "fa-align-center"
-                },
-                {
-                  "label": "text-right",
-                  "value": "text-right",
-                  "class": "",
-                  "iconClass": "fa-align-right"
-                },
-                {
-                  "label": "text-justify",
-                  "value": "text-justify",
-                  "class": "",
-                  "iconClass": "fa-align-justify"
-                }
-              ]
-            },
-            {
-              "name": "font-size",
-              "title": "Taille",
-              "type": "text",
-              "value": "",
-              "options": []
-            },
-            {
-              "name": "color",
-              "title": "Couleur",
-              "type": "radio",
-              "value": "",
-              "options": [
-                {
-                  "label": "transparent",
-                  "value": "transparent",
-                  "class": "bg-transparent",
-                  "iconClass": ""
-                },
-                {
-                  "label": "primary",
-                  "value": "primary",
-                  "class": "bg-primary",
-                  "iconClass": ""
-                },
-                {
-                  "label": "secondary",
-                  "value": "secondary",
-                  "class": "bg-secondary",
-                  "iconClass": ""
-                },
-                {
-                  "label": "white",
-                  "value": "white",
-                  "class": "bg-white",
-                  "iconClass": ""
-                },
-                {
-                  "label": "black",
-                  "value": "black",
-                  "class": "bg-black",
-                  "iconClass": ""
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "name": "group-8",
-          "title": "Attributs",
-          "fields": [
-            {
-              "name": "href",
-              "title": "Lien",
-              "type": "text",
-              "value": "",
-              "options": []
-            },
-            {
-              "name": "title",
-              "title": "Titre",
-              "type": "text",
-              "value": "",
-              "options": []
-            },
-            {
-              "name": "src",
-              "title": "URL de l'image",
-              "type": "text",
-              "value": "",
-              "options": []
-            },
-            {
-              "name": "alt",
-              "title": "Description",
-              "type": "text",
-              "value": "",
-              "options": []
-            }
-          ]
-        }
-      ]
-    }
+    "form": [
+      {
+        "id": "style-form",
+        "fieldsGroups": [
+          {
+            "name": "group-1",
+            "title": "Général",
+            "fields": [
+              {
+                "name": "tag",
+                "title": "Type",
+                "type": "autocompletion",
+                "value": "",
+                "options": [
+                  "div",
+                  "header",
+                  "main",
+                  "footer",
+                  "nav",
+                  "section",
+                  "article",
+                  "h1",
+                  "h2",
+                  "h3",
+                  "h4",
+                  "ul",
+                  "li",
+                  "p",
+                  "a",
+                  "img",
+                  "i"
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "element-form",
+        "fieldsGroups": [
+          {
+            "name": "group-1",
+            "title": "Général",
+            "fields": [
+              {
+                "name": "tag",
+                "title": "Type",
+                "type": "autocompletion",
+                "value": "",
+                "options": [
+                  "div",
+                  "header",
+                  "main",
+                  "footer",
+                  "nav",
+                  "section",
+                  "article",
+                  "h1",
+                  "h2",
+                  "h3",
+                  "h4",
+                  "ul",
+                  "li",
+                  "p",
+                  "a",
+                  "img",
+                  "i"
+                ]
+              },
+              {
+                "name": "name",
+                "title": "Name",
+                "type": "hidden",
+                "value": "",
+                "options": []
+              }
+            ]
+          },
+          {
+            "name": "group-2",
+            "title": "Affichage",
+            "fields": [
+              {
+                "name": "display",
+                "title": "Type de bloc",
+                "type": "radio",
+                "value": "",
+                "options": [
+                  {
+                    "label": "d-block",
+                    "value": "d-block",
+                    "class": "",
+                    "iconClass": "fa-eye"
+                  },
+                  {
+                    "label": "d-flex",
+                    "value": "d-flex",
+                    "class": "",
+                    "iconClass": "fa-th-large"
+                  },
+                  {
+                    "label": "d-none",
+                    "value": "d-none",
+                    "class": "",
+                    "iconClass": "fa-eye-slash"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "group-3",
+            "title": "Mise en page",
+            "fields": [
+              {
+                "name": "flex-direction",
+                "title": "Direction de l'alignement",
+                "type": "radio",
+                "value": "",
+                "options": [
+                  {
+                    "label": "flex-direction-row",
+                    "value": "flex-direction-row",
+                    "class": "",
+                    "iconClass": "fa-arrow-right"
+                  },
+                  {
+                    "label": "flex-direction-row-reverse",
+                    "value": "flex-direction-row-reverse",
+                    "class": "",
+                    "iconClass": "fa-arrow-left"
+                  },
+                  {
+                    "label": "flex-direction-column",
+                    "value": "flex-direction-column",
+                    "class": "",
+                    "iconClass": "fa-arrow-down"
+                  },
+                  {
+                    "label": "flex-direction-column-reverse",
+                    "value": "flex-direction-column-reverse",
+                    "class": "",
+                    "iconClass": "fa-arrow-up"
+                  }
+                ]
+              },
+              {
+                "name": "justify-content",
+                "title": "Alignement horizontal",
+                "type": "radio",
+                "value": "",
+                "options": [
+                  {
+                    "label": "justify-content-start",
+                    "value": "justify-content-start",
+                    "class": "",
+                    "iconClass": "fa-align-left"
+                  },
+                  {
+                    "label": "justify-content-center",
+                    "value": "justify-content-center",
+                    "class": "",
+                    "iconClass": "fa-align-center"
+                  },
+                  {
+                    "label": "justify-content-end",
+                    "value": "justify-content-end",
+                    "class": "",
+                    "iconClass": "fa-align-right"
+                  },
+                  {
+                    "label": "justify-content-between",
+                    "value": "justify-content-between",
+                    "class": "",
+                    "iconClass": "fa-align-justify"
+                  }
+                ]
+              },
+              {
+                "name": "align-items",
+                "title": "Alignement vertical",
+                "type": "radio",
+                "value": "",
+                "options": [
+                  {
+                    "label": "align-items-start",
+                    "value": "align-items-start",
+                    "class": "",
+                    "iconClass": "fa-align-left"
+                  },
+                  {
+                    "label": "align-items-center",
+                    "value": "align-items-center",
+                    "class": "",
+                    "iconClass": "fa-align-center"
+                  },
+                  {
+                    "label": "align-items-end",
+                    "value": "align-items-end",
+                    "class": "",
+                    "iconClass": "fa-align-right"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "group-4",
+            "title": "Positionnement",
+            "fields": [
+              {
+                "name": "position",
+                "title": "Positionnement",
+                "type": "select",
+                "value": "",
+                "options": [
+                  {
+                    "label": "p-relative",
+                    "value": "p-relative",
+                    "class": "",
+                    "iconClass": ""
+                  },
+                  {
+                    "label": "p-absolute",
+                    "value": "p-absolute",
+                    "class": "",
+                    "iconClass": ""
+                  },
+                  {
+                    "label": "p-fixed",
+                    "value": "p-fixed",
+                    "class": "",
+                    "iconClass": ""
+                  },
+                  {
+                    "label": "p-static",
+                    "value": "p-static",
+                    "class": "",
+                    "iconClass": ""
+                  }
+                ]
+              },
+              {
+                "name": "top",
+                "title": "Haut",
+                "type": "text",
+                "value": "",
+                "options": []
+              },
+              {
+                "name": "bottom",
+                "title": "Bas",
+                "type": "text",
+                "value": "",
+                "options": []
+              },
+              {
+                "name": "left",
+                "title": "Gauche",
+                "type": "text",
+                "value": "",
+                "options": []
+              },
+              {
+                "name": "right",
+                "title": "Droite",
+                "type": "text",
+                "value": "",
+                "options": []
+              },
+              {
+                "name": "z-index",
+                "title": "Z-index",
+                "type": "number",
+                "value": "",
+                "options": []
+              }
+            ]
+          },
+          {
+            "name": "group-5",
+            "title": "Arrière plan",
+            "fields": [
+              {
+                "name": "background",
+                "title": "Couleur de fond",
+                "type": "radio",
+                "value": "",
+                "options": [
+                  {
+                    "label": "bg-transparent",
+                    "value": "bg-transparent",
+                    "class": "bg-transparent",
+                    "iconClass": ""
+                  },
+                  {
+                    "label": "bg-primary",
+                    "value": "bg-primary",
+                    "class": "bg-primary",
+                    "iconClass": ""
+                  },
+                  {
+                    "label": "bg-secondary",
+                    "value": "bg-secondary",
+                    "class": "bg-secondary",
+                    "iconClass": ""
+                  },
+                  {
+                    "label": "bg-white",
+                    "value": "bg-white",
+                    "class": "bg-white",
+                    "iconClass": ""
+                  },
+                  {
+                    "label": "bg-black",
+                    "value": "bg-black",
+                    "class": "bg-black",
+                    "iconClass": ""
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "group-6",
+            "title": "CSS",
+            "fields": [
+              {
+                "name": "classes",
+                "title": "Classes",
+                "type": "text",
+                "value": "",
+                "options": []
+              }
+            ]
+          },
+          {
+            "name": "group-7",
+            "title": "Texte",
+            "fields": [
+              {
+                "name": "text",
+                "title": "Texte",
+                "type": "text",
+                "value": "",
+                "options": []
+              },
+              {
+                "name": "text-align",
+                "title": "Alignement horizontal",
+                "type": "radio",
+                "value": "",
+                "options": [
+                  {
+                    "label": "text-left",
+                    "value": "text-left",
+                    "class": "",
+                    "iconClass": "fa-align-left"
+                  },
+                  {
+                    "label": "text-center",
+                    "value": "text-center",
+                    "class": "",
+                    "iconClass": "fa-align-center"
+                  },
+                  {
+                    "label": "text-right",
+                    "value": "text-right",
+                    "class": "",
+                    "iconClass": "fa-align-right"
+                  },
+                  {
+                    "label": "text-justify",
+                    "value": "text-justify",
+                    "class": "",
+                    "iconClass": "fa-align-justify"
+                  }
+                ]
+              },
+              {
+                "name": "font-size",
+                "title": "Taille",
+                "type": "text",
+                "value": "",
+                "options": []
+              },
+              {
+                "name": "color",
+                "title": "Couleur",
+                "type": "radio",
+                "value": "",
+                "options": [
+                  {
+                    "label": "transparent",
+                    "value": "transparent",
+                    "class": "bg-transparent",
+                    "iconClass": ""
+                  },
+                  {
+                    "label": "primary",
+                    "value": "primary",
+                    "class": "bg-primary",
+                    "iconClass": ""
+                  },
+                  {
+                    "label": "secondary",
+                    "value": "secondary",
+                    "class": "bg-secondary",
+                    "iconClass": ""
+                  },
+                  {
+                    "label": "white",
+                    "value": "white",
+                    "class": "bg-white",
+                    "iconClass": ""
+                  },
+                  {
+                    "label": "black",
+                    "value": "black",
+                    "class": "bg-black",
+                    "iconClass": ""
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "name": "group-8",
+            "title": "Attributs",
+            "fields": [
+              {
+                "name": "href",
+                "title": "Lien",
+                "type": "text",
+                "value": "",
+                "options": []
+              },
+              {
+                "name": "title",
+                "title": "Titre",
+                "type": "text",
+                "value": "",
+                "options": []
+              },
+              {
+                "name": "src",
+                "title": "URL de l'image",
+                "type": "text",
+                "value": "",
+                "options": []
+              },
+              {
+                "name": "alt",
+                "title": "Description",
+                "type": "text",
+                "value": "",
+                "options": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
 }
