@@ -89,7 +89,7 @@ class Editor {
 
                 data.forEach(selector => {
 
-                    let css = selector.tag + ` {
+                    let css = selector.tag + `{
                         font-family: ` + selector["font-family"] + `;
                         font-size:  ` + selector["font-size"] + `;
                         letter-spacing:  ` + selector["letter-spacing"] + `;
