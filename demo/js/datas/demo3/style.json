@@ -29,5 +29,22 @@
     {
         "tag": ".primary",
         "color": "#62ecc1"
+    },
+    {
+        "tag": ".bg-primary",
+        "background-color": "#62ecc1"
+    },
+    {
+        "tag": ".secondary",
+        "color": "#222589"
+    },
+    {
+        "tag": ".bg-secondary",
+        "background-color": "#222589"
+    },
+    {
+        "tag": "a",
+        "font-family": "'Raleway', sans-serif",
+        "color": "#62ecc1"
     }
 ]

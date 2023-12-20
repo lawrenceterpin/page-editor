@@ -95,16 +95,27 @@ class Editor {
 
                 data.forEach(selector => {
 
-                    let css = selector.tag + `{
-                        font-family: ` + selector["font-family"] + `;
-                        font-size: ` + selector["font-size"] + `;
-                        letter-spacing: ` + selector["letter-spacing"] + `;
-                        color: ` + selector["color"] + `;
-                    }`;
+                    let css = selector.tag + "{";
 
-                    this.style.appendChild(document.createTextNode(css));
+                    if (typeof selector['font-family'] !== 'undefined') {
+                        css += "font-family: " + selector['font-family'] + ";";
+                    }
+                    if (typeof selector['font-size'] !== 'undefined') {
+                        css += "font-size: " + selector['font-size'] + ";";
+                    }
+                    if (typeof selector['letter-spacing'] !== 'undefined') {
+                        css += "letter-spacing: " + selector['letter-spacing'] + ";";
+                    }
+                    if (typeof selector['background-color'] !== 'undefined') {
+                        css += "background-color: " + selector['background-color'] + ";";
+                    }
+                    if (typeof selector['color'] !== 'undefined') {
+                        css += "color: " + selector['color'] + ";";
+                    }
 
-                    // this.styleInject(css.trim());
+                    css += "}";
+
+                    this.style.appendChild(document.createTextNode(css.trim()));
                 });
 
                 // insert the css styles
