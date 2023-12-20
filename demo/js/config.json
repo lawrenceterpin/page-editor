@@ -97,13 +97,13 @@
                 "options": [
                   {
                     "label": "Lato",
-                    "value": "'Lato', sans-serif",
+                    "value": "Lato, sans-serif",
                     "class": "",
                     "iconClass": ""
                   },
                   {
                     "label": "Raleway",
-                    "value": "'Raleway', sans-serif",
+                    "value": "Raleway, sans-serif",
                     "class": "",
                     "iconClass": ""
                   }
