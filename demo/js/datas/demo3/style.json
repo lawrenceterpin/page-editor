@@ -18,5 +18,16 @@
         "font-size": "3rem",
         "letter-spacing": "4px",
         "color": "#62ecc1"
+    },
+    {
+        "tag": "h3",
+        "font-family": "'Lato', sans-serif",
+        "font-size": "2rem",
+        "letter-spacing": "0",
+        "color": "#222589"
+    },
+    {
+        "tag": ".primary",
+        "color": "#62ecc1"
     }
 ]

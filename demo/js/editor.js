@@ -87,15 +87,24 @@ class Editor {
             })
             .then(data => {
 
+                const head = document.head || document.getElementsByTagName('head')[0];
+                this.style = document.createElement('style');
+                this.style.type = 'text/css';
+                // this.style.appendChild(document.createTextNode(cssText));
+                head.appendChild(this.style);
+
                 data.forEach(selector => {
 
                     let css = selector.tag + `{
                         font-family: ` + selector["font-family"] + `;
-                        font-size:  ` + selector["font-size"] + `;
-                        letter-spacing:  ` + selector["letter-spacing"] + `;
+                        font-size: ` + selector["font-size"] + `;
+                        letter-spacing: ` + selector["letter-spacing"] + `;
+                        color: ` + selector["color"] + `;
                     }`;
 
-                    this.styleInject(css.trim());
+                    this.style.appendChild(document.createTextNode(css));
+
+                    // this.styleInject(css.trim());
                 });
 
                 // insert the css styles
@@ -780,11 +789,8 @@ class Editor {
         return field;
     }
 
-    styleInject(cssText) {
-        const head = document.head || document.getElementsByTagName('head')[0];
-        const style = document.createElement('style');
-        style.type = 'text/css';
-        style.appendChild(document.createTextNode(cssText));
-        head.appendChild(style);
-    }
+    // styleInject(cssText) {
+
+    //     this.style.appendChild(cssText);
+    // }
 }
