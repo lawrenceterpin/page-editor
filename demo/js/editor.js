@@ -54,13 +54,6 @@ class Editor {
 
         const datas = localStorage.getItem(key);
 
-        if (datas !== null) {
-
-            this.editorDatas = JSON.parse(datas);
-
-            this.startEditor();
-        }
-
         return datas;
     }
 
@@ -81,6 +74,12 @@ class Editor {
                     this.startEditor();
                 });
         }
+        else {
+
+            this.editorDatas = JSON.parse(datas);
+
+            this.startEditor();
+        }
     }
 
     loadStyle() {
@@ -97,10 +96,22 @@ class Editor {
 
                     this.styleDatas = data;
 
+                    this.createEditorPanel();
+
                     this.styleInject(data);
 
-                    this.loadDatas(data);
+                    this.loadDatas();
                 });
+        }
+        else {
+
+            this.styleDatas = JSON.parse(datas);
+
+            this.createEditorPanel();
+
+            this.styleInject(JSON.parse(datas));
+
+            this.loadDatas();
         }
     }
 
@@ -116,8 +127,6 @@ class Editor {
         this.generatePage();
 
         this.switchEditorMode();
-
-        this.createEditorPanel();
     }
 
     /**
@@ -138,8 +147,10 @@ class Editor {
                                 field.options.forEach(option => {
 
                                     if (this.elementSelected[field.name] == option.value) {
-                                        if (typeof this.getFormField(this.formId, '#' + option.value) !== "undefined") {
-                                            let fieldForm = this.getFormField(this.formId, '#' + option.value);
+                                        if (typeof this.getFormField(this.selectedFormId, '#' + option.value) !== "undefined") {
+                                            let fieldForm = this.getFormField(this.selectedFormId, '#' + option.value);
+
+                                            console.log(this.selectedFormId, field);
 
                                             fieldForm.checked = true;
                                         }
@@ -147,9 +158,16 @@ class Editor {
                                 });
                             }
                             else {
-                                let fieldForm = this.getFormField(this.formId, '[name=' + field.name + ']');
+                                let fieldForm = this.getFormField(this.selectedFormId, '[name=' + field.name + ']');
 
-                                fieldForm.value = this.elementSelected[field.name];
+                                console.log(fieldForm);
+
+                                if (fieldForm !== null) {
+
+                                    console.log(fieldForm);
+
+                                    fieldForm.value = this.elementSelected[field.name];
+                                }
                             }
                         });
                     });
@@ -161,6 +179,7 @@ class Editor {
 
             this.form.reset();
         }
+
 
         this.panelDisplay(true);
     }
@@ -257,12 +276,12 @@ class Editor {
 
         // On récupère le formulaire d'édition
         this.elementForm = this.getById("element-form");
-        this.elementFormId = this.elementForm.getAttribute('id');
+        // this.elementFormId = this.elementForm.getAttribute('id');
 
         this.styleForm = this.getById("style-form");
-        this.styleFormId = this.styleForm.getAttribute('id');
+        // this.styleFormId = this.styleForm.getAttribute('id');
 
-        this.getSelectedTag();
+        // this.getSelectedTag();
 
         // Ouverture/fermeture du panneau d'édition 
         this.panelDisplay(this.options.panel.open);
@@ -275,15 +294,17 @@ class Editor {
      */
     panelDisplay(open) {
 
-        this.options.panel.open = open;
+        if (typeof this.panel !== 'undefined') {
+            this.options.panel.open = open;
 
-        if (this.options.panel.open == true) {
-            // On affiche le panneau
-            this.addClass(this.panel, "open");
-        }
-        else {
-            // On cache le panneau
-            this.removeClass(this.panel, "open");
+            if (this.options.panel.open == true) {
+                // On affiche le panneau
+                this.addClass(this.panel, "open");
+            }
+            else {
+                // On cache le panneau
+                this.removeClass(this.panel, "open");
+            }
         }
     }
 
@@ -325,6 +346,8 @@ class Editor {
     generatePage() {
         // On vide l'HTML du container
         this.container.innerHTML = "";
+
+        console.log(this.editorDatas);
 
         // On créé les éléments
         this.createElementsFromArray(this.container, this.editorDatas);
@@ -666,14 +689,14 @@ class Editor {
         return content;
     }
 
-    getSelectedTag() {
+    // getSelectedTag() {
 
-        const tag = this.getBySelector('#' + this.formId + ' #tag');
+    //     const tag = this.getBySelector('#' + this.formId + ' #tag');
 
-        tag.addEventListener("change", function () {
+    //     tag.addEventListener("change", function () {
 
-        });
-    }
+    //     });
+    // }
 
     hasClass(element, string) {
 

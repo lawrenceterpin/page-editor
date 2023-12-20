@@ -17,21 +17,33 @@
                 "type": "select",
                 "value": "",
                 "options": [
-                  "Raleway",
-                  "Lato"
+                  {
+                    "label": "Lato",
+                    "value": "'Lato', sans-serif",
+                    "class": "",
+                    "iconClass": ""
+                  },
+                  {
+                    "label": "Raleway",
+                    "value": "'Raleway', sans-serif",
+                    "class": "",
+                    "iconClass": ""
+                  }
                 ]
               },
               {
                 "name": "font-size",
                 "title": "Taille de la police",
                 "type": "text",
-                "value": ""
+                "value": "",
+                "options": []
               },
               {
                 "name": "letter-spacing",
                 "title": "Espacement du texte",
                 "type": "text",
-                "value": ""
+                "value": "",
+                "options": []
               },
               {
                 "name": "color",
@@ -83,8 +95,18 @@
                 "type": "select",
                 "value": "",
                 "options": [
-                  "Raleway",
-                  "Lato"
+                  {
+                    "label": "Lato",
+                    "value": "'Lato', sans-serif",
+                    "class": "",
+                    "iconClass": ""
+                  },
+                  {
+                    "label": "Raleway",
+                    "value": "'Raleway', sans-serif",
+                    "class": "",
+                    "iconClass": ""
+                  }
                 ]
               }
             ]
