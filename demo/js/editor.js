@@ -50,13 +50,15 @@ class Editor {
             });
     }
 
-    loadLocalDatas() {
+    loadLocalDatas(key) {
 
-        const datas = localStorage.getItem(this.editorId);
+        const datas = localStorage.getItem(key);
 
         if (datas !== null) {
 
-            this.startEditor(JSON.parse(datas));
+            this.editorDatas = JSON.parse(datas);
+
+            this.startEditor();
         }
 
         return datas;
@@ -64,7 +66,7 @@ class Editor {
 
     loadDatas() {
 
-        const datas = this.loadLocalDatas();
+        const datas = this.loadLocalDatas(this.editorId);
 
         if (datas == null) {
 
@@ -74,51 +76,32 @@ class Editor {
                 })
                 .then(data => {
 
-                    this.startEditor(data);
+                    this.editorDatas = data;
+
+                    this.startEditor();
                 });
         }
     }
 
     loadStyle() {
 
-        fetch(this.jsonStyleUrl)
-            .then(response => {
-                return response.json();
-            })
-            .then(data => {
+        const datas = this.loadLocalDatas(this.editorId + '-style');
 
-                const head = document.head || document.getElementsByTagName('head')[0];
-                this.style = document.createElement('style');
-                this.style.type = 'text/css';
-                head.appendChild(this.style);
+        if (datas == null) {
 
-                data.forEach(selector => {
+            fetch(this.jsonStyleUrl)
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
 
-                    let css = selector.tag + "{";
+                    this.styleDatas = data;
 
-                    if (typeof selector['font-family'] !== 'undefined') {
-                        css += "font-family: " + selector['font-family'] + ";";
-                    }
-                    if (typeof selector['font-size'] !== 'undefined') {
-                        css += "font-size: " + selector['font-size'] + ";";
-                    }
-                    if (typeof selector['letter-spacing'] !== 'undefined') {
-                        css += "letter-spacing: " + selector['letter-spacing'] + ";";
-                    }
-                    if (typeof selector['background-color'] !== 'undefined') {
-                        css += "background-color: " + selector['background-color'] + ";";
-                    }
-                    if (typeof selector['color'] !== 'undefined') {
-                        css += "color: " + selector['color'] + ";";
-                    }
+                    this.styleInject(data);
 
-                    css += "}";
-
-                    this.style.appendChild(document.createTextNode(css.trim()));
+                    this.loadDatas(data);
                 });
-
-                this.loadDatas(data);
-            });
+        }
     }
 
     /**
@@ -126,9 +109,7 @@ class Editor {
      * 
      * @param {Object} datas 
      */
-    startEditor(datas) {
-
-        this.editorDatas = datas;
+    startEditor() {
 
         this.container = this.getById(this.options.editorContainerId)
 
@@ -144,35 +125,35 @@ class Editor {
      */
     updateEditorFormValues() {
 
-        // const typeElement = this.getById("selected-element");
-        // typeElement.innerHTML = this.elementSelected.tag + "#" + this.elementSelected.id;
-
-        // const formType = this.getById("form-type");
-        // formType.innerText = ((this.formType == 'add') ? 'Ajouter l\'élément' : 'Modifier l\'élément');
-
         if (this.formType == 'edit') {
-            this.options.panel.form[1].fieldsGroups.forEach(group => {
+            // On parcours les groupes de champs
+            this.options.panel.form.forEach(form => {
 
-                group.fields.forEach(field => {
-                    if (field.type == 'radio') {
+                if (form.id == this.selectedFormId) {
+                    form.fieldsGroups.forEach(group => {
 
-                        field.options.forEach(option => {
+                        group.fields.forEach(field => {
+                            if (field.type == 'radio') {
 
-                            if (this.elementSelected[field.name] == option.value) {
-                                if (typeof this.getFormField(this.formId, '#' + option.value) !== "undefined") {
-                                    let fieldForm = this.getFormField(this.formId, '#' + option.value);
+                                field.options.forEach(option => {
 
-                                    fieldForm.checked = true;
-                                }
+                                    if (this.elementSelected[field.name] == option.value) {
+                                        if (typeof this.getFormField(this.formId, '#' + option.value) !== "undefined") {
+                                            let fieldForm = this.getFormField(this.formId, '#' + option.value);
+
+                                            fieldForm.checked = true;
+                                        }
+                                    }
+                                });
+                            }
+                            else {
+                                let fieldForm = this.getFormField(this.formId, '[name=' + field.name + ']');
+
+                                fieldForm.value = this.elementSelected[field.name];
                             }
                         });
-                    }
-                    else {
-                        let fieldForm = this.getFormField(this.formId, '[name=' + field.name + ']');
-
-                        fieldForm.value = this.elementSelected[field.name];
-                    }
-                });
+                    });
+                }
             });
         }
 
@@ -193,7 +174,9 @@ class Editor {
 
         event.preventDefault();
 
-        if (event.srcElement.id == 'element-form') {
+        this.selectedFormId = event.srcElement.id;
+
+        if (this.selectedFormId == 'element-form') {
 
             const tag = this.getFormField(this.formId, '#tag').value;
 
@@ -202,20 +185,26 @@ class Editor {
 
                 let data = {};
 
-                this.options.panel.form[1].fieldsGroups.forEach(group => {
+                // On parcours les groupes de champs
+                this.options.panel.form.forEach(form => {
 
-                    group.fields.forEach(field => {
-                        let value = this.getFormField(this.formId, '[name=' + field.name + ']').value;
+                    if (form.id == this.selectedFormId) {
+                        form.fieldsGroups.forEach(group => {
 
-                        if (field.type == 'radio') {
+                            group.fields.forEach(field => {
+                                let value = this.getFormField(this.formId, '[name=' + field.name + ']').value;
 
-                            if (this.getFormField(this.formId, '[name=' + field.name + ']:checked') !== null) {
-                                value = this.getFormField(this.formId, '[name=' + field.name + ']:checked').value;
-                            }
-                        }
+                                if (field.type == 'radio') {
 
-                        data[field.name] = value;
-                    });
+                                    if (this.getFormField(this.formId, '[name=' + field.name + ']:checked') !== null) {
+                                        value = this.getFormField(this.formId, '[name=' + field.name + ']:checked').value;
+                                    }
+                                }
+
+                                data[field.name] = value;
+                            });
+                        });
+                    }
                 });
 
                 this.panelDisplay(false);
@@ -224,7 +213,7 @@ class Editor {
             }
             else {
 
-                alert('Veuillez renseigner le type');
+                // this.searchElementByValueInArray(this.editorDatas, this.elementSelected.id, data, this.formType);
             }
         }
         else {
@@ -267,8 +256,11 @@ class Editor {
         document.body.prepend(this.panel);
 
         // On récupère le formulaire d'édition
-        this.form = this.getById("element-form");
-        this.formId = this.form.getAttribute('id');
+        this.elementForm = this.getById("element-form");
+        this.elementFormId = this.elementForm.getAttribute('id');
+
+        this.styleForm = this.getById("style-form");
+        this.styleFormId = this.styleForm.getAttribute('id');
 
         this.getSelectedTag();
 
@@ -431,12 +423,16 @@ class Editor {
 
         this.searchElementByValueInArray(this.editorDatas, elementIdSelected, null, 'add');
 
+        this.selectedFormId = "element-form";
+
         this.updateEditorFormValues();
     }
 
     editElement(elementIdSelected) {
 
         this.searchElementByValueInArray(this.editorDatas, elementIdSelected, null, 'edit');
+
+        this.selectedFormId = "element-form";
 
         this.updateEditorFormValues();
     }
@@ -470,12 +466,17 @@ class Editor {
                     }
                     else if (type == 'edit') {
                         // On parcours les groupes de champs
-                        this.options.panel.form[1].fieldsGroups.forEach(group => {
-                            // On parcours les champs
-                            group.fields.forEach(field => {
-                                // On remplace les données de l'élément
-                                element[field.name] = data[field.name];
-                            });
+                        this.options.panel.form.forEach(form => {
+
+                            if (form.id == this.selectedFormId) {
+                                form.fieldsGroups.forEach(group => {
+                                    // On parcours les champs
+                                    group.fields.forEach(field => {
+                                        // On remplace les données de l'élément
+                                        element[field.name] = data[field.name];
+                                    });
+                                });
+                            }
                         });
                     }
 
@@ -586,6 +587,7 @@ class Editor {
     saveDatas() {
 
         localStorage.setItem(this.editorId, JSON.stringify(this.editorDatas));
+        localStorage.setItem(this.editorId + "-style", JSON.stringify(this.styleDatas));
 
         alert('Les données ont été sauvegardées');
     }
@@ -752,8 +754,42 @@ class Editor {
         return field;
     }
 
-    // styleInject(cssText) {
+    styleInject(data) {
 
-    //     this.style.appendChild(cssText);
-    // }
+        const head = document.head || document.getElementsByTagName('head')[0];
+        this.style = document.createElement('style');
+        this.style.type = 'text/css';
+        head.appendChild(this.style);
+
+        data.forEach(selector => {
+
+            let css = selector.tag + "{";
+
+            if (typeof selector['font-family'] !== 'undefined') {
+                css += "font-family: " + selector['font-family'] + ";";
+            }
+            if (typeof selector['font-size'] !== 'undefined') {
+                css += "font-size: " + selector['font-size'] + ";";
+            }
+            if (typeof selector['letter-spacing'] !== 'undefined') {
+                css += "letter-spacing: " + selector['letter-spacing'] + ";";
+            }
+            if (typeof selector['background-color'] !== 'undefined') {
+                css += "background-color: " + selector['background-color'] + ";";
+            }
+            if (typeof selector['color'] !== 'undefined') {
+                css += "color: " + selector['color'] + ";";
+            }
+
+            css += "}";
+
+            this.searchElementByValueInArray(this.styleDatas, selector['id'], null, 'edit');
+
+            this.selectedFormId = "style-form";
+
+            this.updateEditorFormValues();
+
+            this.style.appendChild(document.createTextNode(css.trim()));
+        });
+    }
 }
