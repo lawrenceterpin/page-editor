@@ -32,22 +32,22 @@
     },
     {
         "tag": ".primary",
-        "id": ".primary",
+        "id": "primary",
         "color": "#62ecc1"
     },
     {
         "tag": ".bg-primary",
-        "id": ".bg-primary",
+        "id": "bg-primary",
         "background-color": "#62ecc1"
     },
     {
         "tag": ".secondary",
-        "id": ".secondary",
+        "id": "secondary",
         "color": "#222589"
     },
     {
         "tag": ".bg-secondary",
-        "id": ".bg-secondary",
+        "id": "bg-secondary",
         "background-color": "#222589"
     },
     {

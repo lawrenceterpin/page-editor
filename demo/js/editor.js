@@ -150,21 +150,17 @@ class Editor {
                                         if (typeof this.getFormField(this.selectedFormId, '#' + option.value) !== "undefined") {
                                             let fieldForm = this.getFormField(this.selectedFormId, '#' + option.value);
 
-                                            console.log(this.selectedFormId, field);
-
                                             fieldForm.checked = true;
                                         }
                                     }
                                 });
                             }
                             else {
-                                let fieldForm = this.getFormField(this.selectedFormId, '[name=' + field.name + ']');
+                                let fieldForm = this.getFormField(this.selectedFormId, '#' + this.elementSelected.id + ' [name=' + field.name + ']');
 
                                 console.log(fieldForm);
 
                                 if (fieldForm !== null) {
-
-                                    console.log(fieldForm);
 
                                     fieldForm.value = this.elementSelected[field.name];
                                 }
