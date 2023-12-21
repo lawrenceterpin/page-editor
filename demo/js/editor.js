@@ -748,7 +748,7 @@ class Editor {
         head.appendChild(this.style);
 
         // Liste des propriétés CSS
-        const properties = ['font-family', 'font-size', 'letter-spacing', 'background-color', 'color'];
+        const properties = ['font-family', 'font-size', 'letter-spacing', 'text-decoration', 'background-color', 'color'];
 
         data.forEach(selector => {
 
