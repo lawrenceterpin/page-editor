@@ -174,7 +174,7 @@ class Editor {
         // On bloque le chargement de la page
         event.preventDefault();
 
-        this.selectedFormId = event.srcElement.id;
+        // this.selectedFormId = event.srcElement.id;
 
         if (this.selectedFormId == 'element-form') {
 
@@ -222,12 +222,12 @@ class Editor {
                 return form.id == formId;
             });
 
-            let data = {};
+            let data = [];
 
             // On parcours les groupes de champs
             form.fieldsGroups.forEach(group => {
 
-                data[group.name] = {};
+                let groupField = {};
 
                 group.fields.forEach(field => {
                     const fieldSelector = `#${group.name} [name=${field.name}]`;
@@ -240,17 +240,19 @@ class Editor {
                         value = checkedRadio?.value ?? value;
                     }
 
-                    data[group.name][field.name] = value;
+                    groupField[field.name] = value;
                 });
+
+                data.push(groupField);
             });
 
-            console.log(this.styleDatas);
+            console.log(data);
 
             this.styleDatas = data;
 
             console.log(this.styleDatas);
 
-            // this.saveDatas();
+            this.saveDatas();
 
             // this.panelDisplay(false);
         }
