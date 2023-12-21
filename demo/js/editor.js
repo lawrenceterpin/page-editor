@@ -246,15 +246,15 @@ class Editor {
                 data.push(groupField);
             });
 
-            console.log(data);
-
             this.styleDatas = data;
-
-            console.log(this.styleDatas);
 
             this.saveDatas();
 
-            // this.panelDisplay(false);
+            this.style.remove();
+
+            this.styleInject(data);
+
+            this.panelDisplay(false);
         }
     }
 
