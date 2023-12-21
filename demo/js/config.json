@@ -12,6 +12,20 @@
             "title": "Corps de la page",
             "fields": [
               {
+                "name": "tag",
+                "title": "Type",
+                "type": "text",
+                "value": "",
+                "options": []
+              },
+              {
+                "name": "id",
+                "title": "ID",
+                "type": "hidden",
+                "value": "",
+                "options": []
+              },
+              {
                 "name": "font-family",
                 "title": "Police",
                 "type": "select",
