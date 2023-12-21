@@ -358,6 +358,73 @@
                 "options": []
               }
             ]
+          },
+          {
+            "name": "a",
+            "title": "Lien",
+            "fields": [
+              {
+                "name": "tag",
+                "title": "Type",
+                "type": "text",
+                "value": "",
+                "options": []
+              },
+              {
+                "name": "id",
+                "title": "ID",
+                "type": "hidden",
+                "value": "",
+                "options": []
+              },
+              {
+                "name": "font-family",
+                "title": "Police",
+                "type": "select",
+                "value": "",
+                "options": [
+                  {
+                    "label": "Lato",
+                    "value": "Lato, sans-serif",
+                    "class": "",
+                    "iconClass": ""
+                  },
+                  {
+                    "label": "Raleway",
+                    "value": "Raleway, sans-serif",
+                    "class": "",
+                    "iconClass": ""
+                  }
+                ]
+              },
+              {
+                "name": "text-decoration",
+                "title": "Décoration de texte",
+                "type": "select",
+                "value": "",
+                "options": [
+                  {
+                    "label": "None",
+                    "value": "none",
+                    "class": "",
+                    "iconClass": ""
+                  },
+                  {
+                    "label": "Underline",
+                    "value": "underline",
+                    "class": "",
+                    "iconClass": ""
+                  }
+                ]
+              },
+              {
+                "name": "color",
+                "title": "Couleur",
+                "type": "text",
+                "value": "",
+                "options": []
+              }
+            ]
           }
         ]
       },

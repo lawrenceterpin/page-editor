@@ -55,6 +55,7 @@
         "tag": "a",
         "id": "a",
         "font-family": "'Raleway', sans-serif",
+        "text-decoration": "none",
         "color": "#62ecc1"
     }
 ]
