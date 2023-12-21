@@ -376,7 +376,7 @@
             ]
           },
           {
-            "name": ".primary",
+            "name": "primary",
             "title": "Couleur primaire",
             "fields": [
               {
@@ -434,7 +434,7 @@
             ]
           },
           {
-            "name": ".secondary",
+            "name": "secondary",
             "title": "Couleur secondaire",
             "fields": [
               {
