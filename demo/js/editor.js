@@ -65,11 +65,11 @@ class Editor {
      */
     async loadStyle() {
         // Récupération des données locales
-        const datas = this.loadLocalDatas(this.editorId + '-style');
+        let datas = this.loadLocalDatas(this.editorId + '-style');
         // Si il n'y a pas de données locales
         if (!datas) {
             // Reponse http
-            const reponse = await fetch(this.config.jsonStyleUrl);
+            const reponse = await fetch(this.jsonStyleUrl);
             // Récupération des données en JSON
             datas = await reponse.json();
         }
@@ -116,7 +116,7 @@ class Editor {
     /**
      * MAJ des données du formulaire d'édition
      */
-    updateEditorFormValues(selectedFormId) {
+    updateEditorFormValues(selectedFormId, elementSelected) {
 
         this.getById('element-form').style.display = "none";
         this.getById('style-form').style.display = "none";
@@ -137,8 +137,6 @@ class Editor {
 
                     if (field.type == 'radio') {
 
-                        let elementSelected = this.elementSelected;
-
                         let option = field.options.find(function (option) {
                             return option.value == elementSelected[field.name];
                         });
@@ -155,7 +153,9 @@ class Editor {
                         selectorField = '#' + group.name + ' [name=' + field.name + ']';
                         let fieldForm = this.getFormField(selectedFormId, selectorField);
 
-                        fieldForm.value = this.elementSelected[field.name];
+                        fieldForm.value = elementSelected[field.name];
+
+                        console.log(selectorField, elementSelected);
                     }
                 });
             });
@@ -449,7 +449,7 @@ class Editor {
 
         this.searchElementByValueInArray(this.editorDatas, elementIdSelected);
 
-        this.updateEditorFormValues("element-form");
+        this.updateEditorFormValues("element-form", this.elementSelected);
     }
 
     /**
@@ -797,7 +797,7 @@ class Editor {
 
             this.formType = 'edit';
 
-            this.updateEditorFormValues("style-form");
+            this.updateEditorFormValues("style-form", this.elementSelected);
 
             this.style.appendChild(document.createTextNode(css.trim()));
         });
