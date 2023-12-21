@@ -304,6 +304,60 @@
                 "options": []
               }
             ]
+          },
+          {
+            "name": "bg-primary",
+            "title": "Couleur de fond primaire",
+            "fields": [
+              {
+                "name": "tag",
+                "title": "Type",
+                "type": "text",
+                "value": "",
+                "options": []
+              },
+              {
+                "name": "id",
+                "title": "ID",
+                "type": "hidden",
+                "value": "",
+                "options": []
+              },
+              {
+                "name": "color",
+                "title": "Couleur",
+                "type": "text",
+                "value": "",
+                "options": []
+              }
+            ]
+          },
+          {
+            "name": "bg-secondary",
+            "title": "Couleur de fond secondaire",
+            "fields": [
+              {
+                "name": "tag",
+                "title": "Type",
+                "type": "text",
+                "value": "",
+                "options": []
+              },
+              {
+                "name": "id",
+                "title": "ID",
+                "type": "hidden",
+                "value": "",
+                "options": []
+              },
+              {
+                "name": "color",
+                "title": "Couleur",
+                "type": "text",
+                "value": "",
+                "options": []
+              }
+            ]
           }
         ]
       },
