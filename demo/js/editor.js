@@ -133,31 +133,34 @@ class Editor {
 
             selectedForm.fieldsGroups.forEach(group => {
 
-                group.fields.forEach(field => {
+                // if (elementSelected.id == group.name) {
 
-                    if (field.type == 'radio') {
+                    group.fields.forEach(field => {
 
-                        let option = field.options.find(function (option) {
-                            return option.value == elementSelected[field.name];
-                        });
+                        if (field.type == 'radio') {
 
-                        if (typeof option !== 'undefined') {
+                            let option = field.options.find(function (option) {
+                                return option.value == elementSelected[field.name];
+                            });
 
-                            selectorField = '#' + group.name + ' #' + option.value;
+                            if (typeof option !== 'undefined') {
+
+                                selectorField = '#' + group.name + ' #' + option.value;
+                                let fieldForm = this.getFormField(selectedFormId, selectorField);
+
+                                fieldForm.checked = true;
+                            }
+                        }
+                        else {
+                            selectorField = '#' + group.name + ' [name=' + field.name + ']';
                             let fieldForm = this.getFormField(selectedFormId, selectorField);
 
-                            fieldForm.checked = true;
+                            fieldForm.value = elementSelected[field.name];
+
+                            // console.log(selectorField, elementSelected);
                         }
-                    }
-                    else {
-                        selectorField = '#' + group.name + ' [name=' + field.name + ']';
-                        let fieldForm = this.getFormField(selectedFormId, selectorField);
-
-                        fieldForm.value = elementSelected[field.name];
-
-                        console.log(selectorField, elementSelected);
-                    }
-                });
+                    });
+                //}
             });
         }
 
