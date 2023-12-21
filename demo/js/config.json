@@ -62,40 +62,9 @@
               {
                 "name": "color",
                 "title": "Couleur",
-                "type": "radio",
+                "type": "text",
                 "value": "",
-                "options": [
-                  {
-                    "label": "transparent",
-                    "value": "transparent",
-                    "class": "bg-transparent",
-                    "iconClass": ""
-                  },
-                  {
-                    "label": "primary",
-                    "value": "primary",
-                    "class": "bg-primary",
-                    "iconClass": ""
-                  },
-                  {
-                    "label": "secondary",
-                    "value": "secondary",
-                    "class": "bg-secondary",
-                    "iconClass": ""
-                  },
-                  {
-                    "label": "white",
-                    "value": "white",
-                    "class": "bg-white",
-                    "iconClass": ""
-                  },
-                  {
-                    "label": "black",
-                    "value": "black",
-                    "class": "bg-black",
-                    "iconClass": ""
-                  }
-                ]
+                "options": []
               }
             ]
           },
@@ -154,40 +123,9 @@
               {
                 "name": "color",
                 "title": "Couleur",
-                "type": "radio",
+                "type": "text",
                 "value": "",
-                "options": [
-                  {
-                    "label": "transparent",
-                    "value": "transparent",
-                    "class": "bg-transparent",
-                    "iconClass": ""
-                  },
-                  {
-                    "label": "primary",
-                    "value": "primary",
-                    "class": "bg-primary",
-                    "iconClass": ""
-                  },
-                  {
-                    "label": "secondary",
-                    "value": "secondary",
-                    "class": "bg-secondary",
-                    "iconClass": ""
-                  },
-                  {
-                    "label": "white",
-                    "value": "white",
-                    "class": "bg-white",
-                    "iconClass": ""
-                  },
-                  {
-                    "label": "black",
-                    "value": "black",
-                    "class": "bg-black",
-                    "iconClass": ""
-                  }
-                ]
+                "options": []
               }
             ]
           },
@@ -246,40 +184,9 @@
               {
                 "name": "color",
                 "title": "Couleur",
-                "type": "radio",
+                "type": "text",
                 "value": "",
-                "options": [
-                  {
-                    "label": "transparent",
-                    "value": "transparent",
-                    "class": "bg-transparent",
-                    "iconClass": ""
-                  },
-                  {
-                    "label": "primary",
-                    "value": "primary",
-                    "class": "bg-primary",
-                    "iconClass": ""
-                  },
-                  {
-                    "label": "secondary",
-                    "value": "secondary",
-                    "class": "bg-secondary",
-                    "iconClass": ""
-                  },
-                  {
-                    "label": "white",
-                    "value": "white",
-                    "class": "bg-white",
-                    "iconClass": ""
-                  },
-                  {
-                    "label": "black",
-                    "value": "black",
-                    "class": "bg-black",
-                    "iconClass": ""
-                  }
-                ]
+                "options": []
               }
             ]
           },
@@ -338,40 +245,9 @@
               {
                 "name": "color",
                 "title": "Couleur",
-                "type": "radio",
+                "type": "text",
                 "value": "",
-                "options": [
-                  {
-                    "label": "transparent",
-                    "value": "transparent",
-                    "class": "bg-transparent",
-                    "iconClass": ""
-                  },
-                  {
-                    "label": "primary",
-                    "value": "primary",
-                    "class": "bg-primary",
-                    "iconClass": ""
-                  },
-                  {
-                    "label": "secondary",
-                    "value": "secondary",
-                    "class": "bg-secondary",
-                    "iconClass": ""
-                  },
-                  {
-                    "label": "white",
-                    "value": "white",
-                    "class": "bg-white",
-                    "iconClass": ""
-                  },
-                  {
-                    "label": "black",
-                    "value": "black",
-                    "class": "bg-black",
-                    "iconClass": ""
-                  }
-                ]
+                "options": []
               }
             ]
           },
@@ -396,40 +272,9 @@
               {
                 "name": "color",
                 "title": "Couleur",
-                "type": "radio",
+                "type": "text",
                 "value": "",
-                "options": [
-                  {
-                    "label": "transparent",
-                    "value": "transparent",
-                    "class": "bg-transparent",
-                    "iconClass": ""
-                  },
-                  {
-                    "label": "primary",
-                    "value": "primary",
-                    "class": "bg-primary",
-                    "iconClass": ""
-                  },
-                  {
-                    "label": "secondary",
-                    "value": "secondary",
-                    "class": "bg-secondary",
-                    "iconClass": ""
-                  },
-                  {
-                    "label": "white",
-                    "value": "white",
-                    "class": "bg-white",
-                    "iconClass": ""
-                  },
-                  {
-                    "label": "black",
-                    "value": "black",
-                    "class": "bg-black",
-                    "iconClass": ""
-                  }
-                ]
+                "options": []
               }
             ]
           },
@@ -454,40 +299,9 @@
               {
                 "name": "color",
                 "title": "Couleur",
-                "type": "radio",
+                "type": "text",
                 "value": "",
-                "options": [
-                  {
-                    "label": "transparent",
-                    "value": "transparent",
-                    "class": "bg-transparent",
-                    "iconClass": ""
-                  },
-                  {
-                    "label": "primary",
-                    "value": "primary",
-                    "class": "bg-primary",
-                    "iconClass": ""
-                  },
-                  {
-                    "label": "secondary",
-                    "value": "secondary",
-                    "class": "bg-secondary",
-                    "iconClass": ""
-                  },
-                  {
-                    "label": "white",
-                    "value": "white",
-                    "class": "bg-white",
-                    "iconClass": ""
-                  },
-                  {
-                    "label": "black",
-                    "value": "black",
-                    "class": "bg-black",
-                    "iconClass": ""
-                  }
-                ]
+                "options": []
               }
             ]
           }
