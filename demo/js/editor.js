@@ -75,7 +75,6 @@ class Editor {
         }
 
         this.styleDatas = datas;
-
         // Injection de la CSS
         this.styleInject(this.styleDatas);
         // Chargement des données
@@ -87,7 +86,7 @@ class Editor {
      */
     async loadDatas() {
         // Récupération des données locales
-        const datas = this.loadLocalDatas(this.editorId);
+        let datas = this.loadLocalDatas(this.editorId);
         // Si il n'y a pas de données locales
         if (!datas) {
             // Reponse http
@@ -121,10 +120,11 @@ class Editor {
         this.formType = formType;
         this.selectedFormId = selectedFormId;
 
-        this.getById('element-form').style.display = "none";
-        this.getById('style-form').style.display = "none";
+        let h2 = this.getById('form-type');
+        h2.innerText = (this.selectedFormId == 'style-form') ? 'Edition du thème' : 'Edition d\'élément';
 
-        this.getById(selectedFormId).style.display = "block";
+        this.getById('element-form').style.display = (selectedFormId !== 'element-form') ? 'none' : 'block';
+        this.getById('style-form').style.display = (selectedFormId !== 'style-form') ? 'none' : 'block';
 
         if (this.formType === 'edit') {
             const selectedForm = this.config.panel.form.find(form => form.id === selectedFormId);
@@ -174,8 +174,6 @@ class Editor {
         // On bloque le chargement de la page
         event.preventDefault();
 
-        // this.selectedFormId = event.srcElement.id;
-
         if (this.selectedFormId == 'element-form') {
 
             const tag = this.getFormField(this.selectedFormId, '#tag').value;
@@ -185,11 +183,7 @@ class Editor {
 
                 let data = {};
 
-                let formId = this.selectedFormId;
-
-                let form = this.config.panel.form.find(function (form) {
-                    return form.id == formId;
-                });
+                const form = this.config.panel.form.find(form => form.id === this.selectedFormId);
 
                 // On parcours les groupes de champs
                 form.fieldsGroups.forEach(group => {
@@ -216,11 +210,7 @@ class Editor {
         }
         else {
 
-            let formId = this.selectedFormId;
-
-            let form = this.config.panel.form.find(function (form) {
-                return form.id == formId;
-            });
+            const form = this.config.panel.form.find(form => form.id === this.selectedFormId);
 
             let data = [];
 
@@ -252,7 +242,7 @@ class Editor {
 
             this.style.remove();
 
-            this.styleInject(data);
+            this.styleInject(this.styleDatas);
 
             this.panelDisplay(false);
         }
@@ -351,7 +341,6 @@ class Editor {
     generatePage() {
         // On vide l'HTML du container
         this.container.innerHTML = "";
-
         // On créé les éléments
         this.createElementsFromArray(this.container, this.editorDatas);
 
@@ -419,20 +408,22 @@ class Editor {
                 </div>`;
 
             if (element.tag == 'img') {
-                const img = this.createElement('img');
 
-                img.setAttribute('src', element.src);
-                this.addClass(img, 'w-100');
+                const img = this.createElementWithAttributes('img', {
+                    src: element.src,
+                    class: 'w-100'
+                });
 
                 tag.appendChild(img);
             }
 
             if (element.tag == 'a') {
 
-                const a = this.createElement('a');
+                const a = this.createElementWithAttributes('a', {
+                    href: element.href,
+                    class: this.createElementClasses(element),
+                });
 
-                a.className = this.createElementClasses(element);
-                a.setAttribute('href', element.href);
                 a.innerHTML += element.text;
 
                 tag.appendChild(a);
