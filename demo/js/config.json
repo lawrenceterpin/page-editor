@@ -15,7 +15,7 @@
                 "name": "tag",
                 "title": "Type",
                 "type": "text",
-                "value": "",
+                "value": "body",
                 "options": []
               },
               {
@@ -49,21 +49,21 @@
                 "name": "font-size",
                 "title": "Taille de la police",
                 "type": "text",
-                "value": "",
+                "value": "15px",
                 "options": []
               },
               {
                 "name": "letter-spacing",
                 "title": "Espacement du texte",
                 "type": "text",
-                "value": "",
+                "value": "1px",
                 "options": []
               },
               {
                 "name": "color",
                 "title": "Couleur",
                 "type": "text",
-                "value": "",
+                "value": "black",
                 "options": []
               }
             ]
@@ -76,7 +76,7 @@
                 "name": "tag",
                 "title": "Type",
                 "type": "text",
-                "value": "",
+                "value": "h1",
                 "options": []
               },
               {
@@ -110,21 +110,21 @@
                 "name": "font-size",
                 "title": "Taille de la police",
                 "type": "text",
-                "value": "",
+                "value": "3rem",
                 "options": []
               },
               {
                 "name": "letter-spacing",
                 "title": "Espacement du texte",
                 "type": "text",
-                "value": "",
+                "value": "4px",
                 "options": []
               },
               {
                 "name": "color",
                 "title": "Couleur",
                 "type": "text",
-                "value": "",
+                "value": "#9C27B0",
                 "options": []
               }
             ]
@@ -137,7 +137,7 @@
                 "name": "tag",
                 "title": "Type",
                 "type": "text",
-                "value": "",
+                "value": "h2",
                 "options": []
               },
               {
@@ -171,21 +171,21 @@
                 "name": "font-size",
                 "title": "Taille de la police",
                 "type": "text",
-                "value": "",
+                "value": "3rem",
                 "options": []
               },
               {
                 "name": "letter-spacing",
                 "title": "Espacement du texte",
                 "type": "text",
-                "value": "",
+                "value": "4px",
                 "options": []
               },
               {
                 "name": "color",
                 "title": "Couleur",
                 "type": "text",
-                "value": "",
+                "value": "#9C27B0",
                 "options": []
               }
             ]
@@ -198,7 +198,7 @@
                 "name": "tag",
                 "title": "Type",
                 "type": "text",
-                "value": "",
+                "value": "h3",
                 "options": []
               },
               {
@@ -232,14 +232,14 @@
                 "name": "font-size",
                 "title": "Taille de la police",
                 "type": "text",
-                "value": "",
+                "value": "2rem",
                 "options": []
               },
               {
                 "name": "letter-spacing",
                 "title": "Espacement du texte",
                 "type": "text",
-                "value": "",
+                "value": "0",
                 "options": []
               },
               {
@@ -259,7 +259,7 @@
                 "name": "tag",
                 "title": "Type",
                 "type": "text",
-                "value": "",
+                "value": ".primary",
                 "options": []
               },
               {
@@ -273,7 +273,7 @@
                 "name": "color",
                 "title": "Couleur",
                 "type": "text",
-                "value": "",
+                "value": "#9C27B0",
                 "options": []
               }
             ]
@@ -286,7 +286,7 @@
                 "name": "tag",
                 "title": "Type",
                 "type": "text",
-                "value": "",
+                "value": ".secondary",
                 "options": []
               },
               {
@@ -300,7 +300,7 @@
                 "name": "color",
                 "title": "Couleur",
                 "type": "text",
-                "value": "",
+                "value": "white",
                 "options": []
               }
             ]
@@ -313,7 +313,7 @@
                 "name": "tag",
                 "title": "Type",
                 "type": "text",
-                "value": "",
+                "value": ".bg-primary",
                 "options": []
               },
               {
@@ -327,7 +327,7 @@
                 "name": "background-color",
                 "title": "Couleur",
                 "type": "text",
-                "value": "",
+                "value": "#9C27B0",
                 "options": []
               }
             ]
@@ -340,7 +340,7 @@
                 "name": "tag",
                 "title": "Type",
                 "type": "text",
-                "value": "",
+                "value": ".bg-secondary",
                 "options": []
               },
               {
@@ -354,7 +354,7 @@
                 "name": "background-color",
                 "title": "Couleur",
                 "type": "text",
-                "value": "",
+                "value": "white",
                 "options": []
               }
             ]
@@ -367,7 +367,7 @@
                 "name": "tag",
                 "title": "Type",
                 "type": "text",
-                "value": "",
+                "value": "a",
                 "options": []
               },
               {
@@ -421,7 +421,7 @@
                 "name": "color",
                 "title": "Couleur",
                 "type": "text",
-                "value": "",
+                "value": "#9C27B0",
                 "options": []
               }
             ]

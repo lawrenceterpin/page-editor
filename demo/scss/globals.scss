@@ -12,22 +12,22 @@ html {
     scroll-behavior: smooth;
 }
 
-// body {
-//     font-family: $fontFamilyPrimary;
-//     font-size: $small;
-//     letter-spacing: 1px;
-// }
+body {
+    font-family: $fontFamilyPrimary;
+    font-size: $small;
+    letter-spacing: 1px;
+}
 
-// h1,
-// h2 {
-//     font-family: $fontFamilySecondary;
-//     letter-spacing: 4px;
-//     color: $primary;
-// }
+h1,
+h2 {
+    font-family: $fontFamilySecondary;
+    letter-spacing: 4px;
+    color: $primary;
+}
 
-// h2 {
-//     font-size: 3rem;
-// }
+h2 {
+    font-size: 3rem;
+}
 
 // h3 {
 //     letter-spacing: 0px;
@@ -41,9 +41,9 @@ html {
 // }
 
 a {
-    // font-family: $fontFamilySecondary;
-    // text-decoration: none;
-    // color: $primary;
+    font-family: $fontFamilySecondary;
+    text-decoration: none;
+    color: $primary;
 
     &:hover {
         text-decoration: underline;
