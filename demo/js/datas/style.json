@@ -1,0 +1,61 @@
+[
+    {
+        "tag": "body",
+        "id": "body",
+        "font-family": "Lato, sans-serif",
+        "font-size": "15px",
+        "letter-spacing": "1px",
+        "color": "#222589"
+    },
+    {
+        "tag": "h1",
+        "id": "h1",
+        "font-family": "Raleway, sans-serif",
+        "font-size": "3rem",
+        "letter-spacing": "4px",
+        "color": "#16a085"
+    },
+    {
+        "tag": "h2",
+        "id": "h2",
+        "font-family": "Raleway, sans-serif",
+        "font-size": "3rem",
+        "letter-spacing": "4px",
+        "color": "#16a085"
+    },
+    {
+        "tag": "h3",
+        "id": "h3",
+        "font-family": "Lato, sans-serif",
+        "font-size": "2rem",
+        "letter-spacing": "0",
+        "color": "#222589"
+    },
+    {
+        "tag": ".primary",
+        "id": "primary",
+        "color": "#16a085"
+    },
+    {
+        "tag": ".bg-primary",
+        "id": "bg-primary",
+        "background-color": "#16a085"
+    },
+    {
+        "tag": ".secondary",
+        "id": "secondary",
+        "color": "#222589"
+    },
+    {
+        "tag": ".bg-secondary",
+        "id": "bg-secondary",
+        "background-color": "#222589"
+    },
+    {
+        "tag": "a",
+        "id": "a",
+        "font-family": "Raleway, sans-serif",
+        "text-decoration": "none",
+        "color": "#16a085"
+    }
+]
