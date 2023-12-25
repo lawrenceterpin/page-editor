@@ -1,6 +1,7 @@
 class Editor {
+    jsonStyleUrl = "https://lawrenceterpin.github.io/page-editor/demo/js/datas/default/style.json";
     // Url des données en json
-    jsonDatasUrl = "https://lawrenceterpin.github.io/page-editor/demo/js/datas/datas.json";
+    jsonDatasUrl = "https://lawrenceterpin.github.io/page-editor/demo/js/datas/default/datas.json";
     // Url de la config en jsons
     configUrl = "https://lawrenceterpin.github.io/page-editor/demo/js/config.json";
 
