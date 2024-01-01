@@ -109,6 +109,12 @@
                     "value": "Raleway, sans-serif",
                     "class": "",
                     "iconClass": ""
+                  },
+                  {
+                    "label": "Dancing Script",
+                    "value": "Dancing Script, cursive",
+                    "class": "",
+                    "iconClass": ""
                   }
                 ]
               },
@@ -170,6 +176,12 @@
                     "value": "Raleway, sans-serif",
                     "class": "",
                     "iconClass": ""
+                  },
+                  {
+                    "label": "Dancing Script",
+                    "value": "Dancing Script, cursive",
+                    "class": "",
+                    "iconClass": ""
                   }
                 ]
               },
@@ -229,6 +241,12 @@
                   {
                     "label": "Raleway",
                     "value": "Raleway, sans-serif",
+                    "class": "",
+                    "iconClass": ""
+                  },
+                  {
+                    "label": "Dancing Script",
+                    "value": "Dancing Script, cursive",
                     "class": "",
                     "iconClass": ""
                   }
@@ -398,6 +416,12 @@
                   {
                     "label": "Raleway",
                     "value": "Raleway, sans-serif",
+                    "class": "",
+                    "iconClass": ""
+                  },
+                  {
+                    "label": "Dancing Script",
+                    "value": "Dancing Script, cursive",
                     "class": "",
                     "iconClass": ""
                   }
