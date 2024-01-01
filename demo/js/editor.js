@@ -1,7 +1,7 @@
 class Editor {
     jsonStyleUrl = "https://lawrenceterpin.github.io/page-editor/demo/js/datas/default/style.json";
     // Url des données en json
-    jsonDatasUrl = "https://lawrenceterpin.github.io/page-editor/demo/js/datas/default/datas.json";
+    jsonDatasUrl = "https://lawrenceterpin.github.io/page-editor/demo/js/datas/default/home.json";
     // Url de la config en jsons
     configUrl = "https://lawrenceterpin.github.io/page-editor/demo/js/config.json";
 
@@ -14,7 +14,7 @@ class Editor {
         // Si l'objet d'options personnalisées existe
         if (typeof options !== 'undefined') {
             // Propriétés des options personnalisées
-            let optionsProperties = ["editorId", "jsonDatasUrl", "jsonStyleUrl", "configUrl", "editorMode"];
+            let optionsProperties = ["editorId", "jsonDatasUrl", "jsonStyleUrl", "configUrl", "editorMode", "datas"];
             // Pour chaque propriété d'otpion personnalisée
             optionsProperties.forEach(property => {
                 // Si la propriété existe
@@ -25,8 +25,27 @@ class Editor {
             });
         }
 
-        // Chargement de la configuration
         this.loadConfig();
+    }
+
+    async postData(url = "", data = {}) {
+        try {
+            // Default options are marked with *
+            const response = await fetch(url, {
+                method: "POST", // *GET, POST, PUT, DELETE, etc.
+                headers: {
+                    "Content-Type": "application/json",
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: JSON.stringify(data), // body data type must match "Content-Type" header
+            });
+
+            const result = await response;
+            console.log("Success:", result);
+        } catch (error) {
+            console.error("Error:", error);
+        }
+        //return response; // parses JSON response into native JavaScript objects
     }
 
     /**
@@ -40,6 +59,10 @@ class Editor {
         // Enregistrement de la configuration
         this.config = data;
 
+        this.init();
+    }
+
+    async init() {
         // Création du panneau de l'éditeur
         this.createEditorPanel();
 
@@ -67,25 +90,29 @@ class Editor {
     async loadStyle() {
         // Récupération des données locales
         let datas = this.loadLocalDatas(this.editorId + '-style');
-        // Si il n'y a pas de données locales
-        if (!datas) {
-            // Reponse http
-            const reponse = await fetch(this.jsonStyleUrl);
-            // Récupération des données en JSON
-            datas = await reponse.json();
-        }
 
-        this.styleDatas = datas;
-        // Injection de la CSS
-        this.styleInject(this.styleDatas);
-        // Chargement des données
-        this.loadDatas();
+        if (typeof this.jsonStyleUrl !== 'undefined') {
+            // Si il n'y a pas de données locales
+            if (!datas) {
+                // Reponse http
+                const reponse = await fetch(this.jsonStyleUrl);
+                // Récupération des données en JSON
+                datas = await reponse.json();
+            }
+
+            this.styleDatas = datas;
+            // Injection de la CSS
+            this.styleInject(this.styleDatas);
+            // Chargement des données
+            this.loadDatas();
+        }
     }
 
     /**
      * Chargement des données
      */
     async loadDatas() {
+
         // Récupération des données locales
         let datas = this.loadLocalDatas(this.editorId);
         // Si il n'y a pas de données locales
@@ -95,8 +122,16 @@ class Editor {
             // Récupération des données en JSON
             datas = await reponse.json();
         }
-        // Données de l'éditeur
+
         this.editorDatas = datas;
+
+        this.pageDatas = JSON.parse(this.datas);
+
+        if (this.pageDatas.template) {
+            let template = JSON.parse(this.pageDatas.template);
+            this.editorDatas = template;
+        }
+
         // Démarrage de l'éditeur
         this.startEditor();
     }
@@ -105,8 +140,13 @@ class Editor {
      * Démarrage de l'éditeur
      */
     startEditor() {
+
+        console.log(this.config.editorContainerId);
+
         // Récupération du conteneur de la page éditable
-        this.container = this.getById(this.config.editorContainerId)
+        this.container = this.getById(this.config.editorContainerId);
+
+
         // Génération de la page éditable
         this.generatePage();
 
@@ -137,13 +177,13 @@ class Editor {
                     if (field.type === 'radio') {
                         const option = field.options.find(option => option.value === elementSelected[field.name]);
                         if (option) {
-                            const selectorField = `#${group.name} #${option.value}`;
+                            const selectorField = `#${group.name} #${group.name}-${option.value}`;
                             const fieldForm = this.getFormField(selectedFormId, selectorField);
                             fieldForm.checked = true;
                         }
                     } else {
 
-                        const selectorField = `#${group.name} [name=${field.name}]`;
+                        const selectorField = `#${group.name} [name=${group.name}-${field.name}]`;
                         const fieldForm = this.getFormField(selectedFormId, selectorField);
 
                         if (this.selectedFormId === 'style-form' && elementSelected.id === group.name) {
@@ -177,10 +217,10 @@ class Editor {
 
         if (this.selectedFormId == 'element-form') {
 
-            const tag = this.getFormField(this.selectedFormId, '#tag').value;
+            const tag = this.getFormField(this.selectedFormId, '#group-1-tag').value;
 
             if (tag !== '') {
-                this.getFormField(this.selectedFormId, '#name').value = tag;
+                this.getFormField(this.selectedFormId, '#group-1-name').value = tag;
 
                 let data = {};
 
@@ -190,7 +230,7 @@ class Editor {
                 form.fieldsGroups.forEach(group => {
 
                     group.fields.forEach(field => {
-                        const fieldSelector = `[name=${field.name}]`;
+                        const fieldSelector = `[name=${group.name}-${field.name}]`;
                         const formField = this.getFormField(this.selectedFormId, fieldSelector);
 
                         let value = formField.value;
@@ -221,7 +261,7 @@ class Editor {
                 let groupField = {};
 
                 group.fields.forEach(field => {
-                    const fieldSelector = `#${group.name} [name=${field.name}]`;
+                    const fieldSelector = `#${group.name} [name=${group.name}-${field.name}]`;
                     const formField = this.getFormField(this.selectedFormId, fieldSelector);
 
                     let value = formField.value;
@@ -317,7 +357,7 @@ class Editor {
         this.editorMode = !this.editorMode;
 
         const editor = this.getById('editor');
-        editor.className = this.editorMode ? '' : 'editor-mode';
+        editor.className = this.editorMode ? 'h-100' : 'editor-mode h-100';
 
         if (!this.editorMode) {
             this.generatePage();
@@ -391,7 +431,7 @@ class Editor {
             });
 
             // On ajoute le menu d'édition
-            tag.innerHTML = `<div class="edit-element-options flex-direction-row-reverse p-relative w-100">
+            let editorOptions = `<div class="edit-element-options flex-direction-row-reverse p-relative w-100">
                 <div id="edit-element-tag" class="p-absolute bg-primary white text-shadow">
                 <b>&nbsp;${element.tag}&nbsp;</b>
                 </div>
@@ -407,6 +447,8 @@ class Editor {
                 <i class="fa fa-cog"></i>
                 </button>
                 </div>`;
+
+            tag.innerHTML = editorOptions;
 
             if (element.tag == 'img') {
 
@@ -425,6 +467,8 @@ class Editor {
                     class: this.createElementClasses(element),
                 });
 
+                // a.innerHTML = editorOptions;
+
                 a.innerHTML += element.text;
 
                 tag.appendChild(a);
@@ -432,6 +476,8 @@ class Editor {
 
             if (element.tag !== 'a') {
                 if (element.text !== '') {
+                    // let datas = JSON.parse(this.datas);
+
                     tag.innerHTML += element.text;
                 }
             }
@@ -576,10 +622,37 @@ class Editor {
 
     saveDatas() {
 
-        localStorage.setItem(this.editorId, JSON.stringify(this.editorDatas));
-        localStorage.setItem(this.editorId + "-style", JSON.stringify(this.styleDatas));
+        localStorage.setItem(this.pageDatas.url, JSON.stringify(this.editorDatas));
+        // localStorage.setItem(this.editorId + "-style", JSON.stringify(this.styleDatas));
 
-        // alert('Les données ont été sauvegardées');
+        alert('Les données ont été sauvegardées');
+
+        const editElements = Array.from(document.querySelectorAll('.edit-element-options'));
+
+        for (const element of editElements) {
+            const parent = element.parentNode;
+
+            parent.classList.remove('element');
+            parent.removeAttribute('draggable ondragstart ondragover');
+            parent.removeChild(element);
+        }
+
+        // this.postData("http://localhost:3000/edit-page", {
+        //     id: this.pageDatas.id,
+        //     template: JSON.stringify(this.editorDatas),
+        //     htmlTemplate: this.container.innerHTML,
+        //     cssStyle: JSON.stringify(this.styleDatas)
+        // });
+
+        var data = new FormData();
+        data.append('style', JSON.stringify(this.styleDatas));
+
+        // (B2) AJAX CALL
+        fetch("framework/functions/updateCSS.php", { method: "POST", body: data })
+            .then(res => res.text())
+            .then(txt => console.log(txt))
+            .catch(err => console.error(err));
+        return false;
     }
 
     createForm(formDatas) {
@@ -598,21 +671,21 @@ class Editor {
             group.fields.forEach(field => {
 
                 if (field.type !== "hidden") {
-                    content += `<label for="${field.name}" class="mb-1">${field.title}</label>`;
+                    content += `<label for="${group.name}-${field.name}" class="mb-1">${field.title}</label>`;
                 }
 
                 switch (field.type) {
                     case "text":
                     case "number":
                     case "hidden":
-                        content += `<input type="${field.type}" id="${field.name}" name="${field.name}" placeholder="${field.title}" class="mb-1">`;
+                        content += `<input type="${field.type}" id="${group.name}-${field.name}" name="${group.name}-${field.name}" placeholder="${field.title}" class="mb-1">`;
                         break;
 
                     case "radio":
                         content += `<div class="row flex-direction-row align-items-center gap-1 mb-1">`;
                         field.options.forEach(option => {
-                            content += `<input type="radio" id="${option.value}" name="${field.name}" value="${option.value}">
-                            <label for="${option.value}" class="d-flex justify-content-center align-items-center ${option.class}" title="${option.value}">`;
+                            content += `<input type="radio" id="${group.name}-${option.value}" name="${group.name}-${field.name}" value="${option.value}">
+                            <label for="${group.name}-${option.value}" class="d-flex justify-content-center align-items-center ${option.class}" title="${option.value}">`;
 
                             if (option.iconClass !== '') {
 
@@ -625,7 +698,7 @@ class Editor {
                         break;
 
                     case "select":
-                        content += `<select id="${field.name}" name="${field.name}" class="mb-1">
+                        content += `<select id="${group.name}-${field.name}" name="${group.name}-${field.name}" class="mb-1">
                                         <option value="" selected>${field.title}</option>`;
                         field.options.forEach(option => {
                             content += `<option value="${option.value}">${option.value}</option>`;
@@ -634,7 +707,7 @@ class Editor {
                         break;
 
                     case "autocompletion":
-                        content += `<input type="text" id="${field.name}" name="${field.name}" onKeyUp='editor.showResults("${field.options}", "${field.name}", this.value)' placeholder='&#xF002; (Ex: div, ...)'>
+                        content += `<input type="text" id="${group.name}-${field.name}" name="${group.name}-${field.name}" onKeyUp='editor.showResults("${field.options}", "${field.name}", this.value)' placeholder='&#xF002; (Ex: div, ...)'>
                                     <div id='autocompletion-result' class='mb-1'></div>`;
                         break;
                 }
@@ -717,7 +790,9 @@ class Editor {
 
     setFieldValue(fieldId, value) {
 
-        let field = this.getFormField(this.selectedFormId, `#${fieldId}`);
+        let field = this.getFormField(this.selectedFormId, `#group-1-${fieldId}`);
+
+        console.log(fieldId);
 
         field.value = value;
 
